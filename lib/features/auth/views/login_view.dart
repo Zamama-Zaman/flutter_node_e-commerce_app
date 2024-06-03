@@ -38,7 +38,7 @@ class LoginView extends BaseView<AuthController> {
 
               //* login Button
               AppButton.simple(
-                onTap: null,
+                onTap: () => Get.to(() => const DefaultView()),
                 text: "Login",
               ),
 

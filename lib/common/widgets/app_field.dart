@@ -33,4 +33,31 @@ class AppField {
           ),
         ),
       );
+
+  static search({
+    required TextEditingController controller,
+    required String hintText,
+  }) =>
+      TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: const TextStyle(
+            color: AppColors.greyTextColor,
+          ),
+          border: InputBorder.none,
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: AppColors.greyColor,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: AppColors.greyColor,
+            ),
+            borderRadius: BorderRadius.all(Radius.circular(8.r)),
+          ),
+        ),
+      );
 }

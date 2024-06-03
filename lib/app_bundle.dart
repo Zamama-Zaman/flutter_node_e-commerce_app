@@ -7,5 +7,8 @@ class AppBinding extends Binding {
   static List<Bind> bindings = [
     Bind.put(HomeController()),
     Bind.put(AuthController()),
+    Bind.put(DefaultController()),
+    Bind.put(CartController()),
+    Bind.put(AccountController()),
   ];
 }

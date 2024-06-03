@@ -6,3 +6,5 @@ export 'package:flutter_svg/svg.dart';
 export 'common/common.dart';
 export 'core/core.dart';
 export 'features/features.dart';
+
+export 'package:carousel_slider/carousel_slider.dart';

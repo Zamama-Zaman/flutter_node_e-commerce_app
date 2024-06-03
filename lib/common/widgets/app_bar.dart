@@ -55,4 +55,40 @@ class AppBarWidgets {
           ),
         ),
       );
+
+  static PreferredSizeWidget searchAppBar({
+    required TextEditingController controller,
+    required VoidCallback onTap,
+  }) =>
+      PreferredSize(
+        preferredSize: Size.fromHeight(60.h),
+        child: SafeArea(
+          child: Padding(
+            padding: AppPaddings.commonHorizontalPadding,
+            child: Row(
+              children: [
+                //*
+                Expanded(
+                  child: AppField.search(
+                    controller: controller,
+                    hintText: "Search Here...",
+                  ),
+                ),
+
+                //
+                SizedBox(width: 16.w),
+
+                //*
+                IconButton(
+                  onPressed: onTap,
+                  icon: const Icon(
+                    Icons.search,
+                    color: AppColors.greyTextColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
 }

@@ -5,28 +5,69 @@ class RegistrationView extends BaseView<AuthController> {
 
   @override
   Widget? get body => Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //*
-            AppText.commonText(
-              text: "Registration View",
-              fontWeight: FontWeight.bold,
-              fontSize: 20.sp,
-            ),
-
-            //
-            AppGapVertical.sixteen,
-
-            //*
-            InkWell(
-              onTap: Get.back,
-              child: AppText.simpleText(
-                text: "SignIn",
-                color: AppColors.blackColor,
+        child: Padding(
+          padding: AppPaddings.commonHorizontalPadding,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //*
+              AppText.commonText(
+                text: "Registration View",
+                fontWeight: FontWeight.bold,
+                fontSize: 20.sp,
               ),
-            ),
-          ],
+
+              //
+              AppGapVertical.fortyEight,
+
+              //*
+              AppField.simple(
+                controller: controller.regisNameCtrl,
+                hintText: "Name here...",
+              ),
+
+              //
+              AppGapVertical.sixteen,
+
+              //*
+              AppField.simple(
+                controller: controller.regisEmailCtrl,
+                hintText: "Email here...",
+              ),
+
+              //
+              AppGapVertical.sixteen,
+
+              //*
+              AppField.password(
+                controller: controller.regisPassCtrl,
+                hintText: "Password here...",
+                isPassVisible: controller.loginPassVisible,
+                onTap: controller.updateRegisPass,
+              ),
+
+              //
+              AppGapVertical.sixteen,
+
+              //* login Button
+              AppButton.simple(
+                onTap: null,
+                text: "Login",
+              ),
+
+              //
+              AppGapVertical.sixteen,
+
+              //*
+              InkWell(
+                onTap: Get.back,
+                child: AppText.simpleText(
+                  text: "SignIn",
+                  color: AppColors.blackColor,
+                ),
+              ),
+            ],
+          ),
         ),
       );
 }
