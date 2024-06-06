@@ -61,30 +61,38 @@ class AppBarWidgets {
     required VoidCallback onTap,
   }) =>
       PreferredSize(
-        preferredSize: Size.fromHeight(60.h),
+        preferredSize: Size.fromHeight(76.h),
         child: SafeArea(
           child: Padding(
             padding: AppPaddings.commonHorizontalPadding,
-            child: Row(
+            child: Column(
               children: [
-                //*
-                Expanded(
-                  child: AppField.search(
-                    controller: controller,
-                    hintText: "Search Here...",
-                  ),
-                ),
-
                 //
-                SizedBox(width: 16.w),
+                AppGapVertical.sixteen,
 
                 //*
-                IconButton(
-                  onPressed: onTap,
-                  icon: const Icon(
-                    Icons.search,
-                    color: AppColors.greyTextColor,
-                  ),
+                Row(
+                  children: [
+                    //*
+                    Expanded(
+                      child: AppField.search(
+                        controller: controller,
+                        hintText: "Search Here...",
+                      ),
+                    ),
+
+                    //
+                    SizedBox(width: 16.w),
+
+                    //*
+                    IconButton(
+                      onPressed: onTap,
+                      icon: const Icon(
+                        Icons.search,
+                        color: AppColors.greyTextColor,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
