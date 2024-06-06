@@ -1,5 +1,3 @@
-import 'package:flutter_node_ecommerce_app_original/features/home/widgets/categories_view.dart';
-
 import '../../../lib.dart';
 
 class HomeView extends BaseView<HomeController> {

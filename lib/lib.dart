@@ -8,3 +8,4 @@ export 'core/core.dart';
 export 'features/features.dart';
 
 export 'package:carousel_slider/carousel_slider.dart';
+export 'package:equatable/equatable.dart';
