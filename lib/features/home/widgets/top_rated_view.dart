@@ -48,7 +48,7 @@ class TopRatedView extends BaseWidget<HomeController> {
                 right: 40.h,
               ),
               child: const Text(
-                'Rivaan',
+                'Iphone',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),

@@ -4,12 +4,21 @@ class CartView extends BaseView<CartController> {
   const CartView({super.key});
 
   @override
+  PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(title: "Cart");
+
+  @override
   Widget? get body => SingleChildScrollView(
-        child: Column(
-          children: [
-            AppGapVertical.fortyEight,
-            _cartList,
-          ],
+        child: Padding(
+          padding: AppPaddings.commonHorizontalPadding,
+          child: Column(
+            children: [
+              AppGapVertical.sixteen,
+              _cartList,
+              AppGapVertical.fortyEight,
+              AppGapVertical.fortyEight,
+              AppGapVertical.sixteen,
+            ],
+          ),
         ),
       );
 
@@ -20,6 +29,7 @@ class CartView extends BaseView<CartController> {
             (index) => SizedBox(
               width: double.infinity,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //*
                   Row(
@@ -86,7 +96,11 @@ class CartView extends BaseView<CartController> {
                   ),
 
                   //
-                  AppGapVertical.sixteen,
+                  AppGapVertical.eight,
+                  const Divider(
+                    color: AppColors.dividerColor,
+                  ),
+                  AppGapVertical.eight,
 
                   //*
                   _addAndDeleteCard(

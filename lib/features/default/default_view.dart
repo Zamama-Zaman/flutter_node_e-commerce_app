@@ -6,6 +6,9 @@ class DefaultView extends BaseView<DefaultController> {
   @override
   Widget? get body => _body;
 
+  @override
+  bool get extendBody => false;
+
   Widget get _body => PageView.builder(
         physics: const NeverScrollableScrollPhysics(),
         controller: controller.pageController,
