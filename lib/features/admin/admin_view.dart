@@ -25,4 +25,13 @@ class AdminView extends BaseView<AdminController> {
 
   @override
   Widget? get bottomNavBar => const AdminNavBar();
+
+  @override
+  Widget? get floatingActionBtn => controller.navSelectedIndex == 0
+      ? FloatingActionButton(
+          onPressed: () => Get.to(() => const AddProductView()),
+          tooltip: 'Add a Product',
+          child: const Icon(Icons.add),
+        )
+      : null;
 }

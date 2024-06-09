@@ -1,6 +1,7 @@
 export 'dart:convert';
 
 export 'package:carousel_slider/carousel_slider.dart';
+export 'package:dotted_border/dotted_border.dart';
 export 'package:equatable/equatable.dart';
 export 'package:flutter/material.dart';
 export 'package:flutter_node_ecommerce_app_original/app_bundle.dart';
