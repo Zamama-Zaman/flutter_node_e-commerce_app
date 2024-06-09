@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.baseTheme,
             debugShowCheckedModeBanner: false,
             binds: AppBinding.bindings,
-            home: const LoginView(),
+            home: const AdminView(),
           );
         },
       ),
@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/// Product Detail View
 /// Admin
 /// Post all order 
 /// Post an Order

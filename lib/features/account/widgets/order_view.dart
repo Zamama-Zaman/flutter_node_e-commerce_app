@@ -43,17 +43,29 @@ class OrderView extends BaseWidget<AccountController> {
                 return GestureDetector(
                   onTap: () {
                     // Goto Product Detail Page
-                    Order order = Order(
-                      id: "",
-                      products: [],
-                      quantity: [],
-                      address: "",
-                      userId: "",
-                      orderedAt: 1,
-                      status: 1,
-                      totalPrice: 20,
+                    Product product = Product(
+                      name: "",
+                      description: "",
+                      quantity: 1,
+                      images: [],
+                      category: "",
+                      price: 1,
+                      id: "Something",
+                      rating: [],
                     );
-                    Get.to(() => OrderDetailScreen(order: order));
+                    Get.to(() => ProductDetailScreen(product: product));
+
+                    // Order order = Order(
+                    //   id: "",
+                    //   products: [],
+                    //   quantity: [],
+                    //   address: "",
+                    //   userId: "",
+                    //   orderedAt: 1,
+                    //   status: 1,
+                    //   totalPrice: 20,
+                    // );
+                    // Get.to(() => OrderDetailScreen(order: order));
                   },
                   child: SingleProduct(
                     image: HomeController.instance.carsoulSliderImages[index],
