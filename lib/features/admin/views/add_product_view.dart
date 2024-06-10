@@ -14,7 +14,7 @@ class AddProductView extends BaseView<AdminController> {
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               controller.images.isNotEmpty
                   ? CarouselSlider(
                       items: controller.images.map(
@@ -30,7 +30,7 @@ class AddProductView extends BaseView<AdminController> {
                       ).toList(),
                       options: CarouselOptions(
                         viewportFraction: 1,
-                        height: 200,
+                        height: 200.h,
                       ),
                     )
                   : GestureDetector(

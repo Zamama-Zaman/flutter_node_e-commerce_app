@@ -11,5 +11,7 @@ class AppBinding extends Binding {
     Bind.put(CartController()),
     Bind.put(AccountController()),
     Bind.put(AdminController()),
+    Bind.put(ProductController()),
+    Bind.put(OrderController()),
   ];
 }

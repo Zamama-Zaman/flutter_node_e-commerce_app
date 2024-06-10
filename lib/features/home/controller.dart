@@ -14,31 +14,4 @@ class HomeController extends BaseController {
     'https://images-na.ssl-images-amazon.com/images/G/31/Symbol/2020/00NEW/1242_450Banners/PL31_copy._CB432483346_.jpg',
     'https://images-na.ssl-images-amazon.com/images/G/31/img21/shoes/September/SSW/pc-header._CB641971330_.jpg',
   ];
-
-  //********** Product Detail View ************//
-
-  double avgRating = 0;
-  double myRating = 0;
-
-  void initFunction() {
-    double totalRating = 0;
-    // for (int i = 0; i < product.rating!.length; i++) {
-    //   totalRating += product.rating![i].rating;
-    //   if (product.rating![i].userId ==
-    //       Provider.of<UserProvider>(context, listen: false).user.id) {
-    //     myRating = widget.product.rating![i].rating;
-    //   }
-    // }
-
-    // if (totalRating != 0) {
-    //   avgRating = totalRating / product.rating!.length;
-    // }
-  }
-
-  void addToCart() {
-    // productDetailsServices.addToCart(
-    //   context: context,
-    //   product: widget.product,
-    // );
-  }
 }

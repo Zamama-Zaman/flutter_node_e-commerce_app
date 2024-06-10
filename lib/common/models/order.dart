@@ -1,4 +1,4 @@
-import '../../../lib.dart';
+import '../../lib.dart';
 
 class Order {
   final String id;

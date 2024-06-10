@@ -1,6 +1,6 @@
 import '../../../lib.dart';
 
-class ProductDetailScreen extends BaseView<HomeController> {
+class ProductDetailScreen extends BaseView<ProductController> {
   final Product product;
   const ProductDetailScreen({
     super.key,

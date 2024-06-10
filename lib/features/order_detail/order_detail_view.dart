@@ -1,6 +1,7 @@
+
 import '../../../lib.dart';
 
-class OrderDetailScreen extends BaseView<AccountController> {
+class OrderDetailScreen extends BaseView<OrderController> {
   final Order order;
   const OrderDetailScreen({
     super.key,

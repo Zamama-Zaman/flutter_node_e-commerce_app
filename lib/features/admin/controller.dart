@@ -74,4 +74,28 @@ class AdminController extends BaseController {
     //   images = res;
     // });
   }
+
+  //*************** Order Detail View ****************//
+
+  int currentStep = 0;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   currentStep = widget.order.status;
+  // }
+
+  // !!! ONLY FOR ADMIN!!!
+  void changeOrderStatus(int status) {
+    // adminServices.changeOrderStatus(
+    //   context: context,
+    //   status: status + 1,
+    //   order: widget.order,
+    //   onSuccess: () {
+    //     setState(() {
+    //       currentStep += 1;
+    //     });
+    //   },
+    // );
+  }
 }

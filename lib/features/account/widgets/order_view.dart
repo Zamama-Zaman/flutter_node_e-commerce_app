@@ -1,5 +1,3 @@
-import 'package:flutter_node_ecommerce_app_original/features/account/widgets/order_detail_view.dart';
-
 import '../../../lib.dart';
 
 class OrderView extends BaseWidget<AccountController> {
