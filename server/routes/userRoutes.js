@@ -17,12 +17,12 @@ router.post("/register", register);
 
 router.get("/profile", validateToken, profile);
 
-router.post("/add-to-cart", addToCart);
+router.post("/add-to-cart", validateToken, addToCart);
 
-router.post("/remove-from-cart", removeFromCart);
+router.post("/remove-from-cart", validateToken, removeFromCart);
 
-router.get("/cart", getCart);
+router.get("/cart", validateToken, getCart);
 
-router.post("/place-order", placeOrder);
+router.post("/place-order", validateToken, placeOrder);
 
 module.exports = router;

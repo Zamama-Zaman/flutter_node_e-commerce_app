@@ -100,9 +100,10 @@ const profile = asyncHandler(async (req, res) => {
 
 // add to cart
 const addToCart = asyncHandler(async (req, res) => {
-  const { userId, productId } = req.body;
+  const { productId } = req.body;
 
-  const user = await User.findById(userId);
+  const user = await User.findById(req.user.id);
+
   const product = await productModel.findById(productId);
 
   if (user.cart.length == 0) {
@@ -142,9 +143,9 @@ const addToCart = asyncHandler(async (req, res) => {
 
 // remove from cart
 const removeFromCart = asyncHandler(async (req, res) => {
-  const { userId, productId } = req.body;
+  const { productId } = req.body;
 
-  const user = await User.findById(userId);
+  const user = await User.findById(req.user.id);
 
   if (user.cart.length != 0) {
     for (let i = 0; i < user.cart.length; i++) {
@@ -175,9 +176,8 @@ const removeFromCart = asyncHandler(async (req, res) => {
 
 // view-cart
 const getCart = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
 
-  const user = await User.findById(userId);
+  const user = await User.findById(req.user.id);
 
   if (user) {
     res.status(200).json({
@@ -195,9 +195,9 @@ const getCart = asyncHandler(async (req, res) => {
 
 // order a product
 const placeOrder = asyncHandler(async (req, res) => {
-  const { userId, subTotal, deliveryAddress } = req.body;
+  const { subTotal, deliveryAddress } = req.body;
 
-  const user = await User.findById(userId);
+  const user = await User.findById(req.user.id);
 
   const order = await orderModel.create({
     subTotal,
