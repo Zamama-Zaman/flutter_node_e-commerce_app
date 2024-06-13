@@ -9,20 +9,31 @@ class AuthService {
     required String password,
   }) async {
     bool isLogin = false;
+    final myJsonEncode = json.encode({
+      "email": email,
+      "password": password,
+    });
+
+    debugPrint("Json Encode is ${myJsonEncode}");
     try {
-      Response response = await client.post(
+      Response response = await post(
         Uri.parse(AppBaseUrl.loginUrl),
-        body: {
-          "email": email,
-          "password": password,
+        body: myJsonEncode,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
         },
       );
 
       if (response.statusCode == 200) {
         isLogin = true;
+      } else {
+        isLogin = false;
+        Fluttertoast.showToast(msg: "${response.statusCode}");
       }
     } catch (e) {
-      throw Exception(e);
+      debugPrint("Login Error $e");
+      Fluttertoast.showToast(msg: "Error Login $e");
+      // throw Exception(e);
     }
 
     return isLogin;

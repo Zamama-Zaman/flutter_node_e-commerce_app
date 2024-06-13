@@ -1,3 +1,5 @@
+
+
 import '../../lib.dart';
 
 class AuthController extends BaseController {
@@ -20,5 +22,20 @@ class AuthController extends BaseController {
   void updateRegisPass() {
     regisPassVisible = !regisPassVisible;
     update();
+  }
+
+  void login() async {
+    bool isNotEmpty =
+        (loginEmailCtrl.text.isNotEmpty && loginPassCtrl.text.isNotEmpty);
+    if (isNotEmpty) {
+      final result = await AuthService.instance.login(
+        email: loginEmailCtrl.text.trim(),
+        password: loginPassCtrl.text.trim(),
+      );
+
+      if (result) {
+        Get.offAll(() => const DefaultView());
+      }
+    }
   }
 }

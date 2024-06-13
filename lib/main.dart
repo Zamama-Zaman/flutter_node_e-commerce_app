@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.baseTheme,
             debugShowCheckedModeBanner: false,
             binds: AppBinding.bindings,
-            home: const AdminView(),
+            home: const LoginView(),
           );
         },
       ),

@@ -16,3 +16,4 @@ export 'common/common.dart';
 export 'core/core.dart';
 export 'features/features.dart';
 export 'services/services.dart';
+export 'package:fluttertoast/fluttertoast.dart';
