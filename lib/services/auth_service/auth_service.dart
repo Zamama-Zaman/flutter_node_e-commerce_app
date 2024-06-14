@@ -70,7 +70,6 @@ class AuthService {
     } catch (e) {
       debugPrint("Register Error $e");
       Fluttertoast.showToast(msg: "Error Register $e");
-      // throw Exception(e);
     }
 
     return isRegister;
