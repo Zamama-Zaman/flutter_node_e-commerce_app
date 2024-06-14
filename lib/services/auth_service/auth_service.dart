@@ -14,7 +14,6 @@ class AuthService {
       "password": password,
     });
 
-    debugPrint("Json Encode is ${myJsonEncode}");
     try {
       Response response = await post(
         Uri.parse(AppBaseUrl.loginUrl),
@@ -37,5 +36,43 @@ class AuthService {
     }
 
     return isLogin;
+  }
+
+  Future<bool> register({
+    required String name,
+    required String email,
+    required String password,
+  }) async {
+    bool isRegister = false;
+    final myJsonEncode = json.encode({
+      "name": name,
+      "email": email,
+      "password": password,
+    });
+
+    try {
+      Response response = await post(
+        Uri.parse(AppBaseUrl.registerUrl),
+        body: myJsonEncode,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      if (response.statusCode == 201) {
+        isRegister = true;
+      } else {
+        isRegister = false;
+        debugPrint(
+            "Register Error ${response.statusCode} message ${response.body}");
+        Fluttertoast.showToast(msg: "${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint("Register Error $e");
+      Fluttertoast.showToast(msg: "Error Register $e");
+      // throw Exception(e);
+    }
+
+    return isRegister;
   }
 }

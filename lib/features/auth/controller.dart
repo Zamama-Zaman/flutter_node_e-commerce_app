@@ -1,5 +1,3 @@
-
-
 import '../../lib.dart';
 
 class AuthController extends BaseController {
@@ -35,6 +33,24 @@ class AuthController extends BaseController {
 
       if (result) {
         Get.offAll(() => const DefaultView());
+      }
+    }
+  }
+
+  void register() async {
+    bool isNotEmpty = (regisEmailCtrl.text.isNotEmpty &&
+        regisPassCtrl.text.isNotEmpty &&
+        regisNameCtrl.text.isNotEmpty);
+    if (isNotEmpty) {
+      final result = await AuthService.instance.register(
+        name: regisNameCtrl.text.trim(),
+        email: regisEmailCtrl.text.trim(),
+        password: regisPassCtrl.text.trim(),
+      );
+
+      if (result) {
+        Get.offAll(() => const LoginView());
+        Fluttertoast.showToast(msg: "You are register please login!");
       }
     }
   }

@@ -49,10 +49,10 @@ class RegistrationView extends BaseView<AuthController> {
               //
               AppGapVertical.sixteen,
 
-              //* login Button
+              //* register Button
               AppButton.simple(
-                onTap: null,
-                text: "Login",
+                onTap: controller.register,
+                text: "Register",
               ),
 
               //
