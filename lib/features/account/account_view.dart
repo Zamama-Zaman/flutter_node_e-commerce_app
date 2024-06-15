@@ -19,7 +19,7 @@ class AccountView extends BaseView<AccountController> {
 
             // name
             AppText.commonText(
-              text: "Arbab Khan",
+              text: AppPreference.instance.getUserModel().name,
               fontSize: 16.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -29,7 +29,14 @@ class AccountView extends BaseView<AccountController> {
 
             // email
             AppText.commonText(
-              text: "Email@gmail.com",
+              text: AppPreference.instance.getUserModel().email,
+            ),
+
+            AppGapVertical.eight,
+
+            // email
+            AppText.commonText(
+              text: AppPreference.instance.getUserModel().type,
             ),
 
             // Order
@@ -39,7 +46,7 @@ class AccountView extends BaseView<AccountController> {
 
             // logout
             AppButton.simple(
-              onTap: null,
+              onTap: controller.logout,
               text: "Logout",
             ),
 

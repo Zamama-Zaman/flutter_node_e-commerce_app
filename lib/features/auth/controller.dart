@@ -31,8 +31,10 @@ class AuthController extends BaseController {
         password: loginPassCtrl.text.trim(),
       );
 
-      if (result) {
-        Get.offAll(() => const DefaultView());
+      if (result != null) {
+        result.type == "admin"
+            ? Get.offAll(() => const AdminView())
+            : Get.offAll(() => const DefaultView());
       }
     }
   }

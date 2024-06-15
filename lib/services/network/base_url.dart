@@ -3,4 +3,5 @@ class AppBaseUrl {
 
   static const loginUrl = "$url/login";
   static const registerUrl = "$url/register";
+  static const addProductUrl = "$url/add-product";
 }

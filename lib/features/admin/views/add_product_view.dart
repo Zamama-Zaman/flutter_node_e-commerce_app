@@ -9,6 +9,9 @@ class AddProductView extends BaseView<AdminController> {
       );
 
   @override
+  bool get isLoading => controller.isLoading;
+
+  @override
   Widget? get body => SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),

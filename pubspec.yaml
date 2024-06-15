@@ -29,9 +29,11 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   carousel_slider: ^4.2.1
+  cloudinary_public: ^0.23.1
   cupertino_icons: ^1.0.6
   dotted_border: ^2.1.0
   equatable: ^2.0.5
+  file_picker: ^8.0.5
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.0

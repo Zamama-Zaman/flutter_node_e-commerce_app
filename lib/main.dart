@@ -1,6 +1,10 @@
 import 'lib.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppPreference.instance.initiatePreference();
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -18,7 +22,11 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.baseTheme,
             debugShowCheckedModeBanner: false,
             binds: AppBinding.bindings,
-            home: const LoginView(),
+            home: AppPreference.instance.getUserModel().token.isNotEmpty
+                ? AppPreference.instance.getUserModel().type == "admin"
+                    ? const AdminView()
+                    : const DefaultView()
+                : const LoginView(),
           );
         },
       ),

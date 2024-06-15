@@ -10,17 +10,37 @@ abstract class BaseView<T extends BaseController> extends GetView<T> {
       initState: initState,
       dispose: disposeState,
       builder: (_) {
-        return Scaffold(
-          backgroundColor: backgroundColor,
-          appBar: appBar,
-          body: _body,
-          bottomNavigationBar: _bottomNavBar,
-          extendBody: extendBody,
-          floatingActionButton: floatingActionBtn,
+        return Stack(
+          children: [
+            Scaffold(
+              backgroundColor: backgroundColor,
+              appBar: appBar,
+              body: _body,
+              bottomNavigationBar: _bottomNavBar,
+              extendBody: extendBody,
+              floatingActionButton: floatingActionBtn,
+            ),
+            loadingWidget,
+          ],
         );
       },
     );
   }
+
+  bool get isLoading => false;
+
+  Widget get loadingWidget => Visibility(
+        visible: isLoading,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: AppColors.blackColor.withOpacity(.3),
+          alignment: Alignment.center,
+          child: const CircularProgressIndicator(
+            color: AppColors.blackColor,
+          ),
+        ),
+      );
 
   void initState(state) {}
 
@@ -28,7 +48,7 @@ abstract class BaseView<T extends BaseController> extends GetView<T> {
 
   Widget? get body;
 
-  Widget? get _body =>
+  Widget get _body =>
       body ??
       const Center(
         child: Text("Base View"),

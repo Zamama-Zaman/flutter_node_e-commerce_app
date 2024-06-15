@@ -3,12 +3,15 @@ import '../../lib.dart';
 class AuthService {
   static final instance = AuthService();
   Client client = Client();
+  final Map<String, String> _headers = {
+    'Content-Type': 'application/json; charset=UTF-8',
+  };
 
-  Future<bool> login({
+  Future<UserModel?> login({
     required String email,
     required String password,
   }) async {
-    bool isLogin = false;
+    UserModel? user;
     final myJsonEncode = json.encode({
       "email": email,
       "password": password,
@@ -18,24 +21,22 @@ class AuthService {
       Response response = await post(
         Uri.parse(AppBaseUrl.loginUrl),
         body: myJsonEncode,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+        headers: _headers,
       );
 
       if (response.statusCode == 200) {
-        isLogin = true;
+        user = UserModel.fromMap(jsonDecode(response.body)['body']['user']);
+        user = user.copyWith(token: jsonDecode(response.body)['body']['token']);
+        AppPreference.instance.setUserModel(model: user);
       } else {
-        isLogin = false;
         Fluttertoast.showToast(msg: "${response.statusCode}");
       }
     } catch (e) {
       debugPrint("Login Error $e");
       Fluttertoast.showToast(msg: "Error Login $e");
-      // throw Exception(e);
     }
 
-    return isLogin;
+    return user;
   }
 
   Future<bool> register({
@@ -54,9 +55,7 @@ class AuthService {
       Response response = await post(
         Uri.parse(AppBaseUrl.registerUrl),
         body: myJsonEncode,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+        headers: _headers,
       );
 
       if (response.statusCode == 201) {

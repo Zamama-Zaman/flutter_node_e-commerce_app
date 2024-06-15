@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter_node_ecommerce_app_original/common/widgets/app_file_picker.dart';
 
 import '../../lib.dart';
 
@@ -54,25 +54,44 @@ class AdminController extends BaseController {
     'Fashion'
   ];
 
-  void sellProduct() {
-    // if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
-    //   adminServices.sellProduct(
-    //     context: context,
-    //     name: productNameController.text,
-    //     description: descriptionController.text,
-    //     price: double.parse(priceController.text),
-    //     quantity: double.parse(quantityController.text),
-    //     category: category,
-    //     images: images,
-    //   );
-    // }
+  bool isLoading = false;
+  void sellProduct() async {
+    bool isNotEmtpy = productNameController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
+        priceController.text.isNotEmpty &&
+        quantityController.text.isNotEmpty;
+    if (isNotEmtpy) {
+      Product newProduct = Product(
+        name: productNameController.text,
+        description: descriptionController.text,
+        quantity: double.parse(quantityController.text),
+        images: [],
+        category: category,
+        price: double.parse(priceController.text),
+      );
+
+      isLoading = true;
+      update();
+      final result = await AdminService.instance.addProduct(
+        product: newProduct,
+        images: images,
+      );
+
+      if (result) {
+        Fluttertoast.showToast(msg: "Added Succesfully");
+        clearAll();
+        Get.back();
+      }
+
+      isLoading = false;
+      update();
+    }
   }
 
   void selectImages() async {
-    // var res = await pickImages();
-    // setState(() {
-    //   images = res;
-    // });
+    var res = await AppFilePiker.pickImages();
+    images = res;
+    update();
   }
 
   //*************** Order Detail View ****************//
@@ -97,5 +116,13 @@ class AdminController extends BaseController {
     //     });
     //   },
     // );
+  }
+
+  void clearAll() {
+    images.clear();
+    productNameController.clear();
+    descriptionController.clear();
+    priceController.clear();
+    quantityController.clear();
   }
 }

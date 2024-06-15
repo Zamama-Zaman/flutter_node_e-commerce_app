@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../../lib.dart';
 
 class Product {
@@ -56,4 +57,26 @@ class Product {
 
   factory Product.fromJson(String source) =>
       Product.fromMap(json.decode(source));
+
+  Product copyWith({
+    String? name,
+    String? description,
+    double? quantity,
+    List<String>? images,
+    String? category,
+    double? price,
+    String? id,
+    List<Rating>? rating,
+  }) {
+    return Product(
+      name: name ?? this.name,
+      description: description ?? this.description,
+      quantity: quantity ?? this.quantity,
+      images: images ?? this.images,
+      category: category ?? this.category,
+      price: price ?? this.price,
+      id: id ?? this.id,
+      rating: rating ?? this.rating,
+    );
+  }
 }
