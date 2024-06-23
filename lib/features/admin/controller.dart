@@ -21,8 +21,7 @@ class AdminController extends BaseController {
   List<Product>? products;
 
   fetchAllProducts() async {
-    // products = await adminServices.fetchAllProducts(context);
-    // setState(() {});
+    products = await AdminService.instance.fetchAllProducts();
   }
 
   void deleteProduct(Product product, int index) {

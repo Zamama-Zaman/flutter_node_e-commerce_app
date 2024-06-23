@@ -76,7 +76,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
   if (result) {
     res.status(200).json({
       status: true,
-      message: result,
+      data: result,
     });
   } else {
     res.status(400);
@@ -93,7 +93,7 @@ const getProductByCategory = asyncHandler(async (req, res) => {
   if (result) {
     res.status(200).json({
       status: true,
-      message: result,
+      data: result,
     });
   } else {
     res.status(400);

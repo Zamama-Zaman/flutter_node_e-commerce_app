@@ -43,4 +43,27 @@ class AdminService {
 
     return isAdded;
   }
+
+  Future<List<Product>> fetchAllProducts() async {
+    List<Product> products = [];
+    try {
+      Response response = await get(
+        Uri.parse(AppBaseUrl.fetchAllProductUrl),
+        headers: _headers,
+      );
+
+      debugPrint("status code: ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        for (var product in jsonDecode(response.body)['data']) {
+          products.add(product);
+        }
+      }
+    } catch (e) {
+      debugPrint("Error add Product $e");
+      Fluttertoast.showToast(msg: "Error add Product $e");
+    }
+
+    return products;
+  }
 }
