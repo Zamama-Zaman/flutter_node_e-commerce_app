@@ -20,19 +20,31 @@ class AdminController extends BaseController {
   //************ Post View ***************//
   List<Product>? products;
 
+  bool isFetching = false;
   fetchAllProducts() async {
+    isFetching = true;
+    update();
+
     products = await AdminService.instance.fetchAllProducts();
+
+    isFetching = false;
+    update();
   }
 
-  void deleteProduct(Product product, int index) {
-    // adminServices.deleteProduct(
-    //   context: context,
-    //   product: product,
-    //   onSuccess: () {
-    //     products!.removeAt(index);
-    //     setState(() {});
-    //   },
-    // );
+  void deleteProduct(Product product, int index) async {
+    isFetching = true;
+    update();
+
+    bool isDeleted = await AdminService.instance.deletAProduct(
+      product: product,
+    );
+
+    if (isDeleted) {
+      products!.removeAt(index);
+    }
+
+    isFetching = false;
+    update();
   }
 
   //************ Add Product View *************//

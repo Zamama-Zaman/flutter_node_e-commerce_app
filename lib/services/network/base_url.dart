@@ -5,4 +5,5 @@ class AppBaseUrl {
   static const registerUrl = "$url/register";
   static const addProductUrl = "$url/add-product";
   static const fetchAllProductUrl = "$url/get-all-products";
+  static const deleteAProduct = "$url/delete-product";
 }

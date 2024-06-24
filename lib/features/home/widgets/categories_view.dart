@@ -1,4 +1,5 @@
-import 'package:flutter_node_ecommerce_app_original/lib.dart';
+import '../views/category_detail_view.dart';
+import '../../../lib.dart';
 
 class CategoriesView extends BaseWidget<HomeController> {
   const CategoriesView({super.key});
@@ -9,37 +10,44 @@ class CategoriesView extends BaseWidget<HomeController> {
           SizedBox(width: 16.w),
           ...List.generate(
             CategoryData.data.length,
-            (index) => SizedBox(
-              width: 80.w,
-              height: 80.h,
-              child: Column(
-                children: [
-                  //*
-                  Container(
-                    width: 50.w,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.greyColor.withOpacity(.3),
+            (index) => InkWell(
+              onTap: () => Get.to(
+                () => CategoryDetailView(
+                  category: CategoryData.data[index].name,
+                ),
+              ),
+              child: SizedBox(
+                width: 80.w,
+                height: 80.h,
+                child: Column(
+                  children: [
+                    //*
+                    Container(
+                      width: 50.w,
+                      height: 50.h,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.greyColor.withOpacity(.3),
+                      ),
+                      alignment: Alignment.center,
+                      child: Icon(
+                        CategoryData.data[index].icon,
+                        color: AppColors.blackColor.withOpacity(.5),
+                      ),
                     ),
-                    alignment: Alignment.center,
-                    child: Icon(
-                      CategoryData.data[index].icon,
+
+                    //
+                    AppGapVertical.four,
+
+                    //*
+                    AppText.commonText(
+                      text: CategoryData.data[index].name,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
                       color: AppColors.blackColor.withOpacity(.5),
                     ),
-                  ),
-
-                  //
-                  AppGapVertical.four,
-
-                  //*
-                  AppText.commonText(
-                    text: CategoryData.data[index].name,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.blackColor.withOpacity(.5),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

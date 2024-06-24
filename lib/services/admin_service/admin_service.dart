@@ -52,18 +52,36 @@ class AdminService {
         headers: _headers,
       );
 
-      debugPrint("status code: ${response.statusCode}");
-
       if (response.statusCode == 200) {
         for (var product in jsonDecode(response.body)['data']) {
-          products.add(product);
+          products.add(Product.fromMap(product));
         }
       }
     } catch (e) {
-      debugPrint("Error add Product $e");
-      Fluttertoast.showToast(msg: "Error add Product $e");
+      debugPrint("Error fetch all Products $e");
+      Fluttertoast.showToast(msg: "Error fetch all Products $e");
     }
 
     return products;
+  }
+
+  Future<bool> deletAProduct({required Product product}) async {
+    bool isDeleted = false;
+    try {
+      Response response = await post(
+        Uri.parse(AppBaseUrl.deleteAProduct),
+        headers: _headers,
+        body: product.toJson(),
+      );
+
+      if (response.statusCode == 200) {
+        isDeleted = true;
+      }
+    } catch (e) {
+      debugPrint("Delete a Product $e");
+      Fluttertoast.showToast(msg: "Delete a Product $e");
+    }
+
+    return isDeleted;
   }
 }

@@ -12,10 +12,30 @@ abstract class BaseWidget<T extends BaseController> extends GetWidget<T> {
     return GetBuilder<T>(
       initState: initStateWidget,
       builder: (_) {
-        return child;
+        return Stack(
+          children: [
+            child,
+            loadingWidget,
+          ],
+        );
       },
     );
   }
+
+  bool get isLoading => false;
+
+  Widget get loadingWidget => Visibility(
+        visible: isLoading,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          color: AppColors.blackColor.withOpacity(.3),
+          alignment: Alignment.center,
+          child: const CircularProgressIndicator(
+            color: AppColors.blackColor,
+          ),
+        ),
+      );
 
   TextDirection get textDirection => Directionality.of(Get.context!);
 }
