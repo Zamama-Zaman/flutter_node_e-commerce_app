@@ -8,6 +8,14 @@ class CategoryDetailView extends BaseView<HomeController> {
   });
 
   @override
+  void initState(state) {
+    super.initState(state);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await controller.fetchCategoryProducts(category: category);
+    });
+  }
+
+  @override
   PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(
         title: "Category Detail",
       );
@@ -47,13 +55,9 @@ class CategoryDetailView extends BaseView<HomeController> {
                 itemBuilder: (context, index) {
                   final product = controller.productList![index];
                   return GestureDetector(
-                    onTap: () {
-                      // Navigator.pushNamed(
-                      //   context,
-                      //   ProductDetailScreen.routeName,
-                      //   arguments: product,
-                      // );
-                    },
+                    onTap: () => Get.to(
+                      () => ProductDetailScreen(product: product),
+                    ),
                     child: Column(
                       children: [
                         SizedBox(

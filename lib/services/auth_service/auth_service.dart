@@ -2,7 +2,6 @@ import '../../lib.dart';
 
 class AuthService {
   static final instance = AuthService();
-  Client client = Client();
   final Map<String, String> _headers = {
     'Content-Type': 'application/json; charset=UTF-8',
   };

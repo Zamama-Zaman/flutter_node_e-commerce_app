@@ -18,7 +18,7 @@ router.get("/get-products/:query", getSearchProduct);
 
 router.get("/get-all-products", getAllProducts);
 
-router.get("/get-products-by-category", getProductByCategory);
+router.post("/get-products-by-category", getProductByCategory);
 
 router.post("/rating-a-product", ratingAProduct);
 

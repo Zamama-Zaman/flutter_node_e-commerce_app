@@ -1,3 +1,5 @@
+import '../../services/product_service/product_service.dart';
+
 import '../../lib.dart';
 
 class ProductController extends BaseController {
@@ -23,10 +25,17 @@ class ProductController extends BaseController {
     // }
   }
 
-  void addToCart() {
-    // productDetailsServices.addToCart(
-    //   context: context,
-    //   product: widget.product,
-    // );
+  void addToCart({required Product product}) async {
+    debugPrint("I am called at addToCart 1");
+    bool isAddToCart =
+        await ProductService.instance.addToCart(product: product);
+
+    debugPrint("I am called at addToCart 2");
+
+    if (isAddToCart) {
+      Fluttertoast.showToast(msg: "Add To Cart Successfully");
+    }
+
+    debugPrint("I am called at addToCart 3 $isAddToCart");
   }
 }

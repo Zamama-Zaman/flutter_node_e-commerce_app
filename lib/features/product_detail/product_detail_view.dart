@@ -107,7 +107,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
             padding: const EdgeInsets.all(10),
             child: AppButton.simple(
               text: 'Add to Cart',
-              onTap: controller.addToCart,
+              onTap: () => controller.addToCart(product: product),
             ),
           ),
 

@@ -1,3 +1,5 @@
+import 'package:flutter_node_ecommerce_app_original/services/home_service/home_service.dart';
+
 import '../../lib.dart';
 
 class HomeController extends BaseController {
@@ -18,11 +20,9 @@ class HomeController extends BaseController {
   //******************* Category View Details ******************//
   List<Product>? productList;
 
-  void fetchCategoryProducts() async {
-    // productList = await homeServices.fetchCategoryProducts(
-    //   context: context,
-    //   category: widget.category,
-    // );
-    // setState(() {});
+  Future<void> fetchCategoryProducts({required String category}) async {
+    productList =
+        await HomeService.instance.getProductByCategory(category: category);
+    update();
   }
 }

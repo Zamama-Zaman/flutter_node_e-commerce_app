@@ -7,7 +7,7 @@ class CategoryData {
       icon: Icons.auto_graph_rounded,
     ),
     CategoryModel(
-      name: "Mobilesd",
+      name: "Mobile",
       icon: Icons.ad_units,
     ),
     CategoryModel(
