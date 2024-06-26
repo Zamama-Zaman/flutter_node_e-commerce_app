@@ -26,16 +26,12 @@ class ProductController extends BaseController {
   }
 
   void addToCart({required Product product}) async {
-    debugPrint("I am called at addToCart 1");
     bool isAddToCart =
         await ProductService.instance.addToCart(product: product);
 
-    debugPrint("I am called at addToCart 2");
-
     if (isAddToCart) {
       Fluttertoast.showToast(msg: "Add To Cart Successfully");
+      Get.back();
     }
-
-    debugPrint("I am called at addToCart 3 $isAddToCart");
   }
 }

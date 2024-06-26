@@ -1,3 +1,5 @@
+import 'package:flutter_node_ecommerce_app_original/services/product_service/product_service.dart';
+
 import '../../lib.dart';
 
 class CartController extends BaseController {
@@ -38,4 +40,12 @@ class CartController extends BaseController {
       price: 1500.00,
     ),
   ];
+
+  void getCart() async {
+    //
+    bool isFetched = await ProductService.instance.getCart();
+    if (isFetched) {
+      Fluttertoast.showToast(msg: "Successfully Fetched");
+    }
+  }
 }

@@ -26,10 +26,8 @@ class ProductService {
         isAddToCart = true;
       }
       if (response.statusCode == 401) {
-        debugPrint(
-            "Error Add to Cart UnAuthorise ${AppPreference.instance.getUserModel().token}");
-        Fluttertoast.showToast(
-            msg: "UnAuthorise ${AppPreference.instance.getUserModel().token}");
+        debugPrint("Error Add to Cart UnAuthorise ${headers}");
+        Fluttertoast.showToast(msg: "UnAuthorise ${headers}");
       }
     } catch (e) {
       debugPrint("Error Add to Cart $e");
@@ -37,5 +35,29 @@ class ProductService {
     }
 
     return isAddToCart;
+  }
+
+  Future<bool> getCart() async {
+    bool isFetched = false;
+
+    try {
+      Response response = await get(
+        Uri.parse(AppBaseUrl.getCartUrl),
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        isFetched = true;
+      }
+      if (response.statusCode == 401) {
+        debugPrint("Error Get Cart UnAuthorise ${headers}");
+        Fluttertoast.showToast(msg: "UnAuthorise ${headers}");
+      }
+    } catch (e) {
+      debugPrint("Error Get Cart $e");
+      Fluttertoast.showToast(msg: "Error Get Cart $e");
+    }
+
+    return isFetched;
   }
 }

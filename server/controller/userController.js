@@ -38,7 +38,7 @@ const login = asyncHandler(async (req, res) => {
       },
       process.env.ACCESS_TOKEN_SECRET,
       {
-        expiresIn: "15m",
+        expiresIn: "60m",
       }
     );
     res.status(200).json({
@@ -132,7 +132,7 @@ const addToCart = asyncHandler(async (req, res) => {
   if (user) {
     res.status(200).json({
       status: "Success",
-      message: "Fetched user data successfully",
+      message: "Product Added Successfully",
       body: savedUser,
     });
   } else {

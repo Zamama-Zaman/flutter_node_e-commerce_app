@@ -7,6 +7,14 @@ class CartView extends BaseView<CartController> {
   PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(title: "Cart");
 
   @override
+  void initState(state) {
+    super.initState(state);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getCart();
+    });
+  }
+
+  @override
   Widget? get body => SingleChildScrollView(
         child: Padding(
           padding: AppPaddings.commonHorizontalPadding,
