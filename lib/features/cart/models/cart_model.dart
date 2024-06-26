@@ -1,26 +1,26 @@
 import '../../../lib.dart';
 
 // ignore: must_be_immutable
-class CartModel extends Equatable {
+class CartUIModel extends Equatable {
   final String image;
   final String name;
   final double price;
   late int quantity;
 
-  CartModel({
+  CartUIModel({
     required this.image,
     required this.name,
     required this.price,
     this.quantity = 1,
   });
 
-  CartModel copyWith({
+  CartUIModel copyWith({
     String? image,
     String? name,
     double? price,
     int? quantity,
   }) {
-    return CartModel(
+    return CartUIModel(
       image: image ?? this.image,
       name: name ?? this.name,
       price: price ?? this.price,

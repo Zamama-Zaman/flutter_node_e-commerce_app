@@ -1,3 +1,5 @@
+import 'package:flutter_node_ecommerce_app_original/common/models/cart_model.dart';
+
 import '../../lib.dart';
 
 class ProductService {
@@ -37,8 +39,8 @@ class ProductService {
     return isAddToCart;
   }
 
-  Future<bool> getCart() async {
-    bool isFetched = false;
+  Future<List<CartModel>> getCart() async {
+    List<CartModel> cartList = [];
 
     try {
       Response response = await get(
@@ -47,7 +49,9 @@ class ProductService {
       );
 
       if (response.statusCode == 200) {
-        isFetched = true;
+        for (var cart in jsonDecode(response.body)['body']['cart']) {
+          cartList.add(CartModel.fromMap(cart));
+        }
       }
       if (response.statusCode == 401) {
         debugPrint("Error Get Cart UnAuthorise ${headers}");
@@ -58,6 +62,6 @@ class ProductService {
       Fluttertoast.showToast(msg: "Error Get Cart $e");
     }
 
-    return isFetched;
+    return cartList;
   }
 }

@@ -30,101 +30,109 @@ class CartView extends BaseView<CartController> {
         ),
       );
 
-  Widget get _cartList => Column(
-        children: [
-          ...List.generate(
-            controller.cartList.length,
-            (index) => SizedBox(
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //*
-                  Row(
-                    children: [
-                      Image.network(
-                        controller.cartList[index].image,
-                        fit: BoxFit.contain,
-                        height: 135,
-                        width: 135,
-                      ),
+  Widget get _cartList => controller.listCart == null
+      ? Center(
+          child: AppText.commonText(
+            text: "No item added yet in cart!",
+            fontSize: 18.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        )
+      : Column(
+          children: [
+            ...List.generate(
+              controller.listCart!.length,
+              (index) => SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //*
+                    Row(
+                      children: [
+                        Image.network(
+                          controller.listCart![index].product.images[0],
+                          fit: BoxFit.contain,
+                          height: 135,
+                          width: 135,
+                        ),
 
-                      //
-                      Column(
-                        children: [
-                          //*
-                          Container(
-                            width: 235.w,
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
-                            child: Text(
-                              controller.cartList[index].name,
-                              style: TextStyle(
-                                fontSize: 16.sp,
+                        //
+                        Column(
+                          children: [
+                            //*
+                            Container(
+                              width: 235.w,
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: Text(
+                                controller.listCart![index].product.name,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                ),
+                                maxLines: 2,
                               ),
-                              maxLines: 2,
                             ),
-                          ),
 
-                          //*
-                          Container(
-                            width: 235.w,
-                            padding: EdgeInsets.only(left: 10.w, top: 5.h),
-                            child: Text(
-                              '\$${controller.cartList[index].price}',
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.bold,
+                            //*
+                            Container(
+                              width: 235.w,
+                              padding: EdgeInsets.only(left: 10.w, top: 5.h),
+                              child: Text(
+                                '\$${controller.listCart![index].product.price}',
+                                style: TextStyle(
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                maxLines: 2,
                               ),
-                              maxLines: 2,
                             ),
-                          ),
 
-                          //*
-                          Container(
-                            width: 235.w,
-                            padding: EdgeInsets.only(left: 10.w),
-                            child: const Text('Eligible for FREE Shipping'),
-                          ),
+                            //*
+                            Container(
+                              width: 235.w,
+                              padding: EdgeInsets.only(left: 10.w),
+                              child: const Text('Eligible for FREE Shipping'),
+                            ),
 
-                          //*
-                          Container(
-                            width: 235.w,
-                            padding: EdgeInsets.only(left: 10.w, top: 5.h),
-                            child: const Text(
-                              'In Stock',
-                              style: TextStyle(
-                                color: Colors.teal,
+                            //*
+                            Container(
+                              width: 235.w,
+                              padding: EdgeInsets.only(left: 10.w, top: 5.h),
+                              child: const Text(
+                                'In Stock',
+                                style: TextStyle(
+                                  color: Colors.teal,
+                                ),
+                                maxLines: 2,
                               ),
-                              maxLines: 2,
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                          ],
+                        ),
+                      ],
+                    ),
 
-                  //
-                  AppGapVertical.eight,
-                  const Divider(
-                    color: AppColors.dividerColor,
-                  ),
-                  AppGapVertical.eight,
+                    //
+                    AppGapVertical.eight,
+                    const Divider(
+                      color: AppColors.dividerColor,
+                    ),
+                    AppGapVertical.eight,
 
-                  //*
-                  _addAndDeleteCard(
-                    data: controller.cartList[index],
-                  ),
+                    //*
+                    _addAndDeleteCard(
+                      data: controller.cartList[index],
+                    ),
 
-                  //
-                  AppGapVertical.sixteen,
-                ],
+                    //
+                    AppGapVertical.sixteen,
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      );
+          ],
+        );
 
-  Widget _addAndDeleteCard({required CartModel data}) => Container(
+  Widget _addAndDeleteCard({required CartUIModel data}) => Container(
         width: 150.w,
         height: 60.h,
         color: AppColors.greyColor,
