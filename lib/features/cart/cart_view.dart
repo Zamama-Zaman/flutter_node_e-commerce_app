@@ -1,3 +1,4 @@
+import '../../common/models/cart_model.dart';
 import '../../lib.dart';
 
 class CartView extends BaseView<CartController> {
@@ -30,7 +31,8 @@ class CartView extends BaseView<CartController> {
         ),
       );
 
-  Widget get _cartList => controller.listCart == null
+  Widget get _cartList => controller.listCart == null ||
+          controller.listCart!.isEmpty
       ? Center(
           child: AppText.commonText(
             text: "No item added yet in cart!",
@@ -120,7 +122,7 @@ class CartView extends BaseView<CartController> {
 
                     //*
                     _addAndDeleteCard(
-                      data: controller.cartList[index],
+                      data: controller.listCart![index],
                     ),
 
                     //
@@ -132,7 +134,7 @@ class CartView extends BaseView<CartController> {
           ],
         );
 
-  Widget _addAndDeleteCard({required CartUIModel data}) => Container(
+  Widget _addAndDeleteCard({required CartModel data}) => Container(
         width: 150.w,
         height: 60.h,
         color: AppColors.greyColor,
@@ -140,12 +142,7 @@ class CartView extends BaseView<CartController> {
           children: [
             //* Remove
             InkWell(
-              onTap: () {
-                data = data.copyWith(
-                  quantity: data.quantity != 0 ? data.quantity-- : 1,
-                );
-                controller.update();
-              },
+              onTap: () => controller.removeFromCart(data: data),
               child: Container(
                 width: 50.w,
                 height: 50.h,
@@ -169,12 +166,7 @@ class CartView extends BaseView<CartController> {
 
             //* Add
             InkWell(
-              onTap: () {
-                data = data.copyWith(
-                  quantity: data.quantity++,
-                );
-                controller.update();
-              },
+              onTap: () => controller.addToCart(data: data),
               child: Container(
                 width: 50.w,
                 height: 50.h,

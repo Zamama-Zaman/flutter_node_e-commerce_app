@@ -5,10 +5,10 @@ import '../../lib.dart';
 class ProductService {
   static final instance = ProductService();
 
-  Map<String, String> headers = {
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Authorization': 'Bearer ${AppPreference.instance.getUserModel().token}'
-  };
+  Map<String, String> get headers => {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}'
+      };
 
   /// add to cart
   Future<bool> addToCart({required Product product}) async {
@@ -28,8 +28,8 @@ class ProductService {
         isAddToCart = true;
       }
       if (response.statusCode == 401) {
-        debugPrint("Error Add to Cart UnAuthorise ${headers}");
-        Fluttertoast.showToast(msg: "UnAuthorise ${headers}");
+        debugPrint("Error Add to Cart UnAuthorise ${headers['Authorization']}");
+        Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
       }
     } catch (e) {
       debugPrint("Error Add to Cart $e");
@@ -54,8 +54,8 @@ class ProductService {
         }
       }
       if (response.statusCode == 401) {
-        debugPrint("Error Get Cart UnAuthorise ${headers}");
-        Fluttertoast.showToast(msg: "UnAuthorise ${headers}");
+        debugPrint("Error Get Cart UnAuthorise ${headers['Authorization']}");
+        Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
       }
     } catch (e) {
       debugPrint("Error Get Cart $e");
@@ -63,5 +63,34 @@ class ProductService {
     }
 
     return cartList;
+  }
+
+  Future<bool> removeFromCart({required Product product}) async {
+    bool isRemoveFromCart = false;
+    final myJsonEncode = json.encode({
+      "productId": product.id,
+    });
+
+    try {
+      Response response = await post(
+        Uri.parse(AppBaseUrl.removeFromCartUrl),
+        body: myJsonEncode,
+        headers: headers,
+      );
+
+      if (response.statusCode == 200) {
+        isRemoveFromCart = true;
+      }
+      if (response.statusCode == 401) {
+        debugPrint(
+            "Error Remove From Cart UnAuthorise ${headers['Authorization']}");
+        Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
+      }
+    } catch (e) {
+      debugPrint("Error Remove From Cart $e");
+      Fluttertoast.showToast(msg: "Error Remove From Cart $e");
+    }
+
+    return isRemoveFromCart;
   }
 }

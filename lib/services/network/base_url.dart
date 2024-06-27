@@ -8,5 +8,6 @@ class AppBaseUrl {
   static const deleteAProduct = "$url/delete-product";
   static const getProductsByCategory = "$url/get-products-by-category";
   static const addToCartUrl = "$url/add-to-cart";
+  static const removeFromCartUrl = "$url/remove-from-cart";
   static const getCartUrl = "$url/cart";
 }

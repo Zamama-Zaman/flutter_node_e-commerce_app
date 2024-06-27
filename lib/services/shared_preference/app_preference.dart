@@ -12,7 +12,7 @@ class AppPreference {
   Future<bool> setUserModel({required UserModel model}) async =>
       await _preferences.setString(_userKey, model.toJson());
 
-  UserModel getUserModel() {
+  UserModel get getUserModel {
     UserModel user = UserModel(
       name: "",
       id: "",

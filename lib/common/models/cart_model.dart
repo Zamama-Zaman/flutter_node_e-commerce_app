@@ -2,7 +2,7 @@ import '../../lib.dart';
 
 class CartModel {
   final String id;
-  final int quantity;
+  int quantity;
   final Product product;
   CartModel({
     required this.id,

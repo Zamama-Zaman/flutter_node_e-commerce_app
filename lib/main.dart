@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
             theme: AppTheme.baseTheme,
             debugShowCheckedModeBanner: false,
             binds: AppBinding.bindings,
-            home: AppPreference.instance.getUserModel().token.isNotEmpty
-                ? AppPreference.instance.getUserModel().type == "admin"
+            home: AppPreference.instance.getUserModel.token.isNotEmpty
+                ? AppPreference.instance.getUserModel.type == "admin"
                     ? const AdminView()
                     : const DefaultView()
                 : const LoginView(),
