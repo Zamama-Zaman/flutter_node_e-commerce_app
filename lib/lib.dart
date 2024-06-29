@@ -7,7 +7,7 @@ export 'package:dotted_border/dotted_border.dart';
 export 'package:equatable/equatable.dart';
 export 'package:file_picker/file_picker.dart';
 export 'package:flutter/material.dart';
-export 'package:flutter_node_ecommerce_app_original/app_bundle.dart';
+export 'package:flutter_node_ecommerce_app_original/app_bindings.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:flutter_svg/svg.dart';
 export 'package:fluttertoast/fluttertoast.dart';
@@ -21,3 +21,5 @@ export 'common/common.dart';
 export 'core/core.dart';
 export 'features/features.dart';
 export 'services/services.dart';
+
+export 'package:pay/pay.dart';

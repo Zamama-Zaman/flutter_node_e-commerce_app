@@ -13,5 +13,6 @@ class AppBinding extends Binding {
     Bind.put(AdminController()),
     Bind.put(ProductController()),
     Bind.put(OrderController()),
+    Bind.put(AddressController()),
   ];
 }

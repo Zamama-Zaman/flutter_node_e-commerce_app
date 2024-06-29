@@ -21,6 +21,22 @@ class CartView extends BaseView<CartController> {
           padding: AppPaddings.commonHorizontalPadding,
           child: Column(
             children: [
+              const AddressBox(),
+              const CartSubtotal(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AppButton.simple(
+                  text:
+                      'Proceed to Buy (${AppPreference.instance.getUserModel.cart.length} items)',
+                  onTap: () => Get.to(() => const AddressView()),
+                ),
+              ),
+              SizedBox(height: 15.w),
+              Container(
+                color: Colors.black12.withOpacity(0.08),
+                height: 1.h,
+              ),
+              SizedBox(height: 5.h),
               AppGapVertical.sixteen,
               _cartList,
               AppGapVertical.fortyEight,

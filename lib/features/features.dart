@@ -6,3 +6,4 @@ export 'account/account.dart';
 export 'admin/admin.dart';
 export 'order_detail/order_detail.dart';
 export 'product_detail/product_detail.dart';
+export 'address/address.dart';
