@@ -10,4 +10,6 @@ class AppBaseUrl {
   static const addToCartUrl = "$url/add-to-cart";
   static const removeFromCartUrl = "$url/remove-from-cart";
   static const getCartUrl = "$url/cart";
+  static const saveUserAddressUrl = "$url/save-user-address";
+  static const placeOrderUrl = "$url/place-order";
 }

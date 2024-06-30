@@ -223,6 +223,27 @@ const placeOrder = asyncHandler(async (req, res) => {
   }
 });
 
+// order a product
+const saveUserAddress = asyncHandler(async (req, res) => {
+  const { address } = req.body;
+
+  const user = await User.findById(req.user.id);
+
+  user.address = address;
+  user = await user.save();
+
+  if (user) {
+    res.status(200).json({
+      status: "Success",
+      message: "Address added successfully",
+      body: user,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Error Occured to save user address");
+  }
+});
+
 module.exports = {
   login,
   register,
@@ -231,4 +252,5 @@ module.exports = {
   removeFromCart,
   placeOrder,
   getCart,
+  saveUserAddress
 };

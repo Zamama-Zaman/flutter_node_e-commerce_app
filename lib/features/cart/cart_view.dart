@@ -16,36 +16,46 @@ class CartView extends BaseView<CartController> {
   }
 
   @override
-  Widget? get body => SingleChildScrollView(
-        child: Padding(
-          padding: AppPaddings.commonHorizontalPadding,
-          child: Column(
-            children: [
-              const AddressBox(),
-              const CartSubtotal(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AppButton.simple(
-                  text:
-                      'Proceed to Buy (${AppPreference.instance.getUserModel.cart.length} items)',
-                  onTap: () => Get.to(() => const AddressView()),
+  Widget? get body {
+    int sum = 0;
+    CartController.instance.listCart!
+        .map((e) => sum += e.quantity * e.product.price.toInt())
+        .toList();
+    return SingleChildScrollView(
+      child: Padding(
+        padding: AppPaddings.commonHorizontalPadding,
+        child: Column(
+          children: [
+            const AddressBox(),
+            const CartSubtotal(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppButton.simple(
+                text:
+                    'Proceed to Buy (${AppPreference.instance.getUserModel.cart.length} items)',
+                onTap: () => Get.to(
+                  () => AddressView(
+                    subTotal: sum.toString(),
+                  ),
                 ),
               ),
-              SizedBox(height: 15.w),
-              Container(
-                color: Colors.black12.withOpacity(0.08),
-                height: 1.h,
-              ),
-              SizedBox(height: 5.h),
-              AppGapVertical.sixteen,
-              _cartList,
-              AppGapVertical.fortyEight,
-              AppGapVertical.fortyEight,
-              AppGapVertical.sixteen,
-            ],
-          ),
+            ),
+            SizedBox(height: 15.w),
+            Container(
+              color: Colors.black12.withOpacity(0.08),
+              height: 1.h,
+            ),
+            SizedBox(height: 5.h),
+            AppGapVertical.sixteen,
+            _cartList,
+            AppGapVertical.fortyEight,
+            AppGapVertical.fortyEight,
+            AppGapVertical.sixteen,
+          ],
         ),
-      );
+      ),
+    );
+  }
 
   Widget get _cartList => controller.listCart == null ||
           controller.listCart!.isEmpty

@@ -1,4 +1,4 @@
-
+import '../../services/address_service/address_service.dart';
 
 import '../../lib.dart';
 
@@ -9,7 +9,6 @@ class AddressController extends BaseController {
   final TextEditingController areaController = TextEditingController();
   final TextEditingController pincodeController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
-  final _addressFormKey = GlobalKey<FormState>();
 
   String addressToBeUsed = "";
   var address = AppPreference.instance.getUserModel.address;
@@ -35,18 +34,20 @@ class AddressController extends BaseController {
     cityController.dispose();
   }
 
-  void onApplePayResult(res) {
+  void onApplePayResult(res, subTotal) async {
     if (AppPreference.instance.getUserModel.address.isEmpty) {
-      // addressServices.saveUserAddress(
-      //   context: context,
-      //   address: addressToBeUsed,
-      // );
+      await AddressService.instance.saveAddress(
+        address: addressToBeUsed,
+      );
     }
-    // addressServices.placeOrder(
-    //   context: context,
-    //   address: addressToBeUsed,
-    //   totalSum: double.parse(widget.totalAmount),
-    // );
+    bool isPlased = await AddressService.instance.placeOrder(
+      subTotal: subTotal.toString(),
+      deliveryAddress: addressToBeUsed,
+    );
+
+    if (isPlased) {
+      Fluttertoast.showToast(msg: "Placed Order Successfully");
+    }
   }
 
   void onGooglePayResult(res) {
@@ -64,7 +65,10 @@ class AddressController extends BaseController {
     // );
   }
 
-  void payPressed(String addressFromProvider) {
+  void payPressed(
+    String addressFromProvider,
+    String subTotal,
+  ) {
     addressToBeUsed = "";
 
     bool isForm = flatBuildingController.text.isNotEmpty ||
@@ -73,16 +77,14 @@ class AddressController extends BaseController {
         cityController.text.isNotEmpty;
 
     if (isForm) {
-      if (_addressFormKey.currentState!.validate()) {
-        addressToBeUsed =
-            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
-      } else {
-        throw Exception('Please enter all the values!');
-      }
+      addressToBeUsed =
+          '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
     } else if (addressFromProvider.isNotEmpty) {
       addressToBeUsed = addressFromProvider;
     } else {
       // showSnackBar(context, 'ERROR');
     }
+
+    onApplePayResult({}, subTotal);
   }
 }
