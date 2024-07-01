@@ -31,47 +31,52 @@ class OrderView extends BaseWidget<AccountController> {
           AppGapVertical.sixteen,
 
           // display orders
-          Container(
-            height: 170.h,
-            padding: EdgeInsets.only(left: 10.w),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: HomeController.instance.carsoulSliderImages.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    // Goto Product Detail Page
-                    Product product = Product(
-                      name: "",
-                      description: "",
-                      quantity: 1,
-                      images: [],
-                      category: "",
-                      price: 1,
-                      id: "Something",
-                      rating: [],
-                    );
-                    Get.to(() => ProductDetailScreen(product: product));
+          controller.orderList == null && controller.orderList!.isEmpty
+              ? Center(
+                  child: AppText.simpleText(text: "Not Card Added Yet!"),
+                )
+              : Container(
+                  height: 170.h,
+                  padding: EdgeInsets.only(left: 10.w),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.orderList!.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          // Goto Product Detail Page
+                          Product product = Product(
+                            name: "",
+                            description: "",
+                            quantity: 1,
+                            images: [],
+                            category: "",
+                            price: 1,
+                            id: "Something",
+                            rating: [],
+                          );
+                          Get.to(() => ProductDetailScreen(product: product));
 
-                    // Order order = Order(
-                    //   id: "",
-                    //   products: [],
-                    //   quantity: [],
-                    //   address: "",
-                    //   userId: "",
-                    //   orderedAt: 1,
-                    //   status: 1,
-                    //   totalPrice: 20,
-                    // );
-                    // Get.to(() => OrderDetailScreen(order: order));
-                  },
-                  child: SingleProduct(
-                    image: HomeController.instance.carsoulSliderImages[index],
+                          // Order order = Order(
+                          //   id: "",
+                          //   products: [],
+                          //   quantity: [],
+                          //   address: "",
+                          //   userId: "",
+                          //   orderedAt: 1,
+                          //   status: 1,
+                          //   totalPrice: 20,
+                          // );
+                          // Get.to(() => OrderDetailScreen(order: order));
+                        },
+                        child: SingleProduct(
+                          image: controller
+                              .orderList!.first.cart.first.product.images.first,
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
-          ),
+                ),
         ],
       );
 }

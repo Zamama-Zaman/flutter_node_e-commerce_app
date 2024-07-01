@@ -1,4 +1,4 @@
-import '../../services/address_service/address_service.dart';
+import '../../services/order_service/order_service.dart';
 
 import '../../lib.dart';
 
@@ -13,17 +13,6 @@ class AddressController extends BaseController {
   String addressToBeUsed = "";
   var address = AppPreference.instance.getUserModel.address;
   List<PaymentItem> paymentItems = [];
-  // final AddressServices addressServices = AddressServices();
-
-  void initialFunction() {
-    // paymentItems.add(
-    //   PaymentItem(
-    //     amount: widget.totalAmount,
-    //     label: 'Total Amount',
-    //     status: PaymentItemStatus.final_price,
-    //   ),
-    // );
-  }
 
   @override
   void dispose() {
@@ -34,35 +23,40 @@ class AddressController extends BaseController {
     cityController.dispose();
   }
 
-  void onApplePayResult(res, subTotal) async {
+  Future<void> onApplePayResult(res, subTotal) async {
     if (AppPreference.instance.getUserModel.address.isEmpty) {
-      await AddressService.instance.saveAddress(
+      await OrderService.instance.saveAddress(
         address: addressToBeUsed,
       );
     }
-    bool isPlased = await AddressService.instance.placeOrder(
+    bool isPlased = await OrderService.instance.placeOrder(
       subTotal: subTotal.toString(),
       deliveryAddress: addressToBeUsed,
     );
 
     if (isPlased) {
       Fluttertoast.showToast(msg: "Placed Order Successfully");
+      _clearAll();
+      Get.back();
     }
   }
 
-  void onGooglePayResult(res) {
-    // if (Provider.of<UserProvider>(context, listen: false)
-    //     .user
-    //     .address
-    //     .isEmpty) {
-    //   addressServices.saveUserAddress(
-    //       context: context, address: addressToBeUsed);
-    // }
-    // addressServices.placeOrder(
-    //   context: context,
-    //   address: addressToBeUsed,
-    //   totalSum: double.parse(widget.totalAmount),
-    // );
+  void onGooglePayResult(res, subTotal) async {
+    if (AppPreference.instance.getUserModel.address.isEmpty) {
+      await OrderService.instance.saveAddress(
+        address: addressToBeUsed,
+      );
+    }
+    bool isPlased = await OrderService.instance.placeOrder(
+      subTotal: subTotal.toString(),
+      deliveryAddress: addressToBeUsed,
+    );
+
+    if (isPlased) {
+      Fluttertoast.showToast(msg: "Placed Order Successfully");
+      _clearAll();
+      Get.back();
+    }
   }
 
   void payPressed(
@@ -86,5 +80,12 @@ class AddressController extends BaseController {
     }
 
     onApplePayResult({}, subTotal);
+  }
+
+  void _clearAll() {
+    flatBuildingController.clear();
+    areaController.clear();
+    pincodeController.clear();
+    cityController.clear();
   }
 }

@@ -124,7 +124,10 @@ class AddressView extends BaseView<AddressController> {
                   controller.address,
                   subTotal,
                 ),
-                onPaymentResult: controller.onGooglePayResult,
+                onPaymentResult: (res) => controller.onGooglePayResult(
+                  res,
+                  subTotal,
+                ),
                 paymentItems: controller.paymentItems,
                 height: 50.h,
                 type: GooglePayButtonType.buy,

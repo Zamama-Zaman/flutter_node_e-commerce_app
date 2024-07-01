@@ -10,6 +10,7 @@ const {
   getCart,
   placeOrder,
   saveUserAddress,
+  myOrders,
 } = require("../controller/userController");
 
 router.post("/login", login);
@@ -25,6 +26,8 @@ router.post("/remove-from-cart", validateToken, removeFromCart);
 router.get("/cart", validateToken, getCart);
 
 router.post("/place-order", validateToken, placeOrder);
+
+router.get("/my-orders", validateToken, myOrders);
 
 router.post("/save-user-address", validateToken, saveUserAddress);
 

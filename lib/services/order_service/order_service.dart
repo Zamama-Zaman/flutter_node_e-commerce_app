@@ -1,7 +1,7 @@
 import '../../lib.dart';
 
-class AddressService {
-  static final instance = AddressService();
+class OrderService {
+  static final instance = OrderService();
 
   Map<String, String> get _headers => {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -57,5 +57,27 @@ class AddressService {
     }
 
     return isPlaced;
+  }
+
+  Future<List<OrderResModel>> getAllOrders() async {
+    List<OrderResModel> orderList = [];
+
+    try {
+      Response response = await get(
+        Uri.parse(AppBaseUrl.myOrdersUrl),
+        headers: _headers,
+      );
+
+      if (response.statusCode == 200) {
+        for (var singleOrder in jsonDecode(response.body)['body']) {
+          orderList.add(OrderResModel.fromMap(singleOrder));
+        }
+      }
+    } catch (e) {
+      debugPrint("Place Order Error $e");
+      Fluttertoast.showToast(msg: "Error Place Order $e");
+    }
+
+    return orderList;
   }
 }

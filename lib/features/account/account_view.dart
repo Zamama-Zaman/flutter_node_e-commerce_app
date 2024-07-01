@@ -11,6 +11,14 @@ class AccountView extends BaseView<AccountController> {
   bool get extendBody => false;
 
   @override
+  void initState(state) {
+    super.initState(state);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getOrders();
+    });
+  }
+
+  @override
   Widget? get body => Padding(
         padding: AppPaddings.commonHorizontalPadding,
         child: Column(

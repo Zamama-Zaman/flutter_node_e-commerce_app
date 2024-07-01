@@ -1,5 +1,5 @@
 class AppBaseUrl {
-  static const url = "http://192.168.0.102:80";
+  static const url = "http://192.168.10.37:80";
 
   static const loginUrl = "$url/login";
   static const registerUrl = "$url/register";
@@ -12,4 +12,5 @@ class AppBaseUrl {
   static const getCartUrl = "$url/cart";
   static const saveUserAddressUrl = "$url/save-user-address";
   static const placeOrderUrl = "$url/place-order";
+  static const myOrdersUrl = "$url/my-orders";
 }

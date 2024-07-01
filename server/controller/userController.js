@@ -223,7 +223,24 @@ const placeOrder = asyncHandler(async (req, res) => {
   }
 });
 
-// order a product
+// get all users order
+const myOrders = asyncHandler(async (req, res) => {
+
+  const myOrders = await orderModel.find({ 'userDetail.userId': req.user.id});
+
+  if (myOrders) {
+    res.status(200).json({
+      status: "Success",
+      message: "My Orders is fetched successfull",
+      body: myOrders,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Error to fetch my Orders");
+  }
+});
+
+// save user address
 const saveUserAddress = asyncHandler(async (req, res) => {
   const { address } = req.body;
 
@@ -252,5 +269,6 @@ module.exports = {
   removeFromCart,
   placeOrder,
   getCart,
-  saveUserAddress
+  saveUserAddress,
+  myOrders
 };
