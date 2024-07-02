@@ -207,6 +207,7 @@ const placeOrder = asyncHandler(async (req, res) => {
       name: user.name,
     },
     cart: user.cart,
+    status: 0,
   });
 
   const savedOrder = await order.save();
@@ -261,6 +262,28 @@ const saveUserAddress = asyncHandler(async (req, res) => {
   }
 });
 
+// change order status
+const changeOrderStatus = asyncHandler(async (req, res) => {
+  const { id, status } = req.body;
+  
+  let order = await Order.findById(id);
+
+  order.status = status;
+    order = await order.save();
+    res.json(order);
+
+  if (order) {
+    res.status(200).json({
+      status: "Success",
+      message: "Order status changed successfully",
+      body: user,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Error Occured to change order status");
+  }
+});
+
 module.exports = {
   login,
   register,
@@ -270,5 +293,6 @@ module.exports = {
   placeOrder,
   getCart,
   saveUserAddress,
-  myOrders
+  myOrders,
+  changeOrderStatus,
 };

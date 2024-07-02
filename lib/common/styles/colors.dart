@@ -8,3 +8,11 @@ class AppColors {
   static const outlineColor = Color(0xFFE7E7EB);
   static const greyTextColor = Color(0xFF8C919D);
 }
+
+class StepColors {
+  static const stepStyle = StepStyle(
+    color: AppColors.blackColor,
+    connectorColor: AppColors.greyColor,
+    errorColor: AppColors.blackColor,
+  );
+}

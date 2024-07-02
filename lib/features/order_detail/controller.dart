@@ -1,3 +1,5 @@
+import 'package:flutter_node_ecommerce_app_original/services/order_service/order_service.dart';
+
 import '../../lib.dart';
 
 class OrderController extends BaseController {
@@ -10,14 +12,16 @@ class OrderController extends BaseController {
   }
 
   // !!! ONLY FOR ADMIN!!!
-  void changeOrderStatus({required int status, required Order order}) {
-    // adminServices.changeOrderStatus(
-    //   status: status + 1,
-    //   order: order,
-    //   onSuccess: () {
-    //     currentStep += 1;
-    //     update();
-    //   },
-    // );
+  void changeOrderStatus({required int status, required Order order}) async {
+    bool isChanged = await OrderService.instance.changeOrderStatus(
+      orderId: order.id,
+      status: (status + 1).toString(),
+    );
+
+    if (isChanged) {
+      Fluttertoast.showToast(msg: "Status changed Successfully");
+      currentStep += 1;
+      update();
+    }
   }
 }

@@ -11,6 +11,7 @@ const {
   placeOrder,
   saveUserAddress,
   myOrders,
+  changeOrderStatus,
 } = require("../controller/userController");
 
 router.post("/login", login);
@@ -30,5 +31,7 @@ router.post("/place-order", validateToken, placeOrder);
 router.get("/my-orders", validateToken, myOrders);
 
 router.post("/save-user-address", validateToken, saveUserAddress);
+
+router.post("/change-order-status", validateToken, changeOrderStatus);
 
 module.exports = router;

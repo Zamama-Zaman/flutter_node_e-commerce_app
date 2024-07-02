@@ -80,4 +80,32 @@ class OrderService {
 
     return orderList;
   }
+
+  Future<bool> changeOrderStatus({
+    required String orderId,
+    required String status,
+  }) async {
+    bool isStatusChanged = false;
+    final myJsonEncode = json.encode({
+      "id": orderId,
+      "status": status,
+    });
+
+    try {
+      Response response = await post(
+        Uri.parse(AppBaseUrl.orderStatusChangeUrl),
+        headers: _headers,
+        body: myJsonEncode,
+      );
+
+      if (response.statusCode == 200) {
+        isStatusChanged = true;
+      }
+    } catch (e) {
+      debugPrint("Change Order Status Error Error $e");
+      Fluttertoast.showToast(msg: "Error Change Order Status $e");
+    }
+
+    return isStatusChanged;
+  }
 }

@@ -1,4 +1,3 @@
-
 import '../../../lib.dart';
 
 class OrderDetailScreen extends BaseView<OrderController> {
@@ -7,6 +6,14 @@ class OrderDetailScreen extends BaseView<OrderController> {
     super.key,
     required this.order,
   });
+
+  @override
+  void initState(state) {
+    super.initState(state);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.initFunction(order: order);
+    });
+  }
 
   @override
   PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(
@@ -67,11 +74,11 @@ class OrderDetailScreen extends BaseView<OrderController> {
                   for (int i = 0; i < order.products.length; i++)
                     Row(
                       children: [
-                        Image.network(
-                          order.products[i].images[0],
-                          height: 120,
-                          width: 120,
-                        ),
+                        // Image.network(
+                        //   order.products[i].images[0],
+                        //   height: 120,
+                        //   width: 120,
+                        // ),
                         const SizedBox(width: 5),
                         Expanded(
                           child: Column(
@@ -115,6 +122,8 @@ class OrderDetailScreen extends BaseView<OrderController> {
               ),
               child: Stepper(
                 currentStep: controller.currentStep,
+                connectorColor:
+                    WidgetStateColor.resolveWith((_) => AppColors.blackColor),
                 controlsBuilder: (context, details) {
                   // if (User().type == 'admin') {
                   //   return AppButton.simple(
@@ -134,6 +143,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                     state: controller.currentStep > 0
                         ? StepState.complete
                         : StepState.indexed,
+                    stepStyle: StepColors.stepStyle,
                   ),
                   Step(
                     title: const Text('Completed'),
@@ -144,6 +154,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                     state: controller.currentStep > 1
                         ? StepState.complete
                         : StepState.indexed,
+                    stepStyle: StepColors.stepStyle,
                   ),
                   Step(
                     title: const Text('Received'),
@@ -154,6 +165,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                     state: controller.currentStep > 2
                         ? StepState.complete
                         : StepState.indexed,
+                    stepStyle: StepColors.stepStyle,
                   ),
                   Step(
                     title: const Text('Delivered'),
@@ -164,6 +176,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                     state: controller.currentStep >= 3
                         ? StepState.complete
                         : StepState.indexed,
+                    stepStyle: StepColors.stepStyle,
                   ),
                 ],
               ),
