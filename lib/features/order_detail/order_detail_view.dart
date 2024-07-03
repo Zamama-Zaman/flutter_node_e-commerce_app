@@ -47,7 +47,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Order Date:      ${DateFormat().format(
-                    DateTime.fromMillisecondsSinceEpoch(order.orderedAt),
+                    DateTime.parse(order.orderedAt),
                   )}'),
                   Text('Order ID:          ${order.id}'),
                   Text('Order Total:      \$${order.totalPrice}'),

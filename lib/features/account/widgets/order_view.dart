@@ -31,9 +31,17 @@ class OrderView extends BaseWidget<AccountController> {
           AppGapVertical.sixteen,
 
           // display orders
-          controller.orderList == null && controller.orderList!.isEmpty
-              ? Center(
-                  child: AppText.simpleText(text: "Not Card Added Yet!"),
+          controller.orderList == null || controller.orderList!.isEmpty
+              ? SizedBox(
+                  height: 170.h,
+                  child: Center(
+                    child: AppText.commonText(
+                      text: "No Product Ordered Yet!",
+                      color: AppColors.blackColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18.sp,
+                    ),
+                  ),
                 )
               : Container(
                   height: 170.h,
@@ -75,8 +83,9 @@ class OrderView extends BaseWidget<AccountController> {
                                 controller.orderList![index].deliveryAddress,
                             userId:
                                 controller.orderList![index].userDetail.userId,
-                            orderedAt: 1,
-                            status: 1,
+                            orderedAt: controller.orderList![index].createdAt,
+                            status:
+                                int.parse(controller.orderList![index].status),
                             totalPrice: double.parse(
                                 controller.orderList![index].subTotal),
                           );

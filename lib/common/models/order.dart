@@ -6,7 +6,7 @@ class Order {
   final List<int> quantity;
   final String address;
   final String userId;
-  final int orderedAt;
+  final String orderedAt;
   final int status;
   final double totalPrice;
   Order({
@@ -45,7 +45,7 @@ class Order {
       ),
       address: map['address'] ?? '',
       userId: map['userId'] ?? '',
-      orderedAt: map['orderedAt']?.toInt() ?? 0,
+      orderedAt: map['orderedAt'] ?? '',
       status: map['status']?.toInt() ?? 0,
       totalPrice: map['totalPrice']?.toDouble() ?? 0.0,
     );

@@ -17,7 +17,7 @@ class OrdersView extends BaseWidget<AdminController> {
                 quantity: [],
                 address: "",
                 userId: "",
-                orderedAt: 1,
+                orderedAt: "",
                 status: 1,
                 totalPrice: 20,
               );

@@ -9,12 +9,16 @@ class OrderResModel {
   final String deliveryAddress;
   final UserDetail userDetail;
   final List<CartModel> cart;
+  final String status;
+  final String createdAt;
   OrderResModel({
     required this.id,
     required this.subTotal,
     required this.deliveryAddress,
     required this.userDetail,
     required this.cart,
+    required this.status,
+    required this.createdAt,
   });
 
   OrderResModel copyWith({
@@ -23,6 +27,8 @@ class OrderResModel {
     String? deliveryAddress,
     UserDetail? userDetail,
     List<CartModel>? cart,
+    String? status,
+    String? createdAt,
   }) {
     return OrderResModel(
       id: id ?? this.id,
@@ -30,6 +36,8 @@ class OrderResModel {
       deliveryAddress: deliveryAddress ?? this.deliveryAddress,
       userDetail: userDetail ?? this.userDetail,
       cart: cart ?? this.cart,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -40,10 +48,13 @@ class OrderResModel {
       'deliveryAddress': deliveryAddress,
       'userDetail': userDetail.toMap(),
       'cart': cart.map((x) => x.toMap()).toList(),
+      'status': status.toString(),
+      'createdAt': createdAt,
     };
   }
 
   factory OrderResModel.fromMap(Map<String, dynamic> map) {
+    debugPrint("What is the type of ${map['createdAt'].runtimeType}");
     return OrderResModel(
       id: map['_id'] as String,
       subTotal: map['subTotal'].toString(),
@@ -54,6 +65,8 @@ class OrderResModel {
           (x) => CartModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
+      status: map['status'].toString(),
+      createdAt: map['createdAt'],
     );
   }
 
@@ -75,6 +88,8 @@ class OrderResModel {
         other.subTotal == subTotal &&
         other.deliveryAddress == deliveryAddress &&
         other.userDetail == userDetail &&
+        other.status == status &&
+        other.createdAt == createdAt &&
         listEquals(other.cart, cart);
   }
 
@@ -84,6 +99,8 @@ class OrderResModel {
         subTotal.hashCode ^
         deliveryAddress.hashCode ^
         userDetail.hashCode ^
+        status.hashCode ^
+        createdAt.hashCode ^
         cart.hashCode;
   }
 }
