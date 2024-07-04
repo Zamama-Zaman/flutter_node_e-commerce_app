@@ -1,11 +1,12 @@
 class AppBaseUrl {
-  static const url = "http://192.168.0.104:80";
+  static const url = "http://192.168.10.41:80";
 
   static const loginUrl = "$url/login";
   static const registerUrl = "$url/register";
   static const addProductUrl = "$url/add-product";
   static const fetchAllProductUrl = "$url/get-all-products";
   static const deleteAProduct = "$url/delete-product";
+  static const fetchAllOrders = "$url/get-all-orders";
   static const getProductsByCategory = "$url/get-products-by-category";
   static const addToCartUrl = "$url/add-to-cart";
   static const removeFromCartUrl = "$url/remove-from-cart";

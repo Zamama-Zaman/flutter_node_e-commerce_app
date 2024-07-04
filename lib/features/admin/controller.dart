@@ -109,11 +109,11 @@ class AdminController extends BaseController {
 
   int currentStep = 0;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   currentStep = widget.order.status;
-  // }
+  List<OrderResModel>? orderList = [];
+  void fetchAllOrders() async {
+    orderList = await AdminService.instance.fetchAllOrders();
+    update();
+  }
 
   // !!! ONLY FOR ADMIN!!!
   void changeOrderStatus(int status) {

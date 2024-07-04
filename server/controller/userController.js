@@ -266,7 +266,7 @@ const saveUserAddress = asyncHandler(async (req, res) => {
 const changeOrderStatus = asyncHandler(async (req, res) => {
   const { id, status } = req.body;
   
-  let order = await Order.findById(id);
+  let order = await orderModel.findById(id);
 
   order.status = status;
     order = await order.save();
@@ -276,13 +276,32 @@ const changeOrderStatus = asyncHandler(async (req, res) => {
     res.status(200).json({
       status: "Success",
       message: "Order status changed successfully",
-      body: user,
+      body: order,
     });
   } else {
     res.status(400);
     throw new Error("Error Occured to change order status");
   }
 });
+
+// get all orders
+const getAllOrders = asyncHandler(async (req, res) => {
+  
+  let order = await orderModel.find();
+
+  if (order) {
+    res.status(200).json({
+      status: "Success",
+      message: "All Order fetched successfully",
+      body: order,
+    });
+  } else {
+    res.status(400);
+    throw new Error("Error to fetch orders");
+  }
+});
+
+
 
 module.exports = {
   login,
@@ -295,4 +314,5 @@ module.exports = {
   saveUserAddress,
   myOrders,
   changeOrderStatus,
+  getAllOrders,
 };

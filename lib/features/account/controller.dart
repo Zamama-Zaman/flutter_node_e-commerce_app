@@ -12,7 +12,7 @@ class AccountController extends BaseController {
 
   List<OrderResModel>? orderList = [];
   void getOrders() async {
-    orderList = await OrderService.instance.getAllOrders();
+    orderList = await OrderService.instance.getAllMyOrders();
 
     if (orderList != null && orderList!.isNotEmpty) {
       Fluttertoast.showToast(msg: "Orders Fetched Successfully");

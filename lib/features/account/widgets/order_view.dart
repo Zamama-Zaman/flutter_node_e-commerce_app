@@ -52,18 +52,6 @@ class OrderView extends BaseWidget<AccountController> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          // Goto Product Detail Page
-                          // Product product = Product(
-                          //   name: "",
-                          //   description: "",
-                          //   quantity: 1,
-                          //   images: [],
-                          //   category: "",
-                          //   price: 1,
-                          //   id: "Something",
-                          //   rating: [],
-                          // );
-                          // Get.to(() => ProductDetailScreen(product: product));
                           List<Product> product = [];
                           for (var cart in controller.orderList![index].cart) {
                             product.add(cart.product);

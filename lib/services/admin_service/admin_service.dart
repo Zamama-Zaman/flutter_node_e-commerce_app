@@ -84,4 +84,25 @@ class AdminService {
 
     return isDeleted;
   }
+
+  Future<List<OrderResModel>> fetchAllOrders() async {
+    List<OrderResModel> orders = [];
+    try {
+      Response response = await get(
+        Uri.parse(AppBaseUrl.fetchAllOrders),
+        headers: _headers,
+      );
+
+      if (response.statusCode == 200) {
+        for (var singleOrder in jsonDecode(response.body)['body']) {
+          orders.add(OrderResModel.fromMap(singleOrder));
+        }
+      }
+    } catch (e) {
+      debugPrint("Error to Fetch all orders $e");
+      Fluttertoast.showToast(msg: "Error to Fetch all orders $e");
+    }
+
+    return orders;
+  }
 }

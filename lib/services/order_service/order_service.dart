@@ -59,7 +59,7 @@ class OrderService {
     return isPlaced;
   }
 
-  Future<List<OrderResModel>> getAllOrders() async {
+  Future<List<OrderResModel>> getAllMyOrders() async {
     List<OrderResModel> orderList = [];
 
     try {
