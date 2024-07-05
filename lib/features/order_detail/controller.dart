@@ -9,6 +9,7 @@ class OrderController extends BaseController {
 
   void initFunction({required Order order}) {
     currentStep = order.status;
+    update();
   }
 
   // !!! ONLY FOR ADMIN!!!

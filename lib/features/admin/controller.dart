@@ -129,6 +129,11 @@ class AdminController extends BaseController {
     // );
   }
 
+  void logout() {
+    AppPreference.instance.clearUser();
+    Get.offAll(() => const LoginView());
+  }
+
   void clearAll() {
     images.clear();
     productNameController.clear();

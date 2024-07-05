@@ -74,11 +74,14 @@ class OrderDetailScreen extends BaseView<OrderController> {
                   for (int i = 0; i < order.products.length; i++)
                     Row(
                       children: [
-                        // Image.network(
-                        //   order.products[i].images[0],
-                        //   height: 120,
-                        //   width: 120,
-                        // ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20.h),
+                          child: Image.network(
+                            order.products[i].images[0],
+                            height: 120.h,
+                            width: 120.w,
+                          ),
+                        ),
                         const SizedBox(width: 5),
                         Expanded(
                           child: Column(
@@ -86,8 +89,8 @@ class OrderDetailScreen extends BaseView<OrderController> {
                             children: [
                               Text(
                                 order.products[i].name,
-                                style: const TextStyle(
-                                  fontSize: 17,
+                                style: TextStyle(
+                                  fontSize: 17.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 maxLines: 2,
@@ -125,12 +128,15 @@ class OrderDetailScreen extends BaseView<OrderController> {
                 connectorColor:
                     WidgetStateColor.resolveWith((_) => AppColors.blackColor),
                 controlsBuilder: (context, details) {
-                  // if (User().type == 'admin') {
-                  //   return AppButton.simple(
-                  //     text: 'Done',
-                  //     onTap: () => controller.changeOrderStatus(details.currentStep),
-                  //   );
-                  // }
+                  if (AppPreference.instance.getUserModel.type == 'admin') {
+                    return AppButton.simple(
+                      text: 'Done',
+                      onTap: () => controller.changeOrderStatus(
+                        status: details.currentStep,
+                        order: order,
+                      ),
+                    );
+                  }
                   return const SizedBox();
                 },
                 steps: [

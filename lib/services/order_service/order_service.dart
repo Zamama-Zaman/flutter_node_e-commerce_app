@@ -3,7 +3,7 @@ import '../../lib.dart';
 class OrderService {
   static final instance = OrderService();
 
-  Map<String, String> get _headers => {
+  Map<String, String> get headers => {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}'
       };
@@ -19,7 +19,7 @@ class OrderService {
       Response response = await post(
         Uri.parse(AppBaseUrl.saveUserAddressUrl),
         body: myJsonEncode,
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -45,7 +45,7 @@ class OrderService {
       Response response = await post(
         Uri.parse(AppBaseUrl.placeOrderUrl),
         body: myJsonEncode,
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -65,7 +65,7 @@ class OrderService {
     try {
       Response response = await get(
         Uri.parse(AppBaseUrl.myOrdersUrl),
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -94,12 +94,16 @@ class OrderService {
     try {
       Response response = await post(
         Uri.parse(AppBaseUrl.orderStatusChangeUrl),
-        headers: _headers,
+        headers: headers,
         body: myJsonEncode,
       );
 
       if (response.statusCode == 200) {
         isStatusChanged = true;
+      }
+      if (response.statusCode == 401) {
+        debugPrint("User not Authroize ");
+        Fluttertoast.showToast(msg: "User not Authroize");
       }
     } catch (e) {
       debugPrint("Change Order Status Error Error $e");
