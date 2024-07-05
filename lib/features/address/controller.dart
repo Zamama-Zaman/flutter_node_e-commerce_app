@@ -11,7 +11,7 @@ class AddressController extends BaseController {
   final TextEditingController cityController = TextEditingController();
 
   String addressToBeUsed = "";
-  var address = AppPreference.instance.getUserModel.address;
+  String address = "";
   List<PaymentItem> paymentItems = [];
 
   @override

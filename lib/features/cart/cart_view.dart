@@ -27,19 +27,25 @@ class CartView extends BaseView<CartController> {
         child: Column(
           children: [
             const AddressBox(),
-            const CartSubtotal(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: AppButton.simple(
-                text:
-                    'Proceed to Buy (${AppPreference.instance.getUserModel.cart.length} items)',
-                onTap: () => Get.to(
-                  () => AddressView(
-                    subTotal: sum.toString(),
-                  ),
-                ),
-              ),
-            ),
+            controller.listCart != null && controller.listCart!.isNotEmpty
+                ? Column(
+                    children: [
+                      const CartSubtotal(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AppButton.simple(
+                          text:
+                              'Proceed to Buy (${controller.listCart!.length} items)',
+                          onTap: () => Get.to(
+                            () => AddressView(
+                              subTotal: sum.toString(),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                : const SizedBox.shrink(),
             SizedBox(height: 15.w),
             Container(
               color: Colors.black12.withOpacity(0.08),
@@ -59,11 +65,14 @@ class CartView extends BaseView<CartController> {
 
   Widget get _cartList => controller.listCart == null ||
           controller.listCart!.isEmpty
-      ? Center(
-          child: AppText.commonText(
-            text: "No item added yet in cart!",
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
+      ? SizedBox(
+          height: Get.height / 1.5,
+          child: Center(
+            child: AppText.commonText(
+              text: "No item added yet in cart!",
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         )
       : Column(

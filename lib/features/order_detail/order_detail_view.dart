@@ -131,7 +131,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                   if (AppPreference.instance.getUserModel.type == 'admin') {
                     return AppButton.simple(
                       text: 'Done',
-                      onTap: () => controller.changeOrderStatus(
+                      onTap: () => AdminController.instance.changeOrderStatus(
                         status: details.currentStep,
                         order: order,
                       ),

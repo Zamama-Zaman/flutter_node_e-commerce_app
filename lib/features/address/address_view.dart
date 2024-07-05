@@ -8,6 +8,15 @@ class AddressView extends BaseView<AddressController> {
   });
 
   @override
+  void initState(state) {
+    super.initState(state);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.address = AppPreference.instance.getUserModel.address;
+      controller.update();
+    });
+  }
+
+  @override
   PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(
         title: "Address",
       );

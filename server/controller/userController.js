@@ -197,7 +197,7 @@ const getCart = asyncHandler(async (req, res) => {
 const placeOrder = asyncHandler(async (req, res) => {
   const { subTotal, deliveryAddress } = req.body;
 
-  const user = await User.findById(req.user.id);
+  let user = await User.findById(req.user.id);
 
   const order = await orderModel.create({
     subTotal,
@@ -211,6 +211,10 @@ const placeOrder = asyncHandler(async (req, res) => {
   });
 
   const savedOrder = await order.save();
+  
+  // clearing cart
+  user.cart = [];
+  user = await user.save();
 
   if (savedOrder) {
     res.status(200).json({

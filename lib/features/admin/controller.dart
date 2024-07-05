@@ -1,4 +1,4 @@
-import 'package:flutter_node_ecommerce_app_original/common/widgets/app_file_picker.dart';
+import '../../common/widgets/app_file_picker.dart';
 
 import '../../lib.dart';
 
@@ -116,17 +116,17 @@ class AdminController extends BaseController {
   }
 
   // !!! ONLY FOR ADMIN!!!
-  void changeOrderStatus(int status) {
-    // adminServices.changeOrderStatus(
-    //   context: context,
-    //   status: status + 1,
-    //   order: widget.order,
-    //   onSuccess: () {
-    //     setState(() {
-    //       currentStep += 1;
-    //     });
-    //   },
-    // );
+  void changeOrderStatus({required int status, required Order order}) async {
+    bool isChanged = await OrderService.instance.changeOrderStatus(
+      orderId: order.id,
+      status: (status + 1).toString(),
+    );
+
+    if (isChanged) {
+      Fluttertoast.showToast(msg: "Status changed Successfully");
+      currentStep += 1;
+      OrderController.instance.update();
+    }
   }
 
   void logout() {
