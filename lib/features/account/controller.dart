@@ -15,9 +15,8 @@ class AccountController extends BaseController {
     orderList = await OrderService.instance.getAllMyOrders();
 
     if (orderList != null && orderList!.isNotEmpty) {
-      Fluttertoast.showToast(msg: "Orders Fetched Successfully");
+      debugPrint("Orders Fetched Successfully");
+      update();
     }
-
-    update();
   }
 }
