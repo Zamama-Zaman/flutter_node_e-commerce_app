@@ -56,6 +56,32 @@ class AppImage extends StatelessWidget {
         height: height,
       );
 
+  factory AppImage.cacheImage({
+    required String image,
+    double? width,
+    double? height,
+    BoxFit fit = BoxFit.cover,
+    double borderRadius = 12,
+  }) =>
+      AppImage(
+        image: CachedNetworkImage(
+          fit: fit,
+          width: width,
+          height: height,
+          imageUrl: image,
+          placeholder: (context, url) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          errorWidget: (context, url, error) => const Icon(
+            Icons.error,
+          ),
+        ),
+        fit: fit,
+        width: width,
+        borderRadius: borderRadius,
+        height: height,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(

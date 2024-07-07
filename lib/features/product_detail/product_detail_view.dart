@@ -47,9 +47,8 @@ class ProductDetailScreen extends BaseView<ProductController> {
             items: product.images.map(
               (i) {
                 return Builder(
-                  builder: (BuildContext context) => Image.network(
-                    i,
-                    fit: BoxFit.contain,
+                  builder: (BuildContext context) => AppImage.cacheImage(
+                    image: i,
                     height: 200.h,
                   ),
                 );
@@ -60,6 +59,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
               height: 300.h,
             ),
           ),
+          SizedBox(height: 10.h),
           Container(
             color: Colors.black12,
             height: 5.h,

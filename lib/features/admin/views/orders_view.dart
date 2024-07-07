@@ -17,8 +17,10 @@ class OrdersView extends BaseWidget<AdminController> {
           Expanded(
             child: GridView.builder(
               itemCount: controller.orderList!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16.h,
+              ),
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {

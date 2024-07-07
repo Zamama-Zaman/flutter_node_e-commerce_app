@@ -1,9 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/foundation.dart';
 
 import '../../../common/models/cart_model.dart';
 import '../../../lib.dart';
 
-class OrderResModel {
+class OrderResModel extends Equatable {
   final String id;
   final String subTotal;
   final String deliveryAddress;
@@ -11,7 +12,7 @@ class OrderResModel {
   final List<CartModel> cart;
   final String status;
   final String createdAt;
-  OrderResModel({
+  const OrderResModel({
     required this.id,
     required this.subTotal,
     required this.deliveryAddress,
@@ -102,5 +103,18 @@ class OrderResModel {
         status.hashCode ^
         createdAt.hashCode ^
         cart.hashCode;
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      subTotal,
+      deliveryAddress,
+      userDetail,
+      cart,
+      status,
+      createdAt,
+    ];
   }
 }

@@ -107,8 +107,6 @@ class AdminController extends BaseController {
 
   //*************** Order Detail View ****************//
 
-  int currentStep = 0;
-
   List<OrderResModel>? orderList = [];
   void fetchAllOrders() async {
     orderList = await AdminService.instance.fetchAllOrders();
@@ -124,8 +122,9 @@ class AdminController extends BaseController {
 
     if (isChanged) {
       Fluttertoast.showToast(msg: "Status changed Successfully");
-      currentStep += 1;
+      OrderController.instance.currentStep += 1;
       OrderController.instance.update();
+      fetchAllOrders();
     }
   }
 

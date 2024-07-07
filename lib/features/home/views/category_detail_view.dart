@@ -71,8 +71,8 @@ class CategoryDetailView extends BaseView<HomeController> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Image.network(
-                                product.images[0],
+                              child: AppImage.cacheImage(
+                                image: product.images[0],
                               ),
                             ),
                           ),

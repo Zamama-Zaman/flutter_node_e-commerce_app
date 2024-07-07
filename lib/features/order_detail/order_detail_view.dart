@@ -76,8 +76,8 @@ class OrderDetailScreen extends BaseView<OrderController> {
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 20.h),
-                          child: Image.network(
-                            order.products[i].images[0],
+                          child: AppImage.cacheImage(
+                            image: order.products[i].images[0],
                             height: 120.h,
                             width: 120.w,
                           ),
@@ -128,7 +128,8 @@ class OrderDetailScreen extends BaseView<OrderController> {
                 connectorColor:
                     WidgetStateColor.resolveWith((_) => AppColors.blackColor),
                 controlsBuilder: (context, details) {
-                  if (AppPreference.instance.getUserModel.type == 'admin') {
+                  if (AppPreference.instance.getUserModel.type == 'admin' &&
+                      controller.currentStep < 3) {
                     return AppButton.simple(
                       text: 'Done',
                       onTap: () => AdminController.instance.changeOrderStatus(

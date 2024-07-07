@@ -23,8 +23,8 @@ class SingleProduct extends StatelessWidget {
         child: Container(
           width: 180.w,
           padding: const EdgeInsets.all(10),
-          child: Image.network(
-            image,
+          child: AppImage.cacheImage(
+            image: image,
             fit: BoxFit.fitHeight,
             width: 180.w,
           ),
