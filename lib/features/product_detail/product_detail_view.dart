@@ -13,6 +13,17 @@ class ProductDetailScreen extends BaseView<ProductController> {
 
   @override
   Widget get body {
+    // final String currentId = AppPreference.instance.getUserModel.id;
+    // double myRating = 0.0;
+    // //
+    // if (product.rating != null) {
+    //   for (var singleRating in product.rating!) {
+    //     bool isMatched = singleRating.userId == currentId;
+    //     if (isMatched) {
+    //       myRating = singleRating.rating;
+    //     }
+    //   }
+    // }
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,38 +131,21 @@ class ProductDetailScreen extends BaseView<ProductController> {
             height: 5.h,
           ),
 
-          //*
+          AppGapVertical.thirtyTwo,
+
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Text(
-              'Rate The Product',
-              style: TextStyle(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.bold,
-              ),
+            padding: EdgeInsets.symmetric(horizontal: 100.w),
+            child: AppButton.simple(
+              text: 'Rate this Product',
+              onTap: () {
+                Get.bottomSheet(
+                  RateBottomSheet(product: product),
+                  backgroundColor: Colors.white,
+                  isScrollControlled: true,
+                );
+              },
             ),
           ),
-
-          //*
-          // RatingBar.builder(
-          //   initialRating: myRating,
-          //   minRating: 1,
-          //   direction: Axis.horizontal,
-          //   allowHalfRating: true,
-          //   itemCount: 5,
-          //   itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-          //   itemBuilder: (context, _) => Icon(
-          //     Icons.star,
-          //     color: AppColors.secondaryColor,
-          //   ),
-          //   onRatingUpdate: (rating) {
-          //     // productDetailsServices.rateProduct(
-          //     //   context: context,
-          //     //   product: widget.product,
-          //     //   rating: rating,
-          //     // );
-          //   },
-          // )
         ],
       ),
     );

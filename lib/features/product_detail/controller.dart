@@ -34,4 +34,19 @@ class ProductController extends BaseController {
       Get.back();
     }
   }
+
+  void rateAProduct({
+    required Product product,
+    required String rate,
+  }) async {
+    bool isRated = await ProductService.instance.rateAProduct(
+      product: product,
+      rate: rate,
+    );
+
+    if (isRated) {
+      Fluttertoast.showToast(msg: "Rated Successfully");
+      Get.close();
+    }
+  }
 }

@@ -1,4 +1,5 @@
 const express = require("express");
+const validateToken = require("../middleware/validateTokenHandler");
 const {
   add,
   deleteProduct,
@@ -20,6 +21,6 @@ router.get("/get-all-products", getAllProducts);
 
 router.post("/get-products-by-category", getProductByCategory);
 
-router.post("/rating-a-product", ratingAProduct);
+router.post("/rating-a-product", validateToken, ratingAProduct);
 
 module.exports = router;

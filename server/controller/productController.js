@@ -4,7 +4,8 @@ const {productModel, productSchema} = require("../models/productModel");
 // add product
 const add = asyncHandler(async (req, res) => {
   const { name, price, quantity, description, images, category } = req.body;
-
+  const rating = [];
+  
   const isFound = await productModel.findOne({ name });
   if (isFound) {
     res.status(400).json({
@@ -21,6 +22,7 @@ const add = asyncHandler(async (req, res) => {
     category,
     description,
     images,
+    rating
   });
 
   if (newProduct) {
@@ -102,13 +104,14 @@ const getProductByCategory = asyncHandler(async (req, res) => {
 });
 
 const ratingAProduct = asyncHandler(async (req, res) => {
-  const { rate, userId, productId } = req.body;
+  const { rate, productId } = req.body;
+  const userId = req.user;
 
   let findProduct = await productModel.findById(productId);
 
-  // first delet a rate from product if raing exits
+  // first delete a rate from product if raing exits
   for (let i = 0; i < findProduct.rating.length; i++) {
-    if (findProduct.rating[i].userId == req.user) {
+    if (findProduct.rating[i].userId == userId) {
       findProduct.rating.splice(i, 1);
       break;
     }
