@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const {productModel, productSchema} = require("../models/productModel");
-
+const rateSchema = require("../models/ratingModel");
 // add product
 const add = asyncHandler(async (req, res) => {
   const { name, price, quantity, description, images, category } = req.body;
@@ -105,36 +105,49 @@ const getProductByCategory = asyncHandler(async (req, res) => {
 
 const ratingAProduct = asyncHandler(async (req, res) => {
   const { rate, productId } = req.body;
-  const userId = req.user;
+  const userId = req.user.id;
 
-  let findProduct = await productModel.findById(productId);
+  try {
+    let findProduct = await productModel.findById(productId);
 
-  // first delete a rate from product if raing exits
-  for (let i = 0; i < findProduct.rating.length; i++) {
-    if (findProduct.rating[i].userId == userId) {
-      findProduct.rating.splice(i, 1);
-      break;
+    // first delete a rate from product if raing exits
+    if(findProduct){
+      for (let i = 0; i < findProduct.rating.length; i++) {
+        if (findProduct.rating[i].userId == userId) {
+          findProduct.rating.splice(i, 1);
+          break;
+        }
+      }
     }
-  }
 
-  const rateModel = {
-    userId,
-    productId,
-    rate,
-  };
+    const rateSchema = {
+      rate,
+      productId,
+      userId,
+    }
 
-  findProduct.rating.push(rateModel);
-  findProduct = await findProduct.save();
+    findProduct.rating.push(rateSchema);
+    findProduct = await findProduct.save();
 
-  if (findProduct) {
-    res.status(200).json({
-      status: "Success",
-      message: "Rating added successfully",
-      body: findProduct,
+
+    if (findProduct) {
+      res.status(200).json({
+        status: "Success",
+        message: "Rating added successfully",
+        body: findProduct,
+      });
+    } else {
+      res.status(400);
+      throw new Error("Unable to rate a product");
+    }
+
+    
+  } catch (error) {
+    res.status(500).json({
+      status: "Error",
+      message: "Unable to rate the product",
+      error: error.message,
     });
-  } else {
-    res.status(400);
-    throw new Error("Unable to rate a product");
   }
 });
 
