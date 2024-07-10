@@ -104,27 +104,25 @@ class ProductService {
       "productId": product.id,
     });
 
-    debugPrint("myJson Encode is ${myJsonEncode}");
+    try {
+      Response response = await post(
+        Uri.parse(AppBaseUrl.rateAProduct),
+        body: myJsonEncode,
+        headers: headers,
+      );
 
-    // try {
-    //   Response response = await post(
-    //     Uri.parse(AppBaseUrl.rateAProduct),
-    //     body: myJsonEncode,
-    //     headers: headers,
-    //   );
-
-    //   if (response.statusCode == 200) {
-    //     isRated = true;
-    //   }
-    //   if (response.statusCode == 401) {
-    //     debugPrint(
-    //         "Error Rate a Product UnAuthorise ${headers['Authorization']}");
-    //     Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
-    //   }
-    // } catch (e) {
-    //   debugPrint("Error Rate a Product $e");
-    //   Fluttertoast.showToast(msg: "Error Rate a Product $e");
-    // }
+      if (response.statusCode == 200) {
+        isRated = true;
+      }
+      if (response.statusCode == 401) {
+        debugPrint(
+            "Error Rate a Product UnAuthorise ${headers['Authorization']}");
+        Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
+      }
+    } catch (e) {
+      debugPrint("Error Rate a Product $e");
+      Fluttertoast.showToast(msg: "Error Rate a Product $e");
+    }
 
     return isRated;
   }

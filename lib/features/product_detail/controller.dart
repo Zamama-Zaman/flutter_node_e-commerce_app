@@ -1,5 +1,3 @@
-import '../../services/product_service/product_service.dart';
-
 import '../../lib.dart';
 
 class ProductController extends BaseController {
@@ -10,19 +8,22 @@ class ProductController extends BaseController {
   double avgRating = 0;
   double myRating = 0;
 
-  void initFunction() {
-    // double totalRating = 0;
-    // for (int i = 0; i < product.rating!.length; i++) {
-    //   totalRating += product.rating![i].rating;
-    //   if (product.rating![i].userId ==
-    //       Provider.of<UserProvider>(context, listen: false).user.id) {
-    //     myRating = widget.product.rating![i].rating;
-    //   }
-    // }
+  void initFunction({required Product product}) {
+    avgRating = 0;
+    myRating = 0;
+    final String currentId = AppPreference.instance.getUserModel.id;
+    double totalRating = 0;
+    for (int i = 0; i < product.rating!.length; i++) {
+      totalRating += product.rating![i].rating;
+      if (product.rating![i].userId == currentId) {
+        myRating = product.rating![i].rating;
+      }
+    }
 
-    // if (totalRating != 0) {
-    //   avgRating = totalRating / product.rating!.length;
-    // }
+    if (totalRating != 0) {
+      avgRating = totalRating / product.rating!.length;
+    }
+    update();
   }
 
   void addToCart({required Product product}) async {

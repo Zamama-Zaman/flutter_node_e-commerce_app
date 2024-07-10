@@ -8,22 +8,19 @@ class ProductDetailScreen extends BaseView<ProductController> {
   });
 
   @override
+  void initState(state) {
+    super.initState(state);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.initFunction(product: product);
+    });
+  }
+
+  @override
   PreferredSizeWidget? get appBar =>
       AppBarWidgets.defaultAppBar(title: "Product Detail");
 
   @override
   Widget get body {
-    // final String currentId = AppPreference.instance.getUserModel.id;
-    // double myRating = 0.0;
-    // //
-    // if (product.rating != null) {
-    //   for (var singleRating in product.rating!) {
-    //     bool isMatched = singleRating.userId == currentId;
-    //     if (isMatched) {
-    //       myRating = singleRating.rating;
-    //     }
-    //   }
-    // }
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,9 +33,22 @@ class ProductDetailScreen extends BaseView<ProductController> {
                 Text(
                   product.id!,
                 ),
-                // Stars(
-                //   rating: avgRating,
-                // ),
+                //*
+                RatingBar.builder(
+                  initialRating: controller.avgRating,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 16,
+                  itemBuilder: (context, _) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    ///
+                  },
+                ),
               ],
             ),
           ),
@@ -133,19 +143,51 @@ class ProductDetailScreen extends BaseView<ProductController> {
 
           AppGapVertical.thirtyTwo,
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 100.w),
-            child: AppButton.simple(
-              text: 'Rate this Product',
-              onTap: () {
-                Get.bottomSheet(
-                  RateBottomSheet(product: product),
-                  backgroundColor: Colors.white,
-                  isScrollControlled: true,
-                );
-              },
-            ),
-          ),
+          controller.myRating != 0
+              ? Padding(
+                  padding: AppPaddings.commonHorizontalPadding,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //
+                      AppText.commonText(
+                        text: "You Rated:",
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+
+                      //
+                      RatingBar.builder(
+                        initialRating: controller.myRating,
+                        minRating: 1,
+                        direction: Axis.horizontal,
+                        allowHalfRating: true,
+                        itemCount: 5,
+                        itemSize: 16,
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        onRatingUpdate: (rating) {
+                          ///
+                        },
+                      )
+                    ],
+                  ),
+                )
+              : Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 100.w),
+                  child: AppButton.simple(
+                    text: 'Rate this Product',
+                    onTap: () {
+                      Get.bottomSheet(
+                        RateBottomSheet(product: product),
+                        backgroundColor: Colors.white,
+                        isScrollControlled: true,
+                      );
+                    },
+                  ),
+                ),
         ],
       ),
     );

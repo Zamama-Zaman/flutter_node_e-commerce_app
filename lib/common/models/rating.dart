@@ -11,14 +11,14 @@ class Rating {
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
-      'rating': rating,
+      'rate': rating,
     };
   }
 
   factory Rating.fromMap(Map<String, dynamic> map) {
     return Rating(
       userId: map['userId'] ?? '',
-      rating: map['rating']?.toDouble() ?? 0.0,
+      rating: map['rate'] != null ? double.parse(map['rate']) : 0.0,
     );
   }
 
