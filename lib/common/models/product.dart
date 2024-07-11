@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import '../../lib.dart';
 
-class Product {
+class Product extends Equatable {
   final String name;
   final String description;
   final double quantity;
@@ -79,4 +79,16 @@ class Product {
       rating: rating ?? this.rating,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        name,
+        description,
+        quantity,
+        images,
+        category,
+        price,
+        id,
+        rating,
+      ];
 }

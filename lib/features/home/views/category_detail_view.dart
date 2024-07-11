@@ -10,8 +10,10 @@ class CategoryDetailView extends BaseView<HomeController> {
   @override
   void initState(state) {
     super.initState(state);
+    controller.category = category;
+    controller.productList = null;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await controller.fetchCategoryProducts(category: category);
+      await controller.fetchCategoryProducts();
     });
   }
 

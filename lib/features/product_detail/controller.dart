@@ -7,7 +7,6 @@ class ProductController extends BaseController {
 
   double avgRating = 0;
   double myRating = 0;
-
   void initFunction({required Product product}) {
     avgRating = 0;
     myRating = 0;
@@ -46,6 +45,8 @@ class ProductController extends BaseController {
     );
 
     if (isRated) {
+      await HomeController.instance.fetchCategoryProducts();
+      update();
       Fluttertoast.showToast(msg: "Rated Successfully");
       Get.close();
     }

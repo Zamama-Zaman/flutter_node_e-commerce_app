@@ -19,8 +19,8 @@ class HomeController extends BaseController {
 
   //******************* Category View Details ******************//
   List<Product>? productList;
-
-  Future<void> fetchCategoryProducts({required String category}) async {
+  String category = '';
+  Future<void> fetchCategoryProducts() async {
     productList =
         await HomeService.instance.getProductByCategory(category: category);
     update();
