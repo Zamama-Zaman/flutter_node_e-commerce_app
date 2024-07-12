@@ -51,4 +51,7 @@ class ProductController extends BaseController {
       Get.close();
     }
   }
+
+  //* need to add search field.
+  //* needed to add top rated.
 }
