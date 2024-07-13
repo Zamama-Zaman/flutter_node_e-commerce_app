@@ -54,4 +54,7 @@ class ProductController extends BaseController {
 
   //* need to add search field.
   //* needed to add top rated.
+  //* Then Add localization in Arabic.
+  //* After that Chat between different users.
+  //* Chat with sockets add.
 }
