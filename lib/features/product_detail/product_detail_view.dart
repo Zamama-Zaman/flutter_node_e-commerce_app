@@ -25,13 +25,22 @@ class ProductDetailScreen extends BaseView<ProductController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          //
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Product Id: ${product.id!}"),
+          ),
+
+          //
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  product.id!,
+                AppText.commonText(
+                  text: "Average Rating:",
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
                 ),
                 //*
                 RatingBar.builder(
@@ -128,7 +137,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
             padding: const EdgeInsets.all(10),
             child: AppButton.simple(
               text: 'Add to Cart',
-              onTap: () => controller.addToCart(product: product),
+              onTap: () => controller.addToCart(),
             ),
           ),
 
