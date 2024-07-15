@@ -55,3 +55,5 @@ class AppBarWidgets {
         ),
       );
 }
+
+//* Please add search product here
