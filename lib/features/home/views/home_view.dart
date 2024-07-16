@@ -10,31 +10,34 @@ class HomeView extends BaseView<HomeController> {
       );
 
   @override
-  Widget? get body => SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //
-            AppGapVertical.sixteen,
+  Widget? get body => controller.searchedProducts != null &&
+          controller.searchedProducts!.isNotEmpty
+      ? const SearchedProductsView()
+      : SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //
+              AppGapVertical.sixteen,
 
-            //* slider
-            const CarouselImage(),
+              //* slider
+              const CarouselImage(),
 
-            //
-            AppGapVertical.sixteen,
+              //
+              AppGapVertical.sixteen,
 
-            //*categories item
-            const CategoriesView(),
+              //*categories item
+              const CategoriesView(),
 
-            //
-            AppGapVertical.sixteen,
+              //
+              AppGapVertical.sixteen,
 
-            //* Top category item
-            const TopRatedView(),
+              //* Top category item
+              const TopRatedView(),
 
-            //
-            AppGapVertical.fortyEight,
-          ],
-        ),
-      );
+              //
+              AppGapVertical.fortyEight,
+            ],
+          ),
+        );
 }

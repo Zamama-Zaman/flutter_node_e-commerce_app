@@ -1,5 +1,3 @@
-import 'package:flutter_node_ecommerce_app_original/services/home_service/home_service.dart';
-
 import '../../lib.dart';
 
 class HomeController extends BaseController {
@@ -7,7 +5,22 @@ class HomeController extends BaseController {
 
   final TextEditingController searchCtrl = TextEditingController();
 
-  void search() {}
+  List<Product>? searchedProducts;
+  void search() async {
+    searchedProducts = null;
+    String searchQuery = searchCtrl.text.trim();
+    if (searchQuery.isNotEmpty) {
+      searchedProducts =
+          await HomeService.instance.searchProduct(search: searchQuery);
+    }
+
+    if (searchedProducts != null && searchedProducts!.isNotEmpty) {
+      // Fluttertoast.showToast(msg: "Successfully fetched searchedProducts");
+    } else if (searchedProducts != null && searchedProducts!.isEmpty) {
+      Fluttertoast.showToast(msg: "No Product Found!");
+    }
+    update();
+  }
 
   List<String> carsoulSliderImages = [
     'https://images-eu.ssl-images-amazon.com/images/G/31/img21/Wireless/WLA/TS/D37847648_Accessories_savingdays_Jan22_Cat_PC_1500.jpg',

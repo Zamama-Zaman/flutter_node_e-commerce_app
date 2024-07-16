@@ -35,4 +35,29 @@ class HomeService {
 
     return products;
   }
+
+  Future<List<Product>> searchProduct({required String search}) async {
+    List<Product> searchedProducts = [];
+    try {
+      Response response = await get(
+        Uri.parse("${AppBaseUrl.getProduct}$search"),
+        headers: _headers,
+      );
+
+      if (response.statusCode == 200) {
+        for (var product in jsonDecode(response.body)['data']) {
+          searchedProducts.add(Product.fromMap(product));
+        }
+      } else {
+        debugPrint("Search Product Error ${response.statusCode}");
+        Fluttertoast.showToast(
+            msg: "Error Search Product ${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint("Search Product Error $e");
+      Fluttertoast.showToast(msg: "Error Search Product $e");
+    }
+
+    return searchedProducts;
+  }
 }
