@@ -33,9 +33,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-/// Admin
-/// Post all order 
-/// Post an Order
-/// Admin defaul View
-/// Order screen.

@@ -4,6 +4,12 @@ class TopRatedView extends BaseWidget<HomeController> {
   const TopRatedView({super.key});
 
   @override
+  void initStateWidget(state) {
+    super.initStateWidget(state);
+    controller.topRatedProductsFetch();
+  }
+
+  @override
   Widget get child => Padding(
         padding: AppPaddings.commonHorizontalPadding,
         child: Column(
@@ -58,24 +64,29 @@ class TopRatedView extends BaseWidget<HomeController> {
             AppGapVertical.sixteen,
 
             //*
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: controller.carsoulSliderImages
-                    .map(
-                      (e) => Padding(
-                        padding: EdgeInsets.only(right: 16.w),
-                        child: Image.network(
-                          e,
-                          fit: BoxFit.fill,
-                          width: 100.w,
-                          height: 50.w,
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
+            controller.topRatedProductsList != null &&
+                    controller.topRatedProductsList!.isNotEmpty
+                ? SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: controller.topRatedProductsList!
+                          .map(
+                            (e) => Padding(
+                              padding: EdgeInsets.only(right: 16.w),
+                              child: AppImage.cacheImage(
+                                image: e.images[0],
+                                fit: BoxFit.fill,
+                                width: 100.w,
+                                height: 50.w,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  )
+                : const Center(
+                    child: Text("No Top Rated Products added Yet!"),
+                  ),
 
             AppGapVertical.eight,
 

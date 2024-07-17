@@ -60,4 +60,29 @@ class HomeService {
 
     return searchedProducts;
   }
+
+  Future<List<Product>> topRatedProducts() async {
+    List<Product> topRated = [];
+    try {
+      Response response = await get(
+        Uri.parse(AppBaseUrl.topRatedProductsUrl),
+        headers: _headers,
+      );
+
+      if (response.statusCode == 200) {
+        for (var product in jsonDecode(response.body)['body']) {
+          topRated.add(Product.fromMap(product));
+        }
+      } else {
+        debugPrint("Top Rated Products Error ${response.statusCode}");
+        Fluttertoast.showToast(
+            msg: "Error Top Rated Product ${response.statusCode}");
+      }
+    } catch (e) {
+      debugPrint("Top Rated Product Error $e");
+      Fluttertoast.showToast(msg: "Error Top Rated Product $e");
+    }
+
+    return topRated;
+  }
 }

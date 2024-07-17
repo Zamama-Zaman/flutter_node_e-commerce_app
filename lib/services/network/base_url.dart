@@ -9,6 +9,7 @@ class AppBaseUrl {
   static const fetchAllOrders = "$url/get-all-orders";
   static const getProductsByCategory = "$url/get-products-by-category";
   static const getProduct = "$url/get-products/";
+  static const topRatedProductsUrl = "$url/top-rated-products";
   static const addToCartUrl = "$url/add-to-cart";
   static const removeFromCartUrl = "$url/remove-from-cart";
   static const rateAProduct = "$url/rating-a-product";

@@ -7,6 +7,7 @@ const {
   getAllProducts,
   getProductByCategory,
   ratingAProduct,
+  topRatedProducts,
 } = require("../controller/productController");
 
 const router = express.Router();
@@ -22,5 +23,7 @@ router.get("/get-all-products", getAllProducts);
 router.post("/get-products-by-category", getProductByCategory);
 
 router.post("/rating-a-product", validateToken, ratingAProduct);
+
+router.get("/top-rated-products", topRatedProducts);
 
 module.exports = router;

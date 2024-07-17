@@ -151,6 +151,39 @@ const ratingAProduct = asyncHandler(async (req, res) => {
   }
 });
 
+const topRatedProducts = asyncHandler(async (req, res) => {
+  try {
+
+    const products = await productModel.find().lean();
+
+    const topRated = products.filter(product => {
+      const totalRatings = product.rating.reduce((acc, curr) => acc + parseFloat(curr.rate), 0);
+      const avgRating = totalRatings / product.rating.length;
+
+      return avgRating > 4.5;
+    });
+
+    if (topRated) {
+      res.status(200).json({
+        status: "Success",
+        message: "Top rated product fetched successfully",
+        body: topRated,
+      });
+    } else {
+      res.status(400);
+      throw new Error("Unable to fetch top rated product");
+    }
+
+    
+  } catch (error) {
+    res.status(500).json({
+      status: "Error",
+      message: "Unable to fetch top rated product",
+      error: error.message,
+    });
+  }
+});
+
 module.exports = {
   add,
   deleteProduct,
@@ -158,4 +191,5 @@ module.exports = {
   getAllProducts,
   getProductByCategory,
   ratingAProduct,
+  topRatedProducts,
 };

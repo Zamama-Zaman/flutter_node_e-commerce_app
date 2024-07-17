@@ -38,4 +38,10 @@ class HomeController extends BaseController {
         await HomeService.instance.getProductByCategory(category: category);
     update();
   }
+
+  List<Product>? topRatedProductsList;
+  void topRatedProductsFetch() async {
+    topRatedProductsList = await HomeService.instance.topRatedProducts();
+    update();
+  }
 }
