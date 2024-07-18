@@ -2,6 +2,7 @@
 import '../../lib.dart';
 
 class Product extends Equatable {
+  final String adminId;
   final String name;
   final String description;
   final double quantity;
@@ -10,7 +11,8 @@ class Product extends Equatable {
   final double price;
   final String? id;
   final List<Rating>? rating;
-  Product({
+  const Product({
+    required this.adminId,
     required this.name,
     required this.description,
     required this.quantity,
@@ -23,6 +25,7 @@ class Product extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
+      'adminId': adminId,
       'name': name,
       'description': description,
       'quantity': quantity,
@@ -36,6 +39,7 @@ class Product extends Equatable {
 
   factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
+      adminId: map['adminId'] ?? '',
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       quantity: map['quantity'] != null ? double.parse(map['quantity']) : 0.0,
@@ -59,6 +63,7 @@ class Product extends Equatable {
       Product.fromMap(json.decode(source));
 
   Product copyWith({
+    String? adminId,
     String? name,
     String? description,
     double? quantity,
@@ -69,6 +74,7 @@ class Product extends Equatable {
     List<Rating>? rating,
   }) {
     return Product(
+      adminId: adminId ?? this.adminId,
       name: name ?? this.name,
       description: description ?? this.description,
       quantity: quantity ?? this.quantity,
@@ -82,6 +88,7 @@ class Product extends Equatable {
 
   @override
   List<Object?> get props => [
+        adminId,
         name,
         description,
         quantity,

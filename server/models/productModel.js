@@ -3,6 +3,10 @@ const rateSchema = require("./ratingModel");
 
 const productSchema = mongoose.Schema(
   {
+    adminId: {
+      type: String,
+      default: "",
+    },
     name: {
       type: String,
       default: "",

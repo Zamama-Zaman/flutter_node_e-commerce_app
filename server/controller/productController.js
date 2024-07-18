@@ -5,6 +5,7 @@ const rateSchema = require("../models/ratingModel");
 const add = asyncHandler(async (req, res) => {
   const { name, price, quantity, description, images, category } = req.body;
   const rating = [];
+  const adminId = req.user.id;
   
   const isFound = await productModel.findOne({ name });
   if (isFound) {
@@ -16,6 +17,7 @@ const add = asyncHandler(async (req, res) => {
   }
 
   const newProduct = await productModel.create({
+    adminId,
     name,
     price,
     quantity,
@@ -73,7 +75,7 @@ const getSearchProduct = asyncHandler(async (req, res) => {
 
 // get product
 const getAllProducts = asyncHandler(async (req, res) => {
-  const result = await productModel.find();
+  const result = await productModel.find({ adminId: req.user.id }).lean();
 
   if (result) {
     res.status(200).json({
@@ -82,7 +84,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Unable to delete product");
+    throw new Error("Unable to find product");
   }
 });
 

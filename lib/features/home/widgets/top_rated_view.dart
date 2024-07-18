@@ -73,11 +73,16 @@ class TopRatedView extends BaseWidget<HomeController> {
                           .map(
                             (e) => Padding(
                               padding: EdgeInsets.only(right: 16.w),
-                              child: AppImage.cacheImage(
-                                image: e.images[0],
-                                fit: BoxFit.fill,
-                                width: 100.w,
-                                height: 50.w,
+                              child: InkWell(
+                                onTap: () {
+                                  Get.to(() => ProductDetailScreen(product: e));
+                                },
+                                child: AppImage.cacheImage(
+                                  image: e.images[0],
+                                  fit: BoxFit.fill,
+                                  width: 100.w,
+                                  height: 50.w,
+                                ),
                               ),
                             ),
                           )

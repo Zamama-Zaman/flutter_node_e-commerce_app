@@ -12,13 +12,13 @@ const {
 
 const router = express.Router();
 
-router.post("/add-product", add);
+router.post("/add-product", validateToken, add);
 
 router.post("/delete-product", deleteProduct);
 
 router.get("/get-products/:query", getSearchProduct);
 
-router.get("/get-all-products", getAllProducts);
+router.get("/get-all-products", validateToken, getAllProducts);
 
 router.post("/get-products-by-category", getProductByCategory);
 

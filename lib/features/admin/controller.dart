@@ -73,10 +73,11 @@ class AdminController extends BaseController {
         quantityController.text.isNotEmpty;
     if (isNotEmtpy) {
       Product newProduct = Product(
+        adminId: AppPreference.instance.getUserModel.id,
         name: productNameController.text,
         description: descriptionController.text,
         quantity: double.parse(quantityController.text),
-        images: [],
+        images: const [],
         category: category,
         price: double.parse(priceController.text),
       );

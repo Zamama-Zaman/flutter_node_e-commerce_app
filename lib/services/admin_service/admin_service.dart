@@ -6,6 +6,11 @@ class AdminService {
     'Content-Type': 'application/json; charset=UTF-8',
   };
 
+  Map<String, String> get headers => {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}'
+      };
+
   Future<bool> addProduct({
     required Product product,
     required List<File> images,
@@ -26,11 +31,12 @@ class AdminService {
     product = product.copyWith(images: imageUrls);
 
     bool isAdded = false;
+
     try {
       Response response = await post(
         Uri.parse(AppBaseUrl.addProductUrl),
         body: product.toJson(),
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 201) {
@@ -49,7 +55,7 @@ class AdminService {
     try {
       Response response = await get(
         Uri.parse(AppBaseUrl.fetchAllProductUrl),
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
