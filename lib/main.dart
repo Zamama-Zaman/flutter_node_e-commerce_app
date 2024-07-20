@@ -36,3 +36,4 @@ class MyApp extends StatelessWidget {
 
 /// Next thing is to handle error 
 /// Finized for today.
+/// And then add localization
