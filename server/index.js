@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDb = require("./config/dbConnection");
+const errorHandler = require("./middleware/errorHandler");
 const dotenv = require("dotenv").config();
 
 connectDb();
@@ -12,6 +13,8 @@ app.use(express.json());
 app.use("/", require("./routes/userRoutes"));
 
 app.use("/", require("./routes/productRoutes"));
+
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
