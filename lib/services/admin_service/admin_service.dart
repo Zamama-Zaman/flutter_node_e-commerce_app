@@ -2,6 +2,7 @@ import '../../lib.dart';
 
 class AdminService {
   static final instance = AdminService();
+  final client = CustomHttpClientMiddleWare(Client());
   final Map<String, String> _headers = {
     'Content-Type': 'application/json; charset=UTF-8',
   };
@@ -33,7 +34,7 @@ class AdminService {
     bool isAdded = false;
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.addProductUrl),
         body: product.toJson(),
         headers: headers,
@@ -53,7 +54,7 @@ class AdminService {
   Future<List<Product>> fetchAllProducts() async {
     List<Product> products = [];
     try {
-      Response response = await get(
+      Response response = await client.get(
         Uri.parse(AppBaseUrl.fetchAllProductUrl),
         headers: headers,
       );
@@ -74,7 +75,7 @@ class AdminService {
   Future<bool> deletAProduct({required Product product}) async {
     bool isDeleted = false;
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.deleteAProduct),
         headers: _headers,
         body: product.toJson(),
@@ -94,7 +95,7 @@ class AdminService {
   Future<List<OrderResModel>> fetchAllOrders() async {
     List<OrderResModel> orders = [];
     try {
-      Response response = await get(
+      Response response = await client.get(
         Uri.parse(AppBaseUrl.fetchAllOrders),
         headers: _headers,
       );

@@ -2,6 +2,7 @@ import '../../lib.dart';
 
 class HomeService {
   static final instance = HomeService();
+  final client = CustomHttpClientMiddleWare(Client());
 
   final Map<String, String> _headers = {
     'Content-Type': 'application/json; charset=UTF-8',
@@ -17,7 +18,7 @@ class HomeService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.getProductsByCategory),
         body: myJsonEncode,
         headers: _headers,
@@ -39,7 +40,7 @@ class HomeService {
   Future<List<Product>> searchProduct({required String search}) async {
     List<Product> searchedProducts = [];
     try {
-      Response response = await get(
+      Response response = await client.get(
         Uri.parse("${AppBaseUrl.getProduct}$search"),
         headers: _headers,
       );
@@ -64,7 +65,7 @@ class HomeService {
   Future<List<Product>> topRatedProducts() async {
     List<Product> topRated = [];
     try {
-      Response response = await get(
+      Response response = await client.get(
         Uri.parse(AppBaseUrl.topRatedProductsUrl),
         headers: _headers,
       );

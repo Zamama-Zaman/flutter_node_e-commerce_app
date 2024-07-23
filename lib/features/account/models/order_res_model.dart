@@ -55,7 +55,6 @@ class OrderResModel extends Equatable {
   }
 
   factory OrderResModel.fromMap(Map<String, dynamic> map) {
-    debugPrint("What is the type of ${map['createdAt'].runtimeType}");
     return OrderResModel(
       id: map['_id'] as String,
       subTotal: map['subTotal'].toString(),

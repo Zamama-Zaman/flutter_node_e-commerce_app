@@ -2,6 +2,7 @@ import '../../lib.dart';
 
 class AuthService {
   static final instance = AuthService();
+  final client = CustomHttpClientMiddleWare(Client());
   final Map<String, String> _headers = {
     'Content-Type': 'application/json; charset=UTF-8',
   };
@@ -17,7 +18,7 @@ class AuthService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.loginUrl),
         body: myJsonEncode,
         headers: _headers,
@@ -51,7 +52,7 @@ class AuthService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.registerUrl),
         body: myJsonEncode,
         headers: _headers,

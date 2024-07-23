@@ -2,6 +2,7 @@ import '../../lib.dart';
 
 class OrderService {
   static final instance = OrderService();
+  final client = CustomHttpClientMiddleWare(Client());
 
   Map<String, String> get headers => {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -16,7 +17,7 @@ class OrderService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.saveUserAddressUrl),
         body: myJsonEncode,
         headers: headers,
@@ -42,7 +43,7 @@ class OrderService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.placeOrderUrl),
         body: myJsonEncode,
         headers: headers,
@@ -63,7 +64,7 @@ class OrderService {
     List<OrderResModel> orderList = [];
 
     try {
-      Response response = await get(
+      Response response = await client.get(
         Uri.parse(AppBaseUrl.myOrdersUrl),
         headers: headers,
       );
@@ -92,7 +93,7 @@ class OrderService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.orderStatusChangeUrl),
         headers: headers,
         body: myJsonEncode,

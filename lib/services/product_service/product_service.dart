@@ -4,6 +4,7 @@ import '../../lib.dart';
 
 class ProductService {
   static final instance = ProductService();
+  final client = CustomHttpClientMiddleWare(Client());
 
   Map<String, String> get headers => {
         'Content-Type': 'application/json; charset=UTF-8',
@@ -18,7 +19,7 @@ class ProductService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.addToCartUrl),
         body: myJsonEncode,
         headers: headers,
@@ -43,7 +44,7 @@ class ProductService {
     List<CartModel> cartList = [];
 
     try {
-      Response response = await get(
+      Response response = await client.get(
         Uri.parse(AppBaseUrl.getCartUrl),
         headers: headers,
       );
@@ -72,7 +73,7 @@ class ProductService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.removeFromCartUrl),
         body: myJsonEncode,
         headers: headers,
@@ -105,7 +106,7 @@ class ProductService {
     });
 
     try {
-      Response response = await post(
+      Response response = await client.post(
         Uri.parse(AppBaseUrl.rateAProduct),
         body: myJsonEncode,
         headers: headers,
