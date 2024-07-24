@@ -36,4 +36,4 @@ class MyApp extends StatelessWidget {
 
 /// Next thing is to handle error 
 /// And then add localization
-/// And then add chat module
+/// And then add chat module do add chat module with sockets!
