@@ -1,4 +1,5 @@
 import '../../../lib.dart';
+// import 'generated/locale_keys.g.dart';
 
 class LoginView extends BaseView<AuthController> {
   const LoginView({super.key});
@@ -11,7 +12,7 @@ class LoginView extends BaseView<AuthController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AppText.commonText(
-                text: "Login View",
+                text: Get.context!.tr("login"), // "Login View",
                 fontWeight: FontWeight.bold,
                 fontSize: 20.sp,
               ),
@@ -45,7 +46,10 @@ class LoginView extends BaseView<AuthController> {
               AppGapVertical.sixteen,
 
               InkWell(
-                onTap: () => Get.to(() => const RegistrationView()),
+                onTap: () {
+                  Get.context!.setLocale(const Locale('ar'));
+                  controller.update();
+                }, //() => Get.to(() => const RegistrationView()),
                 child: AppText.simpleText(
                   text: "SignUp",
                   color: AppColors.blackColor,
