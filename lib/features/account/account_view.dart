@@ -4,8 +4,10 @@ class AccountView extends BaseView<AccountController> {
   const AccountView({super.key});
 
   @override
-  PreferredSizeWidget? get appBar =>
-      AppBarWidgets.defaultAppBar(title: "Account");
+  PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(
+        title: tr("account"),
+        onTap: controller.changeLanguage,
+      );
 
   @override
   bool get extendBody => false;
@@ -55,7 +57,7 @@ class AccountView extends BaseView<AccountController> {
             // logout
             AppButton.simple(
               onTap: controller.logout,
-              text: "Logout",
+              text: tr("log_out"),
             ),
 
             AppGapVertical.sixteen,

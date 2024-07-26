@@ -30,6 +30,29 @@ class HomeController extends BaseController {
     'https://images-na.ssl-images-amazon.com/images/G/31/img21/shoes/September/SSW/pc-header._CB641971330_.jpg',
   ];
 
+  List<CategoryModel> categoryData = [
+    CategoryModel(
+      name: tr("essiential"),
+      icon: Icons.auto_graph_rounded,
+    ),
+    CategoryModel(
+      name: tr("mobile"),
+      icon: Icons.ad_units,
+    ),
+    CategoryModel(
+      name: tr("appliances"),
+      icon: Icons.adobe_rounded,
+    ),
+    CategoryModel(
+      name: tr("books"),
+      icon: Icons.auto_stories,
+    ),
+    CategoryModel(
+      name: tr("fashion"),
+      icon: Icons.boy,
+    ),
+  ];
+
   //******************* Category View Details ******************//
   List<Product>? productList;
   String category = '';

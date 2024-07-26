@@ -5,7 +5,8 @@ class CartView extends BaseView<CartController> {
   const CartView({super.key});
 
   @override
-  PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(title: "Cart");
+  PreferredSizeWidget? get appBar =>
+      AppBarWidgets.defaultAppBar(title: tr("cart"));
 
   @override
   void initState(state) {
@@ -35,7 +36,7 @@ class CartView extends BaseView<CartController> {
                         padding: const EdgeInsets.all(8.0),
                         child: AppButton.simple(
                           text:
-                              'Proceed to Buy (${controller.listCart!.length} items)',
+                              '${tr('proceed_to_buy')} (${controller.listCart!.length} items)',
                           onTap: () => Get.to(
                             () => AddressView(
                               subTotal: sum.toString(),

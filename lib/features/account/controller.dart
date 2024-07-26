@@ -17,4 +17,16 @@ class AccountController extends BaseController {
       update();
     }
   }
+
+  void changeLanguage() {
+    if (Get.context!.locale.toString() == 'en') {
+      Get.context!.setLocale(const Locale('ar'));
+      Get.updateLocale(const Locale("ar"));
+    } else {
+      Get.context!.setLocale(const Locale('en'));
+      Get.updateLocale(const Locale("en"));
+    }
+
+    update();
+  }
 }

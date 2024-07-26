@@ -19,7 +19,7 @@ class CategoryDetailView extends BaseView<HomeController> {
 
   @override
   PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(
-        title: "Category Detail",
+        title: tr("category_detail"),
       );
 
   @override
@@ -37,7 +37,7 @@ class CategoryDetailView extends BaseView<HomeController> {
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
               alignment: Alignment.topLeft,
               child: Text(
-                'Keep shopping for $category',
+                '${tr("keep_shopping_for")} $category',
                 style: const TextStyle(
                   fontSize: 20,
                 ),

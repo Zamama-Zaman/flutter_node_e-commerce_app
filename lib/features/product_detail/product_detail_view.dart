@@ -17,7 +17,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
 
   @override
   PreferredSizeWidget? get appBar =>
-      AppBarWidgets.defaultAppBar(title: "Product Detail");
+      AppBarWidgets.defaultAppBar(title: tr("product_detail"));
 
   @override
   Widget get body {
@@ -28,7 +28,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
           //
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("Product Id: ${product.id!}"),
+            child: Text("${tr("product_id")} ${product.id!}"),
           ),
 
           //
@@ -38,7 +38,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AppText.commonText(
-                  text: "Average Rating:",
+                  text: tr("average_rating"),
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w600,
                 ),
@@ -95,10 +95,10 @@ class ProductDetailScreen extends BaseView<ProductController> {
             height: 5.h,
           ),
           Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: RichText(
               text: TextSpan(
-                text: 'Deal Price: ',
+                text: '${tr('deal_price')} ',
                 style: TextStyle(
                   fontSize: 16.sp,
                   color: Colors.black,
@@ -128,7 +128,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: AppButton.simple(
-              text: 'Buy Now',
+              text: tr('buy_now'),
               onTap: () {},
             ),
           ),
@@ -136,7 +136,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: AppButton.simple(
-              text: 'Add to Cart',
+              text: tr('add_to_cart'),
               onTap: () => controller.addToCart(),
             ),
           ),
@@ -160,7 +160,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
                     children: [
                       //
                       AppText.commonText(
-                        text: "You Rated:",
+                        text: tr("you_rated"),
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                       ),
@@ -187,7 +187,7 @@ class ProductDetailScreen extends BaseView<ProductController> {
               : Padding(
                   padding: EdgeInsets.symmetric(horizontal: 100.w),
                   child: AppButton.simple(
-                    text: 'Rate this Product',
+                    text: tr('rate_this_product'),
                     onTap: () {
                       Get.bottomSheet(
                         RateBottomSheet(product: product),

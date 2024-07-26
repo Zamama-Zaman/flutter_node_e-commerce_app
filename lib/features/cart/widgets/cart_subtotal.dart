@@ -16,7 +16,7 @@ class CartSubtotal extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'Subtotal ',
+                '${tr('subtotal')} ',
                 style: TextStyle(
                   fontSize: 20.sp,
                 ),

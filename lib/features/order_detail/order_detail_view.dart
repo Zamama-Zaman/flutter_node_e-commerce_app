@@ -17,7 +17,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
 
   @override
   PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(
-        title: "Order Detail",
+        title: tr("order_detail"),
       );
 
   @override
@@ -29,7 +29,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'View order details',
+              tr('view_order_detail'),
               style: TextStyle(
                 fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
@@ -46,17 +46,17 @@ class OrderDetailScreen extends BaseView<OrderController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Order Date:      ${DateFormat().format(
+                  Text('${tr("order_date")}      ${DateFormat().format(
                     DateTime.parse(order.orderedAt),
                   )}'),
-                  Text('Order ID:          ${order.id}'),
-                  Text('Order Total:      \$${order.totalPrice}'),
+                  Text('${tr("order_id")}          ${order.id}'),
+                  Text('${tr("order_total")}      \$${order.totalPrice}'),
                 ],
               ),
             ),
             SizedBox(height: 10.h),
             Text(
-              'Purchase Details',
+              tr('purchase_detail'),
               style: TextStyle(
                 fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
@@ -111,7 +111,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
 
             //
             Text(
-              'Tracking',
+              tr('tracking'),
               style: TextStyle(
                 fontSize: 22.sp,
                 fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                 },
                 steps: [
                   Step(
-                    title: const Text('Pending'),
+                    title: Text(tr('pending')),
                     content: const Text(
                       'Your order is yet to be delivered',
                     ),
@@ -153,7 +153,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                     stepStyle: StepColors.stepStyle,
                   ),
                   Step(
-                    title: const Text('Completed'),
+                    title: Text(tr('completed')),
                     content: const Text(
                       'Your order has been delivered, you are yet to sign.',
                     ),
@@ -164,7 +164,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                     stepStyle: StepColors.stepStyle,
                   ),
                   Step(
-                    title: const Text('Received'),
+                    title: Text(tr('received')),
                     content: const Text(
                       'Your order has been delivered and signed by you.',
                     ),
@@ -175,7 +175,7 @@ class OrderDetailScreen extends BaseView<OrderController> {
                     stepStyle: StepColors.stepStyle,
                   ),
                   Step(
-                    title: const Text('Delivered'),
+                    title: Text(tr('delivered')),
                     content: const Text(
                       'Your order has been delivered and signed by you!',
                     ),

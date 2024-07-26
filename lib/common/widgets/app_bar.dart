@@ -1,7 +1,11 @@
 import '../../lib.dart';
 
 class AppBarWidgets {
-  static PreferredSizeWidget defaultAppBar({required String title}) => AppBar(
+  static PreferredSizeWidget defaultAppBar({
+    required String title,
+    VoidCallback? onTap,
+  }) =>
+      AppBar(
         title: AppText.commonText(
           text: title,
           fontSize: 18.sp,
@@ -9,6 +13,16 @@ class AppBarWidgets {
         ),
         backgroundColor: AppColors.whiteColor,
         centerTitle: true,
+        actions: [
+          onTap != null
+              ? IconButton(
+                  onPressed: onTap,
+                  icon: const Icon(
+                    Icons.language,
+                  ),
+                )
+              : const SizedBox.shrink(),
+        ],
       );
 
   static PreferredSizeWidget searchAppBar({
@@ -32,7 +46,7 @@ class AppBarWidgets {
                     Expanded(
                       child: AppField.search(
                         controller: controller,
-                        hintText: "Search Here...",
+                        hintText: tr("search_here"),
                       ),
                     ),
 

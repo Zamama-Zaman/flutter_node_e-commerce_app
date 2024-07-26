@@ -17,7 +17,7 @@ class TopRatedView extends BaseWidget<HomeController> {
           children: [
             //
             AppText.commonText(
-              text: "Top Rated:",
+              text: tr("top_rated"),
               fontSize: 20.sp,
               fontWeight: FontWeight.w500,
               color: AppColors.blackColor,
@@ -99,7 +99,7 @@ class TopRatedView extends BaseWidget<HomeController> {
             Container(
               alignment: Alignment.topLeft,
               child: Text(
-                'See all deals',
+                tr('see_all_deals'),
                 style: TextStyle(
                   color: Colors.cyan[800],
                 ),

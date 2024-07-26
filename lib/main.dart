@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         designSize: const Size(430, 932),
         builder: (context, child) {
-          return GetMaterialApp(
+        return GetMaterialApp(
             title: 'Flutter Node Ecommerce App',
             theme: AppTheme.baseTheme,
             debugShowCheckedModeBanner: false,

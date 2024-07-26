@@ -9,11 +9,11 @@ class CategoriesView extends BaseWidget<HomeController> {
         children: [
           SizedBox(width: 16.w),
           ...List.generate(
-            CategoryData.data.length,
+            controller.categoryData.length,
             (index) => InkWell(
               onTap: () => Get.to(
                 () => CategoryDetailView(
-                  category: CategoryData.data[index].name,
+                  category: controller.categoryData[index].name,
                 ),
               ),
               child: SizedBox(
@@ -31,7 +31,7 @@ class CategoriesView extends BaseWidget<HomeController> {
                       ),
                       alignment: Alignment.center,
                       child: Icon(
-                        CategoryData.data[index].icon,
+                        controller.categoryData[index].icon,
                         color: AppColors.blackColor.withOpacity(.5),
                       ),
                     ),
@@ -41,7 +41,7 @@ class CategoriesView extends BaseWidget<HomeController> {
 
                     //*
                     AppText.commonText(
-                      text: CategoryData.data[index].name,
+                      text: controller.categoryData[index].name,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.blackColor.withOpacity(.5),

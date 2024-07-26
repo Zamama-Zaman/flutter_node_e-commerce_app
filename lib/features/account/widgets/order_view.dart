@@ -11,7 +11,7 @@ class OrderView extends BaseWidget<AccountController> {
             children: [
               //
               Text(
-                'Your Orders',
+                tr('your_orders'),
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w600,
@@ -19,9 +19,9 @@ class OrderView extends BaseWidget<AccountController> {
               ),
 
               //
-              const Text(
-                'See all',
-                style: TextStyle(
+              Text(
+                tr('see_all'),
+                style: const TextStyle(
                   color: AppColors.greyTextColor,
                 ),
               ),

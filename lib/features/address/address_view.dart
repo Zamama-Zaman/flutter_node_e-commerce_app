@@ -18,7 +18,7 @@ class AddressView extends BaseView<AddressController> {
 
   @override
   PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(
-        title: "Address",
+        title: tr("address"),
       );
 
   @override
@@ -54,7 +54,7 @@ class AddressView extends BaseView<AddressController> {
 
                     //*
                     Text(
-                      'OR',
+                      tr('or'),
                       style: TextStyle(
                         fontSize: 18.sp,
                       ),
@@ -69,7 +69,7 @@ class AddressView extends BaseView<AddressController> {
                   //
                   AppField.simple(
                     controller: controller.flatBuildingController,
-                    hintText: 'Flat, House no, Building',
+                    hintText: tr('flat_house_no_buidling'),
                   ),
 
                   //
@@ -78,7 +78,7 @@ class AddressView extends BaseView<AddressController> {
                   //*
                   AppField.simple(
                     controller: controller.areaController,
-                    hintText: 'Area, Street',
+                    hintText: tr("area_street"),
                   ),
 
                   //
@@ -87,7 +87,7 @@ class AddressView extends BaseView<AddressController> {
                   //*
                   AppField.simple(
                     controller: controller.pincodeController,
-                    hintText: 'Pincode',
+                    hintText: tr('pincode'),
                   ),
 
                   //
@@ -96,7 +96,7 @@ class AddressView extends BaseView<AddressController> {
                   //*
                   AppField.simple(
                     controller: controller.cityController,
-                    hintText: 'Town/City',
+                    hintText: tr("town_city"),
                   ),
 
                   //
