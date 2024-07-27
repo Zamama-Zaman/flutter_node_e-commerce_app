@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         designSize: const Size(430, 932),
         builder: (context, child) {
-        return GetMaterialApp(
+          return GetMaterialApp(
             title: 'Flutter Node Ecommerce App',
             theme: AppTheme.baseTheme,
             debugShowCheckedModeBanner: false,
@@ -46,4 +46,6 @@ class MyApp extends StatelessWidget {
 }
  
 /// And then add localization
+/// Add localization for both front-end and back-end.
+/// After localization add Unit test for both front-end and back-end
 /// And then add chat module do add chat module with sockets!
