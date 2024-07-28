@@ -19,7 +19,7 @@ class AccountController extends BaseController {
   }
 
   void changeLanguage() {
-    if (Get.context!.locale.toString() == 'en') {
+    if (isEng) {
       Get.context!.setLocale(const Locale('ar'));
       Get.updateLocale(const Locale("ar"));
     } else {

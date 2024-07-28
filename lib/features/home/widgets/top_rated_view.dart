@@ -37,21 +37,18 @@ class TopRatedView extends BaseWidget<HomeController> {
             AppGapVertical.eight,
 
             //*
-            Container(
-              alignment: Alignment.topLeft,
-              child: Text(
-                '\$100',
-                style: TextStyle(
-                  height: 1.4.h,
-                  fontSize: 18.sp,
-                ),
+            Text(
+              '\$100',
+              style: TextStyle(
+                height: 1.4.h,
+                fontSize: 18.sp,
               ),
             ),
             Container(
-              alignment: Alignment.topLeft,
               padding: EdgeInsets.only(
-                top: 5.w,
-                right: 40.h,
+                top: 5.h,
+                right: controller.isArabic ? 0.w : 40.w,
+                left: controller.isArabic ? 40.w : 0.w,
               ),
               child: const Text(
                 'Iphone',
@@ -96,13 +93,10 @@ class TopRatedView extends BaseWidget<HomeController> {
             AppGapVertical.eight,
 
             //*
-            Container(
-              alignment: Alignment.topLeft,
-              child: Text(
-                tr('see_all_deals'),
-                style: TextStyle(
-                  color: Colors.cyan[800],
-                ),
+            Text(
+              tr('see_all_deals'),
+              style: TextStyle(
+                color: Colors.cyan[800],
               ),
             ),
 
