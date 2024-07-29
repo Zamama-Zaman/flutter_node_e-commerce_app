@@ -19,14 +19,14 @@ class CategoryDetailView extends BaseView<HomeController> {
 
   @override
   PreferredSizeWidget? get appBar => AppBarWidgets.defaultAppBar(
-        title: tr("category_detail"),
+        title: tr("category_details"),
       );
 
   @override
   Widget get body => controller.productList == null
       ? Center(
           child: AppText.commonText(
-            text: "No Products Added Yet!",
+            text: tr("no_products_added_yet"),
             fontWeight: FontWeight.w500,
             fontSize: 18.sp,
           ),
@@ -35,16 +35,19 @@ class CategoryDetailView extends BaseView<HomeController> {
           children: [
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-              alignment: Alignment.topLeft,
+              alignment:
+                  controller.isEng ? Alignment.topLeft : Alignment.topRight,
               child: Text(
                 '${tr("keep_shopping_for")} $category',
-                style: const TextStyle(
-                  fontSize: 20,
+                style: TextStyle(
+                  fontSize: 20.sp,
                 ),
               ),
             ),
+
+            //*
             SizedBox(
-              height: 170,
+              height: 170.h,
               child: GridView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.only(left: 15),

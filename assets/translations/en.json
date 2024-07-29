@@ -55,5 +55,6 @@
     "delivered":"Delivered",
     "address": "Address",
     "product_detail": "Product Detail",
-    "product_id": "Product ID"
+    "product_id": "Product ID",
+    "no_products_added_yet": "No Products Added Yet!"
 }

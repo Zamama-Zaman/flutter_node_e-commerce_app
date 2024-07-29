@@ -55,5 +55,6 @@
     "delivered": "تم التوصيل",
     "address": "العنوان",
     "product_detail": "تفاصيل المنتج",
-    "product_id": "معرف المنتج"
+    "product_id": "معرف المنتج",
+    "no_products_added_yet": "لم تتم إضافة منتجات حتى الآن!"
 }
