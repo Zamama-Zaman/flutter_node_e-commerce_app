@@ -296,7 +296,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
   if (order) {
     res.status(200).json({
       status: "Success",
-      message: "All Order fetched successfully",
+      message: res.__("all_order_fetched_successfully"),
       body: order,
     });
   } else {
