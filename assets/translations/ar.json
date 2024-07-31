@@ -3,6 +3,7 @@
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
     "login": "تسجيل الدخول",
+    "signUp": "التسجيل",
     "account": "الحساب",
     "your_orders": "طلباتك",
     "see_all": "مشاهدة الكل",
@@ -56,5 +57,11 @@
     "address": "العنوان",
     "product_detail": "تفاصيل المنتج",
     "product_id": "معرف المنتج",
-    "no_products_added_yet": "لم تتم إضافة منتجات حتى الآن!"
+    "no_products_added_yet": "لم تتم إضافة منتجات حتى الآن!",
+    "registration_view": "عرض التسجيل",
+    "register": "تسجيل",
+    "name_here": "الاسم هنا ...",
+    "email_here": "البريد الإلكتروني هنا ...",
+    "password_here": "كلمة المرور هنا ...",
+    "signIn": "تسجيل الدخول"
 }

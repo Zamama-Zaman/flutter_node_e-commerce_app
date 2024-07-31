@@ -38,7 +38,7 @@ class CategoryDetailView extends BaseView<HomeController> {
               alignment:
                   controller.isEng ? Alignment.topLeft : Alignment.topRight,
               child: Text(
-                '${tr("keep_shopping_for")} $category',
+                '${tr("keep_shopping_for")} ${tr(category.toLowerCase())}',
                 style: TextStyle(
                   fontSize: 20.sp,
                 ),

@@ -32,23 +32,28 @@ class HomeController extends BaseController {
 
   List<CategoryModel> get categoryData => [
         CategoryModel(
-          name: tr("essiential"),
+          name: "Essiential",
+          nameAr: "الأساسي",
           icon: Icons.auto_graph_rounded,
         ),
         CategoryModel(
-          name: tr("mobile"),
+          name: "Mobile",
+          nameAr: "الهاتف",
           icon: Icons.ad_units,
         ),
         CategoryModel(
-          name: tr("appliances"),
+          name: "Appliances",
+          nameAr: "الأجهزة",
           icon: Icons.adobe_rounded,
         ),
         CategoryModel(
-          name: tr("books"),
+          name: "Books",
+          nameAr: "الكتب",
           icon: Icons.auto_stories,
         ),
         CategoryModel(
-          name: tr("fashion"),
+          name: "Fashion",
+          nameAr: "الموضة",
           icon: Icons.boy,
         ),
       ];

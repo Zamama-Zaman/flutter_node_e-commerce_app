@@ -69,7 +69,7 @@ class AddressView extends BaseView<AddressController> {
                   //
                   AppField.simple(
                     controller: controller.flatBuildingController,
-                    hintText: tr('flat_house_no_buidling'),
+                    hintText: tr('flat_house_no_building'),
                   ),
 
                   //

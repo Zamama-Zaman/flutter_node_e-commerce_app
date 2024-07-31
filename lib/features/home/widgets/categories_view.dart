@@ -41,7 +41,9 @@ class CategoriesView extends BaseWidget<HomeController> {
 
                     //*
                     AppText.commonText(
-                      text: controller.categoryData[index].name,
+                      text: controller.isEng
+                          ? controller.categoryData[index].name
+                          : controller.categoryData[index].nameAr,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w400,
                       color: AppColors.blackColor.withOpacity(.5),

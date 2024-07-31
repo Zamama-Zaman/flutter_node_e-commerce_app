@@ -70,7 +70,7 @@ class OrdersView extends BaseWidget<AdminController> {
             padding: AppPaddings.commonAllSidePadding,
             child: AppButton.simple(
               onTap: controller.logout,
-              text: "Logout",
+              text: tr("log_out"),
             ),
           ),
         ],

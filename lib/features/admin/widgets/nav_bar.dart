@@ -74,11 +74,11 @@ class AdminNavBar extends BaseWidget<AdminController> {
               //*
               isSelected
                   ? AppText.simpleText(
-                      text: data.title,
+                      text: controller.isEng ? data.title : data.titleAr,
                       color: AppColors.blackColor,
                     )
                   : AppText.commonText(
-                      text: data.title,
+                      text: controller.isEng ? data.title : data.titleAr,
                       color: AppColors.greyTextColor,
                     ),
 

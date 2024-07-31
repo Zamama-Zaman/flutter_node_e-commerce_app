@@ -3,6 +3,7 @@
     "email": "Email",
     "password": "Password",
     "login": "Login",
+    "signUp": "SignUp",
     "account": "Account",
     "your_orders": "Your Orders",
     "see_all":"See all",
@@ -56,5 +57,11 @@
     "address": "Address",
     "product_detail": "Product Detail",
     "product_id": "Product ID",
-    "no_products_added_yet": "No Products Added Yet!"
+    "no_products_added_yet": "No Products Added Yet!",
+    "registration_view":"Registration View",
+    "register":"Register",
+    "name_here":"Name here ...",
+    "email_here":"Email here ...",
+    "password_here":"Password here ...",
+    "signIn":"SignIn"
 }

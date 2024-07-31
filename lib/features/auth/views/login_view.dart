@@ -39,7 +39,7 @@ class LoginView extends BaseView<AuthController> {
               //* login Button
               AppButton.simple(
                 onTap: controller.login,
-                text: "Login",
+                text: tr("login"),
               ),
 
               AppGapVertical.sixteen,
@@ -47,7 +47,7 @@ class LoginView extends BaseView<AuthController> {
               InkWell(
                 onTap: () => Get.to(() => const RegistrationView()),
                 child: AppText.simpleText(
-                  text: "SignUp",
+                  text: tr("signUp"),
                   color: AppColors.blackColor,
                 ),
               ),

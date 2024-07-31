@@ -12,7 +12,7 @@ class RegistrationView extends BaseView<AuthController> {
             children: [
               //*
               AppText.commonText(
-                text: "Registration View",
+                text: tr("registration_view"),
                 fontWeight: FontWeight.bold,
                 fontSize: 20.sp,
               ),
@@ -23,7 +23,7 @@ class RegistrationView extends BaseView<AuthController> {
               //*
               AppField.simple(
                 controller: controller.regisNameCtrl,
-                hintText: "Name here...",
+                hintText: tr("name_here"),
               ),
 
               //
@@ -32,7 +32,7 @@ class RegistrationView extends BaseView<AuthController> {
               //*
               AppField.simple(
                 controller: controller.regisEmailCtrl,
-                hintText: "Email here...",
+                hintText: tr("email_here"),
               ),
 
               //
@@ -41,7 +41,7 @@ class RegistrationView extends BaseView<AuthController> {
               //*
               AppField.password(
                 controller: controller.regisPassCtrl,
-                hintText: "Password here...",
+                hintText: tr("password_here"),
                 isPassVisible: controller.loginPassVisible,
                 onTap: controller.updateRegisPass,
               ),
@@ -52,7 +52,7 @@ class RegistrationView extends BaseView<AuthController> {
               //* register Button
               AppButton.simple(
                 onTap: controller.register,
-                text: "Register",
+                text: tr("register"),
               ),
 
               //
@@ -62,7 +62,7 @@ class RegistrationView extends BaseView<AuthController> {
               InkWell(
                 onTap: Get.back,
                 child: AppText.simpleText(
-                  text: "SignIn",
+                  text: tr("signIn"),
                   color: AppColors.blackColor,
                 ),
               ),
