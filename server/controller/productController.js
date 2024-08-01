@@ -69,7 +69,7 @@ const getSearchProduct = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Unable to delete product");
+    throw new Error("Unable to search product");
   }
 });
 
@@ -101,7 +101,7 @@ const getProductByCategory = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Unable to delete product");
+    throw new Error("Unable to find product");
   }
 });
 

@@ -11,20 +11,20 @@ const login = asyncHandler(async (req, res) => {
 
   if (!email || !password) {
     res.status(400);
-    throw new Error("All fields are mandatory!");
+    throw new Error(res.__("all_fields_are_mandatory"));
   }
 
   const isEmailAvailable = await User.findOne({ email });
   if (!isEmailAvailable) {
     res.status(401);
-    throw new Error("User not exist");
+    throw new Error(res.__("user_not_exist"));
   }
 
   const verifyed = await bcrypt.compare(password, isEmailAvailable.password);
 
   if (!verifyed) {
     res.status(401);
-    throw new Error("Password not matched");
+    throw new Error(res.__("password_not_matched"));
   }
 
   if (isEmailAvailable && verifyed) {
@@ -43,7 +43,7 @@ const login = asyncHandler(async (req, res) => {
     );
     res.status(200).json({
       status: "Success",
-      message: "User is successfully login",
+      message: res.__("user_is_successfully_login"),
       body: {
         user: isEmailAvailable,
         token: accessToken,
@@ -51,7 +51,7 @@ const login = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("Email or password is not valid");
+    throw new Error(res.__("email_or_password_is_not_valid"));
   }
 });
 
@@ -59,13 +59,13 @@ const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
   if (!name || !email || !password) {
     res.status(400);
-    throw new Error("All fields are mandatory!");
+    throw new Error(res.__("all_fields_are_mandatory"));
   }
 
   const userAvailble = await User.findOne({ email });
   if (userAvailble) {
     res.status(400);
-    throw new Error("user already register!");
+    throw new Error(res.__("user_already_register"));
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -80,12 +80,12 @@ const register = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       status: "Success",
-      message: "User register successfully",
+      message: res.__("user_register_successfully"),
       body: user,
     });
   } else {
     res.status(400);
-    throw new Error("User data is not valid");
+    throw new Error(res.__("user_data_is_not_valid"));
   }
 });
 
@@ -93,7 +93,7 @@ const register = asyncHandler(async (req, res) => {
 const profile = asyncHandler(async (req, res) => {
   res.status(200).json({
     status: "Success",
-    message: "Fetched user data successfully",
+    message: res.__("fetched_user_data_successfully"),
     body: req.user,
   });
 });
@@ -132,12 +132,12 @@ const addToCart = asyncHandler(async (req, res) => {
   if (user) {
     res.status(200).json({
       status: "Success",
-      message: "Product Added Successfully",
+      message: res.__("product_added_uccessfully"),
       body: savedUser,
     });
   } else {
     res.status(400);
-    throw new Error("User data is not Fount");
+    throw new Error(res.__("user_data_is_not_fount"));
   }
 });
 
@@ -165,12 +165,12 @@ const removeFromCart = asyncHandler(async (req, res) => {
   if (savedUser) {
     res.status(200).json({
       status: "Success",
-      message: "Successfully remove from cart",
+      message: res.__("successfully_remove_from_cart"),
       body: savedUser,
     });
   } else {
     res.status(400);
-    throw new Error("Error to remove from cart");
+    throw new Error(res.__("error_to_remove_from_cart"));
   }
 });
 
@@ -182,14 +182,14 @@ const getCart = asyncHandler(async (req, res) => {
   if (user) {
     res.status(200).json({
       status: "Success",
-      message: "Successfully fetch carts",
+      message: res.__("successfully_fetch_carts"),
       body: {
         cart: user.cart,
       },
     });
   } else {
     res.status(400);
-    throw new Error("Error to fetch cart");
+    throw new Error(res.__("error_to_fetch_cart"));
   }
 });
 
@@ -219,12 +219,12 @@ const placeOrder = asyncHandler(async (req, res) => {
   if (savedOrder) {
     res.status(200).json({
       status: "Success",
-      message: "The Order is successfull",
+      message: res.__("the_order_is_successfull"),
       body: savedOrder,
     });
   } else {
     res.status(400);
-    throw new Error("Error Occured to order");
+    throw new Error(res.__("error_occured_to_order"));
   }
 });
 
@@ -236,12 +236,12 @@ const myOrders = asyncHandler(async (req, res) => {
   if (myOrders) {
     res.status(200).json({
       status: "Success",
-      message: "My Orders is fetched successfull",
+      message: res.__("my_orders_is_fetched_successfull"),
       body: myOrders,
     });
   } else {
     res.status(400);
-    throw new Error("Error to fetch my Orders");
+    throw new Error(res.__("error_to_fetch_my_orders"));
   }
 });
 
@@ -257,12 +257,12 @@ const saveUserAddress = asyncHandler(async (req, res) => {
   if (user) {
     res.status(200).json({
       status: "Success",
-      message: "Address added successfully",
+      message: res.__("address_added_successfully"),
       body: user,
     });
   } else {
     res.status(400);
-    throw new Error("Error Occured to save user address");
+    throw new Error(res.__("error_occured_to_save_user_address"));
   }
 });
 
@@ -279,12 +279,12 @@ const changeOrderStatus = asyncHandler(async (req, res) => {
   if (order) {
     res.status(200).json({
       status: "Success",
-      message: "Order status changed successfully",
+      message: res.__("order_status_changed_successfully"),
       body: order,
     });
   } else {
     res.status(400);
-    throw new Error("Error Occured to change order status");
+    throw new Error(res.__("error_occured_to_change_order_status"));
   }
 });
 
@@ -301,7 +301,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Error to fetch orders");
+    throw new Error(res.__("error_to_fetch_orders"));
   }
 });
 
