@@ -10,10 +10,10 @@ const add = asyncHandler(async (req, res) => {
   const isFound = await productModel.findOne({ name });
   if (isFound) {
     res.status(400).json({
-      message: "Already in database",
+      message: res.__("already_in_database"),
       status: false,
     });
-    throw new Error("Already in exist");
+    throw new Error(res.__("already_in_exist"));
   }
 
   const newProduct = await productModel.create({
@@ -30,12 +30,12 @@ const add = asyncHandler(async (req, res) => {
   if (newProduct) {
     res.status(201).json({
       status: true,
-      message: "Successfully Added",
+      message: res.__("successfully_added"),
       body: newProduct,
     });
   } else {
     res.status(400);
-    throw new Error("Product data is not valid");
+    throw new Error(res.__("product_data_is_not_valid"));
   }
 });
 
@@ -48,11 +48,11 @@ const deleteProduct = asyncHandler(async (req, res) => {
   if (isDeleted) {
     res.status(200).json({
       status: true,
-      message: "Successfully Deleted",
+      message: res.__("successfully_deleted"),
     });
   } else {
     res.status(400);
-    throw new Error("Unable to delete product");
+    throw new Error(res.__("unable_to_delete_product"));
   }
 });
 
@@ -69,7 +69,7 @@ const getSearchProduct = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Unable to search product");
+    throw new Error(res.__("unable_to_search_product"));
   }
 });
 
@@ -84,7 +84,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Unable to find product");
+    throw new Error(res.__("unable_to_find_product"));
   }
 });
 
@@ -101,7 +101,7 @@ const getProductByCategory = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Unable to find product");
+    throw new Error(res.__("unable_to_find_product"));
   }
 });
 
@@ -135,19 +135,19 @@ const ratingAProduct = asyncHandler(async (req, res) => {
     if (findProduct) {
       res.status(200).json({
         status: "Success",
-        message: "Rating added successfully",
+        message: res.__("rating_added_successfully"),
         body: findProduct,
       });
     } else {
       res.status(400);
-      throw new Error("Unable to rate a product");
+      throw new Error(res.__("unable_to_rate_a_product"));
     }
 
     
   } catch (error) {
     res.status(500).json({
       status: "Error",
-      message: "Unable to rate the product",
+      message: res.__("unable_to_rate_the_product"),
       error: error.message,
     });
   }
@@ -168,19 +168,19 @@ const topRatedProducts = asyncHandler(async (req, res) => {
     if (topRated) {
       res.status(200).json({
         status: "Success",
-        message: "Top rated product fetched successfully",
+        message: res.__("top_rated_product_fetched_successfully"),
         body: topRated,
       });
     } else {
       res.status(400);
-      throw new Error("Unable to fetch top rated product");
+      throw new Error(res.__("unable_to_fetch_top_rated_product"));
     }
 
     
   } catch (error) {
     res.status(500).json({
       status: "Error",
-      message: "Unable to fetch top rated product",
+      message: res.__("unable_to_fetch_top_rated_product"),
       error: error.message,
     });
   }

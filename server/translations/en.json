@@ -38,5 +38,6 @@
     "order_status_changed_successfully": "Order status changed successfully",
     "error_occured_to_change_order_status": "Error Occured to change order status",
     "error_to_fetch_orders": "Error to fetch orders",
-    "error_occured_to_save_user_address": "Error Occured to save user address"
+    "error_occured_to_save_user_address": "Error Occured to save user address",
+    "Already in exist":"Already in exist"
 }
