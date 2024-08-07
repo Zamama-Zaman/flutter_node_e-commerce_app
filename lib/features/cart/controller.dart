@@ -40,18 +40,19 @@ class CartController extends BaseController {
   void addToCart({
     required CartModel data,
   }) async {
-    bool isAdded = await ProductService.instance.addToCart(
+    final isAdded = await ProductService.instance.addToCart(
       product: data.product,
     );
 
-    if (isAdded) {
+    isAdded.fold((errorM) {
+      Fluttertoast.showToast(msg: errorM);
+    }, (successM) {
       data = data.copyWith(
         quantity: data.quantity++,
       );
       update();
-
-      Fluttertoast.showToast(msg: "Cart Added Successfully");
-    }
+      Fluttertoast.showToast(msg: successM);
+    });
   }
 
   void removeFromCart({

@@ -9,7 +9,8 @@ class AdminService {
 
   Map<String, String> get headers => {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}'
+        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}',
+        'Accept-Language': AppPreference.instance.getLocale,
       };
 
   Future<bool> addProduct({

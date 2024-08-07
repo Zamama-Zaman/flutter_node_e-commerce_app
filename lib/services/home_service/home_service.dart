@@ -4,9 +4,10 @@ class HomeService {
   static final instance = HomeService();
   final client = CustomHttpClientMiddleWare(Client());
 
-  final Map<String, String> _headers = {
-    'Content-Type': 'application/json; charset=UTF-8',
-  };
+  Map<String, String> get _headers => {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': AppPreference.instance.getLocale,
+      };
 
   Future<List<Product>> getProductByCategory({
     required String category,

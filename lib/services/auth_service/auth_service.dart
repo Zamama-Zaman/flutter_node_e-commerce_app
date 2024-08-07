@@ -3,8 +3,9 @@ import '../../lib.dart';
 class AuthService {
   static final instance = AuthService();
   final client = CustomHttpClientMiddleWare(Client());
-  final Map<String, String> _headers = {
+  Map<String, String> get _headers => {
     'Content-Type': 'application/json; charset=UTF-8',
+    'Accept-Language': AppPreference.instance.getLocale,
   };
 
   Future<UserModel?> login({

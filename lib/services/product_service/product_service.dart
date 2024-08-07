@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_node_ecommerce_app_original/common/models/cart_model.dart';
 
 import '../../lib.dart';
@@ -8,12 +9,12 @@ class ProductService {
 
   Map<String, String> get headers => {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}'
+        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}',
+        'Accept-Language': AppPreference.instance.getLocale,
       };
 
   /// add to cart
-  Future<bool> addToCart({required Product product}) async {
-    bool isAddToCart = false;
+  Future<Either<String, String>> addToCart({required Product product}) async {
     final myJsonEncode = json.encode({
       "productId": product.id,
     });
@@ -26,18 +27,18 @@ class ProductService {
       );
 
       if (response.statusCode == 200) {
-        isAddToCart = true;
-      }
-      if (response.statusCode == 401) {
-        debugPrint("Error Add to Cart UnAuthorise ${headers['Authorization']}");
-        Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
+        final myDecodedRes = json.decode(response.body);
+        return right(myDecodedRes['message']);
+      } else {
+        final myDecodedRes = json.decode(response.body);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Error Add to Cart $e");
       Fluttertoast.showToast(msg: "Error Add to Cart $e");
     }
 
-    return isAddToCart;
+    return left("Error Add to Cart");
   }
 
   Future<List<CartModel>> getCart() async {

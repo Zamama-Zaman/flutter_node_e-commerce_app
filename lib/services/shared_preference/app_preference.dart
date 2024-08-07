@@ -1,6 +1,6 @@
 import '../../lib.dart';
 
-class AppPreference {
+class AppPreference extends BaseController {
   static final instance = AppPreference();
   final _userKey = "USER_MODEL";
 
