@@ -41,7 +41,7 @@ class ProductService {
     return left("Error Add to Cart");
   }
 
-  Future<List<CartModel>> getCart() async {
+  Future<Either<String, List<CartModel>>> getCart() async {
     List<CartModel> cartList = [];
 
     try {
@@ -54,17 +54,16 @@ class ProductService {
         for (var cart in jsonDecode(response.body)['body']['cart']) {
           cartList.add(CartModel.fromMap(cart));
         }
-      }
-      if (response.statusCode == 401) {
-        debugPrint("Error Get Cart UnAuthorise ${headers['Authorization']}");
-        Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
+      } else {
+        final myDecodedRes = json.decode(response.body);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Error Get Cart $e");
       Fluttertoast.showToast(msg: "Error Get Cart $e");
     }
 
-    return cartList;
+    return right(cartList);
   }
 
   Future<bool> removeFromCart({required Product product}) async {

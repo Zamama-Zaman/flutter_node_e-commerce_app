@@ -32,7 +32,11 @@ class CartController extends BaseController {
 
   List<CartModel>? listCart;
   Future<void> getCart() async {
-    listCart = await ProductService.instance.getCart();
+    final result = await ProductService.instance.getCart();
+    result.fold(
+      (errorM) => Fluttertoast.showToast(msg: errorM),
+      (r) => listCart!.addAll(r),
+    );
     update();
   }
 
