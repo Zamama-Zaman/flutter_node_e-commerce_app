@@ -24,8 +24,13 @@ class AdminController extends BaseController {
   fetchAllProducts() async {
     isFetching = true;
     update();
+    final result = await AdminService.instance.fetchAllProducts();
 
-    products = await AdminService.instance.fetchAllProducts();
+    result.fold((errorM) {
+      Fluttertoast.showToast(msg: errorM);
+    }, (succesR) {
+      products = succesR;
+    });
 
     isFetching = false;
     update();
@@ -35,13 +40,15 @@ class AdminController extends BaseController {
     isFetching = true;
     update();
 
-    bool isDeleted = await AdminService.instance.deletAProduct(
+    final result = await AdminService.instance.deletAProduct(
       product: product,
     );
 
-    if (isDeleted) {
+    result.fold((errorM) {
+      Fluttertoast.showToast(msg: errorM);
+    }, (succesR) {
       products!.removeAt(index);
-    }
+    });
 
     isFetching = false;
     update();
@@ -89,11 +96,13 @@ class AdminController extends BaseController {
         images: images,
       );
 
-      if (result) {
+      result.fold((errorM) {
+        Fluttertoast.showToast(msg: errorM);
+      }, (successR) {
         Fluttertoast.showToast(msg: "Added Succesfully");
         clearAll();
         Get.back();
-      }
+      });
 
       isLoading = false;
       update();
@@ -110,23 +119,35 @@ class AdminController extends BaseController {
 
   List<OrderResModel>? orderList = [];
   void fetchAllOrders() async {
-    orderList = await AdminService.instance.fetchAllOrders();
+    final result = await AdminService.instance.fetchAllOrders();
+
+    result.fold((errorM) {
+      Fluttertoast.showToast(msg: errorM);
+    }, (succesR) {
+      orderList = succesR;
+    });
+
     update();
   }
 
   // !!! ONLY FOR ADMIN!!!
   void changeOrderStatus({required int status, required Order order}) async {
-    bool isChanged = await OrderService.instance.changeOrderStatus(
+    final result = await OrderService.instance.changeOrderStatus(
       orderId: order.id,
       status: (status + 1).toString(),
     );
 
-    if (isChanged) {
-      Fluttertoast.showToast(msg: "Status changed Successfully");
-      OrderController.instance.currentStep += 1;
-      OrderController.instance.update();
-      fetchAllOrders();
-    }
+    result.fold(
+      (errorM) {
+        Fluttertoast.showToast(msg: errorM);
+      },
+      (succesR) {
+        Fluttertoast.showToast(msg: succesR);
+        OrderController.instance.currentStep += 1;
+        OrderController.instance.update();
+        fetchAllOrders();
+      },
+    );
   }
 
   void logout() {

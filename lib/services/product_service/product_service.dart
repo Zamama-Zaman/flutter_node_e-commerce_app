@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_node_ecommerce_app_original/common/models/cart_model.dart';
 
 import '../../lib.dart';
@@ -54,20 +53,19 @@ class ProductService {
         for (var cart in jsonDecode(response.body)['body']['cart']) {
           cartList.add(CartModel.fromMap(cart));
         }
+        return right(cartList);
       } else {
         final myDecodedRes = json.decode(response.body);
         return left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Error Get Cart $e");
-      Fluttertoast.showToast(msg: "Error Get Cart $e");
+      return left("Error Get Cart $e");
     }
-
-    return right(cartList);
   }
 
-  Future<bool> removeFromCart({required Product product}) async {
-    bool isRemoveFromCart = false;
+  Future<Either<String, String>> removeFromCart(
+      {required Product product}) async {
     final myJsonEncode = json.encode({
       "productId": product.id,
     });
@@ -80,26 +78,22 @@ class ProductService {
       );
 
       if (response.statusCode == 200) {
-        isRemoveFromCart = true;
-      }
-      if (response.statusCode == 401) {
-        debugPrint(
-            "Error Remove From Cart UnAuthorise ${headers['Authorization']}");
-        Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
+        final myDecodedRes = json.decode(response.body);
+        return right(myDecodedRes['message']);
+      } else {
+        final myDecodedRes = json.decode(response.body);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Error Remove From Cart $e");
-      Fluttertoast.showToast(msg: "Error Remove From Cart $e");
+      return left("Error Remove From Cart $e");
     }
-
-    return isRemoveFromCart;
   }
 
-  Future<bool> rateAProduct({
+  Future<Either<String, String>> rateAProduct({
     required Product product,
     required String rate,
   }) async {
-    bool isRated = false;
     final myJsonEncode = json.encode({
       "rate": rate,
       "productId": product.id,
@@ -113,18 +107,15 @@ class ProductService {
       );
 
       if (response.statusCode == 200) {
-        isRated = true;
-      }
-      if (response.statusCode == 401) {
-        debugPrint(
-            "Error Rate a Product UnAuthorise ${headers['Authorization']}");
-        Fluttertoast.showToast(msg: "UnAuthorise ${headers['Authorization']}");
+        final myDecodedRes = json.decode(response.body);
+        return right(myDecodedRes['message']);
+      } else {
+        final myDecodedRes = json.decode(response.body);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Error Rate a Product $e");
-      Fluttertoast.showToast(msg: "Error Rate a Product $e");
+      return left("Error Rate a Product $e");
     }
-
-    return isRated;
   }
 }

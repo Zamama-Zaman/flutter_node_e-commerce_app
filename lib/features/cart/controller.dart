@@ -1,5 +1,4 @@
 import '../../common/models/cart_model.dart';
-import '../../services/product_service/product_service.dart';
 
 import '../../lib.dart';
 
@@ -35,9 +34,11 @@ class CartController extends BaseController {
     final result = await ProductService.instance.getCart();
     result.fold(
       (errorM) => Fluttertoast.showToast(msg: errorM),
-      (r) => listCart!.addAll(r),
+      (succesR) {
+        listCart = succesR;
+        update();
+      },
     );
-    update();
   }
 
   // add to cart
@@ -62,21 +63,20 @@ class CartController extends BaseController {
   void removeFromCart({
     required CartModel data,
   }) async {
-    bool isRemoved = await ProductService.instance.removeFromCart(
+    final result = await ProductService.instance.removeFromCart(
       product: data.product,
     );
+    result.fold((errorM) {}, (succesR) async {
+      if (data.quantity == 1) {
+        await getCart();
+      }
 
-    if (data.quantity == 1) {
-      await getCart();
-    }
-
-    if (isRemoved) {
       data = data.copyWith(
         quantity: data.quantity--,
       );
       update();
 
       Fluttertoast.showToast(msg: "Cart Remove Successfully");
-    }
+    });
   }
 }

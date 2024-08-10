@@ -10,8 +10,11 @@ class HomeController extends BaseController {
     searchedProducts = null;
     String searchQuery = searchCtrl.text.trim();
     if (searchQuery.isNotEmpty) {
-      searchedProducts =
+      final result =
           await HomeService.instance.searchProduct(search: searchQuery);
+      result.fold((errorM) {
+        Fluttertoast.showToast(msg: errorM);
+      }, (succesR) => searchedProducts = succesR);
     }
 
     if (searchedProducts != null && searchedProducts!.isNotEmpty) {
@@ -62,14 +65,25 @@ class HomeController extends BaseController {
   List<Product>? productList;
   String category = '';
   Future<void> fetchCategoryProducts() async {
-    productList =
+    final result =
         await HomeService.instance.getProductByCategory(category: category);
-    update();
+
+    result.fold((errorM) {
+      Fluttertoast.showToast(msg: errorM);
+    }, (succesR) {
+      productList = succesR;
+      update();
+    });
   }
 
   List<Product>? topRatedProductsList;
   void topRatedProductsFetch() async {
-    topRatedProductsList = await HomeService.instance.topRatedProducts();
-    update();
+    final result = await HomeService.instance.topRatedProducts();
+    result.fold((errorM) {
+      Fluttertoast.showToast(msg: errorM);
+    }, (succesR) {
+      topRatedProductsList = succesR;
+      update();
+    });
   }
 }

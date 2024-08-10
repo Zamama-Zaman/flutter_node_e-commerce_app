@@ -42,19 +42,24 @@ class ProductController extends BaseController {
     required Product product,
     required String rate,
   }) async {
-    bool isRated = await ProductService.instance.rateAProduct(
+    final result = await ProductService.instance.rateAProduct(
       product: product,
       rate: rate,
     );
 
-    if (isRated) {
-      await HomeController.instance.fetchCategoryProducts();
-      final newProduct = HomeController.instance.productList!
-          .firstWhere((ele) => ele.id == product.id);
-      initFunction(product: newProduct);
-      update();
-      Get.close();
-      await Fluttertoast.showToast(msg: "Rated Successfully");
-    }
+    result.fold(
+      (errorM) {
+        Fluttertoast.showToast(msg: errorM);
+      },
+      (successM) async {
+        await HomeController.instance.fetchCategoryProducts();
+        final newProduct = HomeController.instance.productList!
+            .firstWhere((ele) => ele.id == product.id);
+        initFunction(product: newProduct);
+        update();
+        Get.close();
+        await Fluttertoast.showToast(msg: successM);
+      },
+    );
   }
 }

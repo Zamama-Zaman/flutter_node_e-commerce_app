@@ -29,16 +29,18 @@ class AddressController extends BaseController {
         address: addressToBeUsed,
       );
     }
-    bool isPlased = await OrderService.instance.placeOrder(
+
+    final result = await OrderService.instance.placeOrder(
       subTotal: subTotal.toString(),
       deliveryAddress: addressToBeUsed,
     );
-
-    if (isPlased) {
+    result.fold((errorM) {
+      Fluttertoast.showToast(msg: errorM);
+    }, (succesM) {
       Fluttertoast.showToast(msg: "Placed Order Successfully");
       _clearAll();
       Get.back();
-    }
+    });
   }
 
   void onGooglePayResult(res, subTotal) async {
@@ -47,16 +49,18 @@ class AddressController extends BaseController {
         address: addressToBeUsed,
       );
     }
-    bool isPlased = await OrderService.instance.placeOrder(
+    final result = await OrderService.instance.placeOrder(
       subTotal: subTotal.toString(),
       deliveryAddress: addressToBeUsed,
     );
 
-    if (isPlased) {
+    result.fold((errorM) {
+      Fluttertoast.showToast(msg: errorM);
+    }, (succesM) {
       Fluttertoast.showToast(msg: "Placed Order Successfully");
       _clearAll();
       Get.back();
-    }
+    });
   }
 
   void payPressed(

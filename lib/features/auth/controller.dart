@@ -31,11 +31,15 @@ class AuthController extends BaseController {
         password: loginPassCtrl.text.trim(),
       );
 
-      if (result != null) {
-        result.type == "admin"
+      result.fold((errorM) {
+        Fluttertoast.showToast(msg: errorM);
+      }, (succesR) {
+        final response = succesR;
+
+        response.type == "admin"
             ? Get.offAll(() => const AdminView())
             : Get.offAll(() => const DefaultView());
-      }
+      });
     }
   }
 
@@ -50,10 +54,12 @@ class AuthController extends BaseController {
         password: regisPassCtrl.text.trim(),
       );
 
-      if (result) {
+      result.fold((errorM) {
+        Fluttertoast.showToast(msg: errorM);
+      }, (succesM) {
         Get.offAll(() => const LoginView());
-        Fluttertoast.showToast(msg: "You are register please login!");
-      }
+        Fluttertoast.showToast(msg: succesM);
+      });
     }
   }
 }

@@ -19,9 +19,11 @@ class CartView extends BaseView<CartController> {
   @override
   Widget? get body {
     int sum = 0;
-    CartController.instance.listCart!
-        .map((e) => sum += e.quantity * e.product.price.toInt())
-        .toList();
+    if (controller.listCart != null) {
+      controller.listCart!
+          .map((e) => sum += e.quantity * e.product.price.toInt())
+          .toList();
+    }
     return SingleChildScrollView(
       child: Padding(
         padding: AppPaddings.commonHorizontalPadding,
@@ -64,19 +66,9 @@ class CartView extends BaseView<CartController> {
     );
   }
 
-  Widget get _cartList => controller.listCart == null ||
-          controller.listCart!.isEmpty
-      ? SizedBox(
-          height: Get.height / 1.5,
-          child: Center(
-            child: AppText.commonText(
-              text: "No item added yet in cart!",
-              fontSize: 18.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        )
-      : Column(
+  Widget get _cartList => controller.listCart != null &&
+          controller.listCart!.isNotEmpty
+      ? Column(
           children: [
             ...List.generate(
               controller.listCart!.length,
@@ -168,6 +160,16 @@ class CartView extends BaseView<CartController> {
               ),
             ),
           ],
+        )
+      : SizedBox(
+          height: Get.height / 1.5,
+          child: Center(
+            child: AppText.commonText(
+              text: "No item added yet in cart!",
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         );
 
   Widget _addAndDeleteCard({required CartModel data}) => Container(

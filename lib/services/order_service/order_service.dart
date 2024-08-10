@@ -33,11 +33,10 @@ class OrderService {
     }
   }
 
-  Future<bool> placeOrder({
+  Future<Either<String, String>> placeOrder({
     required String subTotal,
     required String deliveryAddress,
   }) async {
-    bool isPlaced = false;
     final myJsonEncode = json.encode({
       "subTotal": subTotal,
       "deliveryAddress": deliveryAddress,
@@ -51,17 +50,19 @@ class OrderService {
       );
 
       if (response.statusCode == 200) {
-        isPlaced = true;
+        final myDecodedRes = json.decode(response.body);
+        return right(myDecodedRes['message']);
+      } else {
+        final myDecodedRes = json.decode(response.body);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Place Order Error $e");
-      Fluttertoast.showToast(msg: "Error Place Order $e");
+      return left("Place Order Error $e");
     }
-
-    return isPlaced;
   }
 
-  Future<List<OrderResModel>> getAllMyOrders() async {
+  Future<Either<String, List<OrderResModel>>> getAllMyOrders() async {
     List<OrderResModel> orderList = [];
 
     try {
@@ -74,20 +75,21 @@ class OrderService {
         for (var singleOrder in jsonDecode(response.body)['body']) {
           orderList.add(OrderResModel.fromMap(singleOrder));
         }
+        return right(orderList);
+      } else {
+        final myDecodedRes = json.decode(response.body);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Place Order Error $e");
-      Fluttertoast.showToast(msg: "Error Place Order $e");
+      return left("Place Order Error $e");
     }
-
-    return orderList;
   }
 
-  Future<bool> changeOrderStatus({
+  Future<Either<String, String>> changeOrderStatus({
     required String orderId,
     required String status,
   }) async {
-    bool isStatusChanged = false;
     final myJsonEncode = json.encode({
       "id": orderId,
       "status": status,
@@ -101,17 +103,15 @@ class OrderService {
       );
 
       if (response.statusCode == 200) {
-        isStatusChanged = true;
-      }
-      if (response.statusCode == 401) {
-        debugPrint("User not Authroize ");
-        Fluttertoast.showToast(msg: "User not Authroize");
+        final myDecodedRes = json.decode(response.body);
+        return right(myDecodedRes['message']);
+      } else {
+        final myDecodedRes = json.decode(response.body);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
-      debugPrint("Change Order Status Error Error $e");
-      Fluttertoast.showToast(msg: "Error Change Order Status $e");
+      debugPrint("Error Change Order Status $e");
+      return left("Error Change Order Status $e");
     }
-
-    return isStatusChanged;
   }
 }
