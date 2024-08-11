@@ -272,9 +272,8 @@ const changeOrderStatus = asyncHandler(async (req, res) => {
   
   let order = await orderModel.findById(id);
 
-  order.status = status;
+    order.status = status;
     order = await order.save();
-    res.json(order);
 
   if (order) {
     res.status(200).json({
@@ -282,6 +281,7 @@ const changeOrderStatus = asyncHandler(async (req, res) => {
       message: res.__("order_status_changed_successfully"),
       body: order,
     });
+    
   } else {
     res.status(400);
     throw new Error(res.__("error_occured_to_change_order_status"));

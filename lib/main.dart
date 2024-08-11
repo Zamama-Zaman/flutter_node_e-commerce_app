@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
  
 /// Add localization for both front-end and back-end.
 /// After localization add Unit test for both front-end and back-end
-/// Please a add new stackholder of owner, 
+/// Please add a new stackholder of owner, 
 /// which have CRUD Operation on Products.
 /// And Admin will have Orders Module.
 /// And then add chat module to add chat module with sockets!

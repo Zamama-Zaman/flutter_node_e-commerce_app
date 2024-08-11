@@ -125,9 +125,8 @@ class AdminController extends BaseController {
       Fluttertoast.showToast(msg: errorM);
     }, (succesR) {
       orderList = succesR;
+      update();
     });
-
-    update();
   }
 
   // !!! ONLY FOR ADMIN!!!
