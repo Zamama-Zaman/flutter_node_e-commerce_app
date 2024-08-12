@@ -76,7 +76,7 @@ class CartController extends BaseController {
       );
       update();
 
-      Fluttertoast.showToast(msg: "Cart Remove Successfully");
+      Fluttertoast.showToast(msg: succesR);
     });
   }
 }

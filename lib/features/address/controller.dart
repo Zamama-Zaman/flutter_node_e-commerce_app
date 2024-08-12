@@ -1,5 +1,3 @@
-import '../../services/order_service/order_service.dart';
-
 import '../../lib.dart';
 
 class AddressController extends BaseController {
@@ -37,7 +35,7 @@ class AddressController extends BaseController {
     result.fold((errorM) {
       Fluttertoast.showToast(msg: errorM);
     }, (succesM) {
-      Fluttertoast.showToast(msg: "Placed Order Successfully");
+      Fluttertoast.showToast(msg: succesM);
       _clearAll();
       Get.back();
     });
@@ -57,7 +55,7 @@ class AddressController extends BaseController {
     result.fold((errorM) {
       Fluttertoast.showToast(msg: errorM);
     }, (succesM) {
-      Fluttertoast.showToast(msg: "Placed Order Successfully");
+      Fluttertoast.showToast(msg: succesM);
       _clearAll();
       Get.back();
     });
