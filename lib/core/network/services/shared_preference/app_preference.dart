@@ -1,4 +1,4 @@
-import '../../lib.dart';
+import '../../../../lib.dart';
 
 class AppPreference extends BaseController {
   static final instance = AppPreference();

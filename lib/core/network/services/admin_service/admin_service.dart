@@ -1,4 +1,4 @@
-import '../../lib.dart';
+import '../../../../lib.dart';
 
 class AdminService {
   static final instance = AdminService();

@@ -1,4 +1,4 @@
-import '../../lib.dart';
+import '../../../../lib.dart';
 
 class CustomHttpClientMiddleWare extends BaseClient {
   final Client _inner;

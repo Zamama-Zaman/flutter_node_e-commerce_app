@@ -1,6 +1,6 @@
 import 'package:flutter_node_ecommerce_app_original/common/models/cart_model.dart';
 
-import '../../lib.dart';
+import '../../../../lib.dart';
 
 class ProductService {
   static final instance = ProductService();

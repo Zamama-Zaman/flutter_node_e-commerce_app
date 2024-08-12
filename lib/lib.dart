@@ -25,4 +25,4 @@ export 'package:dartz/dartz.dart' hide Bind, State, Order;
 export 'common/common.dart';
 export 'core/core.dart';
 export 'features/features.dart';
-export 'services/services.dart';
+export 'core/network/services/services.dart';
