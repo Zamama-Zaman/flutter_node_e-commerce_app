@@ -3,7 +3,7 @@ import '../../../../lib.dart';
 class AuthService {
   static final instance = AuthService();
   final client = CustomHttpClientMiddleWare(Client());
-  Map<String, String> get _headers => {
+  Map<String, String> get headers => {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept-Language': AppPreference.instance.getLocale,
       };
@@ -21,7 +21,7 @@ class AuthService {
       Response response = await client.post(
         Uri.parse(AppBaseUrl.loginUrl),
         body: myJsonEncode,
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -55,7 +55,7 @@ class AuthService {
       Response response = await client.post(
         Uri.parse(AppBaseUrl.registerUrl),
         body: myJsonEncode,
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 201) {
