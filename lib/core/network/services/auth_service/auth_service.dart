@@ -2,11 +2,14 @@ import '../../../../lib.dart';
 
 class AuthService {
   static final instance = AuthService();
-  final client = CustomHttpClientMiddleWare(Client());
+  CustomHttpClientMiddleWare client = CustomHttpClientMiddleWare(Client());
   Map<String, String> get headers => {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Accept-Language': AppPreference.instance.getLocale,
+        'Accept-Language': 'en', // AppPreference.instance.getLocale,
       };
+
+  final _count = 0;
+  int get count => _count;
 
   Future<Either<String, UserModel>> login({
     required String email,
@@ -28,15 +31,15 @@ class AuthService {
         user = UserModel.fromMap(jsonDecode(response.body)['body']['user']);
         user = user.copyWith(token: jsonDecode(response.body)['body']['token']);
         AppPreference.instance.setUserModel(model: user);
-        return right(user);
+        return Right(user);
       } else {
         final myDecodedRes = json.decode(response.body);
-        return left(myDecodedRes['message']);
+        return Left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Login Error $e");
       Fluttertoast.showToast(msg: "Error Login $e");
-      return left("Login Error $e");
+      return Left("Login Error $e");
     }
   }
 
@@ -60,14 +63,14 @@ class AuthService {
 
       if (response.statusCode == 201) {
         final myDecodedRes = json.decode(response.body);
-        return right(myDecodedRes['message']);
+        return Right(myDecodedRes['message']);
       } else {
         final myDecodedRes = json.decode(response.body);
-        return left(myDecodedRes['message']);
+        return Left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Register Error $e");
-      return left("Register Error $e");
+      return Left("Register Error $e");
     }
   }
 }
