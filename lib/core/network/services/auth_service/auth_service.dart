@@ -31,15 +31,15 @@ class AuthService {
         user = UserModel.fromMap(jsonDecode(response.body)['body']['user']);
         user = user.copyWith(token: jsonDecode(response.body)['body']['token']);
         AppPreference.instance.setUserModel(model: user);
-        return Right(user);
+        return right(user);
       } else {
         final myDecodedRes = json.decode(response.body);
-        return Left(myDecodedRes['message']);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
       debugPrint("Login Error $e");
       Fluttertoast.showToast(msg: "Error Login $e");
-      return Left("Login Error $e");
+      return left("Login Error $e");
     }
   }
 
