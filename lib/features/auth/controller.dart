@@ -35,6 +35,7 @@ class AuthController extends BaseController {
         Fluttertoast.showToast(msg: errorM);
       }, (succesR) {
         final response = succesR;
+        AppPreference.instance.setUserModel(model: succesR);
 
         response.type == "admin"
             ? Get.offAll(() => const AdminView())
