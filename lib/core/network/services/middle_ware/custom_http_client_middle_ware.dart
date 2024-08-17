@@ -18,7 +18,7 @@ class CustomHttpClientMiddleWare extends BaseClient {
       debugPrint('Response: ${response.statusCode}');
 
       if (response.statusCode == 401) {
-        Get.offAll(() => const LoginView());
+        // Get.offAll(() => const LoginView());
       }
 
       return response;
