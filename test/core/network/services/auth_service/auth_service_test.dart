@@ -1,38 +1,38 @@
-// import 'package:flutter_node_ecommerce_app_original/lib.dart';
-import 'dart:convert';
-
-import 'package:dartz/dartz.dart';
-import 'package:flutter_node_ecommerce_app_original/common/models/user_model.dart';
-import 'package:flutter_node_ecommerce_app_original/core/network/services/auth_service/auth_service.dart';
-import 'package:flutter_node_ecommerce_app_original/core/network/services/middle_ware/custom_http_client_middle_ware.dart';
-import 'package:flutter_node_ecommerce_app_original/core/network/services/network/base_url.dart';
+import 'package:flutter_node_ecommerce_app_original/lib.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockCustomHttpClientMiddleWare extends Mock
     implements CustomHttpClientMiddleWare {}
 
 void main() async {
-  test("Testing login function", () async {
-    const email = "zamamazaman@gmail.com";
-    const password = "12345678";
-    final myJsonEncode = json.encode({
-      "email": email,
-      "password": password,
-    });
+  late AuthService authService;
+  late MockCustomHttpClientMiddleWare middleWareClient;
 
-    // Arrange
-    final AuthService authService = AuthService.instance;
-    final middleWareClient = MockCustomHttpClientMiddleWare();
+  setUp(() {
+    authService = AuthService.instance;
+    middleWareClient = MockCustomHttpClientMiddleWare();
     authService.client = middleWareClient;
-    when(() => middleWareClient.post(
-          Uri.parse(AppBaseUrl.loginUrl),
-          body: myJsonEncode,
-          headers: authService.headers,
-        )).thenAnswer((invocation) async {
-      return Response(
-        '''
+  });
+
+  group("login -", () {
+    test("returns user when login successful by providing correct credentials",
+        () async {
+      const email = "zamamazaman@gmail.com";
+      const password = "12345678";
+      final myJsonEncode = json.encode({
+        "email": email,
+        "password": password,
+      });
+
+      // Arrange
+      when(() => middleWareClient.post(
+            Uri.parse(AppBaseUrl.loginUrl),
+            body: myJsonEncode,
+            headers: authService.headers,
+          )).thenAnswer((invocation) async {
+        return Response(
+          '''
           {
             "status": "Success",
             "message": "User is successfully login",
@@ -53,51 +53,92 @@ void main() async {
               }
           }
         ''',
-        200,
+          200,
+        );
+      });
+
+      // act
+      final result = await authService.login(email: email, password: password);
+
+      // assert
+      expect(result, isA<Either<String, UserModel>>());
+      expect(result.isRight(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<UserModel>()),
       );
     });
 
-    // act
-    final result = await authService.login(email: email, password: password);
+    test("returns error message when login fails with incorrect credentials",
+        () async {
+      const email = "wrongemail@gmail.com";
+      const password = "12345678";
+      final myJsonEncode = json.encode({
+        "email": email,
+        "password": password,
+      });
 
-    // assert
-    expect(result, isA<Either<String, UserModel>>());
-    expect(result.isRight(), true);
-  });
+      // Arrange
+      when(() => middleWareClient.post(
+            Uri.parse(AppBaseUrl.loginUrl),
+            body: myJsonEncode,
+            headers: authService.headers,
+          )).thenAnswer((a) async {
+        return Response(
+          """
+            {
+              "title": "Unauthoized",
+              "message": "User not exist"
+            }
+          """,
+          401,
+        );
+      });
 
-  test("returns error message when login fails with incorrect credentials",
-      () async {
-    const email = "wrongemail@gmail.com";
-    const password = "12345678";
-    final myJsonEncode = json.encode({
-      "email": email,
-      "password": password,
+      // Act
+      final result = await authService.login(email: email, password: password);
+
+      // Assert
+      expect(result, isA<Either<String, UserModel>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<UserModel>()),
+      );
     });
-    // Arrange
-    final AuthService authService = AuthService.instance;
-    final mockHttpClient = MockCustomHttpClientMiddleWare();
-    authService.client = mockHttpClient;
 
-    when(() => mockHttpClient.post(
+    test("return error message when internal server error occures", () async {
+      const email = "zamamazaman@gmail.com";
+      const password = "12345678";
+      final myJsonEncode = json.encode({
+        "email": email,
+        "password": password,
+      });
+      
+      // arrange
+      when(
+        () => middleWareClient.post(
           Uri.parse(AppBaseUrl.loginUrl),
           body: myJsonEncode,
           headers: authService.headers,
-        )).thenAnswer((a) async {
-      return Response(
-        """
-        {
-          "title": "Unauthoized",
-          "message": "User not exist"
-        }
-        """,
-        401,
+        ),
+      ).thenAnswer((invocation) async {
+        return Response("{}", 500);
+      });
+
+      // act
+      final result = await authService.login(
+        email: email,
+        password: password,
+      );
+
+      // assert
+      expect(result, isA<Either<String, UserModel>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<UserModel>()),
       );
     });
-
-    // Act
-    final result = await authService.login(email: email, password: password);
-    // Assert
-    expect(result, isA<Either<String, UserModel>>());
-    expect(result.isLeft(), true);
   });
 }

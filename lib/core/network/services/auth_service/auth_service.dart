@@ -35,7 +35,6 @@ class AuthService {
       }
     } catch (e) {
       debugPrint("Login Error $e");
-      Fluttertoast.showToast(msg: "Error Login $e");
       return left("Login Error $e");
     }
   }
