@@ -114,7 +114,7 @@ void main() async {
         "email": email,
         "password": password,
       });
-      
+
       // arrange
       when(
         () => middleWareClient.post(
@@ -138,6 +138,135 @@ void main() async {
       result.fold(
         (l) => expect(l, isA<String>()),
         (r) => expect(r, isA<UserModel>()),
+      );
+    });
+  });
+
+  group("registration -", () {
+    test("return success respone when new user created", () async {
+      const name = "newUserName";
+      const email = "newUserEmail@gmail.com";
+      const password = "12345678";
+      final myJsonEncode = json.encode({
+        "name": name,
+        "email": email,
+        "password": password,
+      });
+
+      // arrange
+      when(() {
+        return middleWareClient.post(
+          Uri.parse(AppBaseUrl.registerUrl),
+          body: myJsonEncode,
+          headers: authService.headers,
+        );
+      }).thenAnswer((invocation) async {
+        return Response(
+          """
+            {
+              "status": "true",
+              "message": "Successfully register please login"
+            }
+          """,
+          201,
+        );
+      });
+      // act
+      final result = await authService.register(
+          name: name, email: email, password: password);
+
+      // assert
+      expect(result, isA<Either<String, String>>());
+      expect(result.isRight(), true);
+      expect(result.isLeft(), false);
+      result.fold((l) {
+        expect(l, isA<String>());
+      }, (r) {
+        expect(r, isA<String>());
+      });
+    });
+
+    test("return error message when give empty credentials", () async {
+      const name = "";
+      const email = "newUserEmail@gmail.com";
+      const password = "12345678";
+      final myJsonEncode = json.encode({
+        "name": name,
+        "email": email,
+        "password": password,
+      });
+
+      // arrange
+      when(() {
+        return middleWareClient.post(
+          Uri.parse(AppBaseUrl.registerUrl),
+          body: myJsonEncode,
+          headers: authService.headers,
+        );
+      }).thenAnswer((invocation) async {
+        return Response(
+          """
+            {           
+              "status": "true",
+              "message": "name field is required"
+            }
+          """,
+          401,
+        );
+      });
+
+      // act
+      final result = await authService.register(
+          name: name, email: email, password: password);
+
+      // assert
+      expect(result, isA<Either<String, String>>());
+      expect(result.isLeft(), true);
+      result.fold((l) {
+        expect(l, isA<String>());
+      }, (r) {
+        expect(r, isA<String>());
+      });
+    });
+
+    test("return error message when internal server error occurred", () async {
+      const name = "newUserName";
+      const email = "newUserEmail@gmail.com";
+      const password = "12345678";
+      final myJsonEncode = json.encode({
+        "name": name,
+        "email": email,
+        "password": password,
+      });
+
+      // arrange
+      when(() {
+        return middleWareClient.post(
+          Uri.parse(AppBaseUrl.registerUrl),
+          body: myJsonEncode,
+          headers: authService.headers,
+        );
+      }).thenAnswer((invocation) async {
+        return Response(
+          "{}",
+          500,
+        );
+      });
+
+      // act
+      final result = await authService.register(
+        name: name,
+        email: email,
+        password: password,
+      );
+
+      // assert
+      expect(result, isA<Either<String, String>>());
+      expect(result.isRight(), false);
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<String>()),
       );
     });
   });
