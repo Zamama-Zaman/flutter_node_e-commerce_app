@@ -5,14 +5,24 @@ import 'package:mocktail/mocktail.dart';
 class MockCustomHttpClientMiddleWare extends Mock
     implements CustomHttpClientMiddleWare {}
 
+class MockAppPreference extends Mock implements AppPreference {}
+
 void main() async {
   late AuthService authService;
   late MockCustomHttpClientMiddleWare middleWareClient;
+  late Map<String, String> header;
+  late MockAppPreference mockAppPreference;
 
   setUp(() {
     authService = AuthService.instance;
     middleWareClient = MockCustomHttpClientMiddleWare();
     authService.client = middleWareClient;
+    mockAppPreference = MockAppPreference();
+    header = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept-Language': mockAppPreference.getLocale,
+    };
+    authService.setHeaders(headers: header);
   });
 
   group("login -", () {
@@ -29,7 +39,7 @@ void main() async {
       when(() => middleWareClient.post(
             Uri.parse(AppBaseUrl.loginUrl),
             body: myJsonEncode,
-            headers: authService.headers,
+            headers: header,
           )).thenAnswer((invocation) async {
         return Response(
           '''
