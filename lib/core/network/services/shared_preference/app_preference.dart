@@ -1,16 +1,25 @@
 import '../../../../lib.dart';
 
-class AppPreference extends BaseController {
+class AppPreference {
   static final instance = AppPreference();
   final _userKey = "USER_MODEL";
+  final _localKey = "LOCALE";
 
-  late SharedPreferences _preferences;
+  late SharedPreferences preferences;
   Future<void> initiatePreference() async {
-    _preferences = await SharedPreferences.getInstance();
+    preferences = await SharedPreferences.getInstance();
   }
 
+  Future<bool> setUserLocale({required String locale}) async =>
+      await preferences.setString(
+        _localKey,
+        locale,
+      );
+
+  String get getLocale => preferences.getString(_localKey) ?? "en";
+
   Future<bool> setUserModel({required UserModel model}) async =>
-      await _preferences.setString(_userKey, model.toJson());
+      await preferences.setString(_userKey, model.toJson());
 
   UserModel get getUserModel {
     UserModel user = UserModel(
@@ -23,7 +32,7 @@ class AppPreference extends BaseController {
       token: "",
       cart: [],
     );
-    String? userEncoded = _preferences.getString(_userKey);
+    String? userEncoded = preferences.getString(_userKey);
     if (userEncoded != null) {
       user = UserModel.fromJson(userEncoded);
     }
@@ -32,7 +41,7 @@ class AppPreference extends BaseController {
 
   bool isUserLogin() {
     bool isLoggedIn = false;
-    String? userEncoded = _preferences.getString(_userKey);
+    String? userEncoded = preferences.getString(_userKey);
     if (userEncoded != null) {
       final user = UserModel.fromJson(userEncoded);
       if (user.token.isNotEmpty) {
@@ -43,5 +52,5 @@ class AppPreference extends BaseController {
     return isLoggedIn;
   }
 
-  Future<bool> clearUser() async => await _preferences.clear();
+  Future<bool> clearUser() async => await preferences.clear();
 }

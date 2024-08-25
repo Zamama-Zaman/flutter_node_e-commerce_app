@@ -1,24 +1,15 @@
+import 'dart:js_interop';
+
 import '../../../../lib.dart';
 
 class AuthService {
-  static final AuthService instance = AuthService();
-
-  late Map<String, String> _headers;
+  static final instance = AuthService();
   CustomHttpClientMiddleWare client = CustomHttpClientMiddleWare(Client());
-  final AppPreference appPreference = AppPreference.instance;
+  AppPreference appPreInstance = AppPreference.instance;
 
-  AuthService() {
-    _headers = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept-Language': appPreference.getLocale,
-    };
-  }
-
-  Map<String, String> get headers => _headers;
-
-  void setHeaders({required Map<String, String> headers}) {
-    _headers = headers;
-  }
+  Map<String, String> headers = {
+    'Content-Type': 'application/json; charset=UTF-8',
+  };
 
   Future<Either<String, UserModel>> login({
     required String email,
@@ -30,17 +21,23 @@ class AuthService {
         "email": email,
         "password": password,
       });
+      headers['Accept-Language'] = appPreInstance.getLocale;
+      debugPrint("Before Header");
+      debugPrint("Header is ${headers}");
+      debugPrint("After Header");
       Response response = await client.post(
         Uri.parse(AppBaseUrl.loginUrl),
         body: myJsonEncode,
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
+        debugPrint("Login True");
         user = UserModel.fromMap(jsonDecode(response.body)['body']['user']);
         user = user.copyWith(token: jsonDecode(response.body)['body']['token']);
         return right(user);
       } else {
+        debugPrint("Login False");
         final myDecodedRes = json.decode(response.body);
         return left(myDecodedRes['message']);
       }
@@ -65,7 +62,7 @@ class AuthService {
       Response response = await client.post(
         Uri.parse(AppBaseUrl.registerUrl),
         body: myJsonEncode,
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 201) {
