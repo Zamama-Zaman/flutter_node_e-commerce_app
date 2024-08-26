@@ -5,26 +5,21 @@ import 'package:mocktail/mocktail.dart';
 class MockCustomHttpClientMiddleWare extends Mock
     implements CustomHttpClientMiddleWare {}
 
-class MockAppPreference extends Mock implements AppPreference {}
-
-class MockSharedPreferences extends Mock implements SharedPreferences {}
+class MockSharePreference extends Mock implements SharedPreferences {}
 
 void main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
   late AuthService authService;
   late MockCustomHttpClientMiddleWare middleWareClient;
-  late MockAppPreference mockAppPreference;
-  late MockSharedPreferences mockSharedPreferences;
+  late AppPreference mockAppPreference;
+  late MockSharePreference mockSharePreference;
 
   setUp(() {
-    mockSharedPreferences = MockSharedPreferences();
-    mockAppPreference.preferences = mockSharedPreferences;
-
-    mockAppPreference = MockAppPreference();
-
-
+    mockSharePreference = MockSharePreference();
+    mockAppPreference = AppPreference(sharedPreferences: mockSharePreference);
+    //
     authService = AuthService.instance;
     middleWareClient = MockCustomHttpClientMiddleWare();
-    
 
     //
     authService.client = middleWareClient;
@@ -77,12 +72,12 @@ void main() async {
       final result = await authService.login(email: email, password: password);
 
       // assert
-      // expect(result, isA<Either<String, UserModel>>());
+      expect(result, isA<Either<String, UserModel>>());
       expect(result.isRight(), true);
-      // result.fold(
-      //   (l) => expect(l, isA<String>()),
-      //   (r) => expect(r, isA<UserModel>()),
-      // );
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<UserModel>()),
+      );
     });
 
     test("returns error message when login fails with incorrect credentials",

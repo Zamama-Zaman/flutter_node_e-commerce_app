@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import '../../../../lib.dart';
 
 class AuthService {
@@ -22,9 +20,6 @@ class AuthService {
         "password": password,
       });
       headers['Accept-Language'] = appPreInstance.getLocale;
-      debugPrint("Before Header");
-      debugPrint("Header is ${headers}");
-      debugPrint("After Header");
       Response response = await client.post(
         Uri.parse(AppBaseUrl.loginUrl),
         body: myJsonEncode,

@@ -6,6 +6,14 @@ class AppPreference {
   final _localKey = "LOCALE";
 
   late SharedPreferences preferences;
+
+  // Constructor with an optional SharedPreferences parameter for dependency injection
+  AppPreference({SharedPreferences? sharedPreferences}) {
+    if (sharedPreferences != null) {
+      preferences = sharedPreferences;
+    }
+  }
+
   Future<void> initiatePreference() async {
     preferences = await SharedPreferences.getInstance();
   }
