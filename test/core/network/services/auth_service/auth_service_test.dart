@@ -40,7 +40,10 @@ void main() async {
       when(() => middleWareClient.post(
             Uri.parse(AppBaseUrl.loginUrl),
             body: myJsonEncode,
-            headers: authService.headers,
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Accept-Language': 'en',
+            },
           )).thenAnswer((invocation) async {
         return Response(
           '''
@@ -169,7 +172,10 @@ void main() async {
         return middleWareClient.post(
           Uri.parse(AppBaseUrl.registerUrl),
           body: myJsonEncode,
-          headers: authService.headers,
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept-Language': 'en',
+          },
         );
       }).thenAnswer((invocation) async {
         return Response(

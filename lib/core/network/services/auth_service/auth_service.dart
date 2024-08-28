@@ -20,6 +20,8 @@ class AuthService {
         "password": password,
       });
       headers['Accept-Language'] = appPreInstance.getLocale;
+
+      //
       Response response = await client.post(
         Uri.parse(AppBaseUrl.loginUrl),
         body: myJsonEncode,
@@ -27,12 +29,10 @@ class AuthService {
       );
 
       if (response.statusCode == 200) {
-        debugPrint("Login True");
         user = UserModel.fromMap(jsonDecode(response.body)['body']['user']);
         user = user.copyWith(token: jsonDecode(response.body)['body']['token']);
         return right(user);
       } else {
-        debugPrint("Login False");
         final myDecodedRes = json.decode(response.body);
         return left(myDecodedRes['message']);
       }
@@ -52,6 +52,7 @@ class AuthService {
       "email": email,
       "password": password,
     });
+    headers['Accept-Language'] = appPreInstance.getLocale;
 
     try {
       Response response = await client.post(
