@@ -2,12 +2,12 @@ import '../../../../lib.dart';
 
 class HomeService {
   static final instance = HomeService();
-  final client = CustomHttpClientMiddleWare(Client());
+  CustomHttpClientMiddleWare client = CustomHttpClientMiddleWare(Client());
+  AppPreference appPreference = AppPreference.instance;
 
-  Map<String, String> get _headers => {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept-Language': AppPreference.instance.getLocale,
-      };
+  Map<String, String> headers = {
+    'Content-Type': 'application/json; charset=UTF-8',
+  };
 
   Future<Either<String, List<Product>>> getProductByCategory({
     required String category,
@@ -17,12 +17,13 @@ class HomeService {
     final myJsonEncode = json.encode({
       "category": category,
     });
+    headers['Accept-Language'] = appPreference.getLocale;
 
     try {
       Response response = await client.post(
         Uri.parse(AppBaseUrl.getProductsByCategory),
         body: myJsonEncode,
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -43,10 +44,11 @@ class HomeService {
   Future<Either<String, List<Product>>> searchProduct(
       {required String search}) async {
     List<Product> searchedProducts = [];
+    headers['Accept-Language'] = appPreference.getLocale;
     try {
       Response response = await client.get(
         Uri.parse("${AppBaseUrl.getProduct}$search"),
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
@@ -68,10 +70,11 @@ class HomeService {
 
   Future<Either<String, List<Product>>> topRatedProducts() async {
     List<Product> topRated = [];
+    headers['Accept-Language'] = AppPreference.instance.getLocale;
     try {
       Response response = await client.get(
         Uri.parse(AppBaseUrl.topRatedProductsUrl),
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
