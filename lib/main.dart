@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
 }
  
 /// Add Unit test for both front-end and from postman.
-/// Add Unit test for back-end. Planing for next testing completed.
+/// Add Unit test for back-end. Implementing plan.
 /// Please add a new stackholder of owner, 
 /// which have CRUD Operation on Products.
 /// And Admin will have Orders Module.
