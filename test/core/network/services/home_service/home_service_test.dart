@@ -95,5 +95,42 @@ void main() {
         (r) => expect(r, isA<List<Product>>()),
       );
     });
+
+    test("returns success message when product response come with empty data",
+        () async {
+      const category = "null";
+      final myJsonEncode = json.encode({
+        "category": category,
+      });
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+      };
+
+      // Arrange
+      when(() => middleWareClient.post(
+            Uri.parse(AppBaseUrl.getProductsByCategory),
+            body: myJsonEncode,
+            headers: headers,
+          )).thenAnswer(
+        (invocation) async => Response(
+          """
+            []
+          """,
+          200,
+        ),
+      );
+
+      /// Act
+      final result = await homeService.getProductByCategory(category: category);
+
+      /// Assert
+      expect(result, isA<Either<String, List<Product>>>());
+      expect(result.isRight(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<List<Product>>()),
+      );
+    });
   });
 }
