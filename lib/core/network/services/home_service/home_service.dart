@@ -27,8 +27,10 @@ class HomeService {
       );
 
       if (response.statusCode == 200) {
-        for (var product in jsonDecode(response.body)['data']) {
-          products.add(Product.fromMap(product));
+        if (jsonDecode(response.body)['data'].isNotEmpty) {
+          for (var product in jsonDecode(response.body)['data']) {
+            products.add(Product.fromMap(product));
+          }
         }
         return right(products);
       } else {

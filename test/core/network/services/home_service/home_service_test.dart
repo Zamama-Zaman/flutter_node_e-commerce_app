@@ -114,9 +114,10 @@ void main() {
             headers: headers,
           )).thenAnswer(
         (invocation) async => Response(
-          """
-            []
-          """,
+          """{
+              "status": true,
+              "data": []
+          }""",
           200,
         ),
       );
