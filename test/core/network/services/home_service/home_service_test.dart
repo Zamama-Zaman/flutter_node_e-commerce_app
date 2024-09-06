@@ -133,7 +133,42 @@ void main() {
         (r) => expect(r, isA<List<Product>>()),
       );
     });
-  });
 
-  // Next for all unsuccessfull scenarios.
+    test("returns Internal Server Error when category params is given",
+        () async {
+      const category = "Mobile";
+      final myJsonEncode = json.encode({
+        "category": category,
+      });
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+      };
+
+      // Arrange
+      when(() => middleWareClient.post(
+            Uri.parse(AppBaseUrl.getProductsByCategory),
+            body: myJsonEncode,
+            headers: headers,
+          )).thenAnswer(
+        (invocation) async => Response(
+          "{}",
+          500,
+        ),
+      );
+
+      /// Act
+      final result = await homeService.getProductByCategory(category: category);
+
+      /// Assert
+      expect(result, isA<Either<String, List<Product>>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<List<Product>>()),
+      );
+    });
+
+    // Group Ends
+  });
 }
