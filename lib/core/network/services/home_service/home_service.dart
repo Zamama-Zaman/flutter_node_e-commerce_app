@@ -60,19 +60,18 @@ class HomeService {
         return right(searchedProducts);
       } else {
         debugPrint("Search Product Error ${response.statusCode}");
-        final myDecodedRes = json.decode(response.body);
-        return left(myDecodedRes['message']);
+        final message = json.decode(response.body)['message'];
+        return left(message);
       }
     } catch (e) {
       debugPrint("Search Product Error $e");
-      Fluttertoast.showToast(msg: "Error Search Product $e");
       return left("Search Product Error $e");
     }
   }
 
   Future<Either<String, List<Product>>> topRatedProducts() async {
     List<Product> topRated = [];
-    headers['Accept-Language'] = AppPreference.instance.getLocale;
+    headers['Accept-Language'] = appPreference.getLocale;
     try {
       Response response = await client.get(
         Uri.parse(AppBaseUrl.topRatedProductsUrl),
@@ -91,7 +90,6 @@ class HomeService {
       }
     } catch (e) {
       debugPrint("Top Rated Product Error $e");
-      Fluttertoast.showToast(msg: "Error Top Rated Product $e");
       return left("Top Rated Product Error $e");
     }
   }
