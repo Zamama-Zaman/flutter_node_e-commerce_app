@@ -375,6 +375,35 @@ void main() {
         (r) => expect(r, isA<List<Product>>()),
       );
     });
+
+    test("Give Internal Server Error On server crash", () async {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+      };
+
+      /// Arrange
+      when(() => middleWareClient.get(
+            Uri.parse(AppBaseUrl.topRatedProductsUrl),
+            headers: headers,
+          )).thenAnswer(
+        (invocation) async => Response(
+          "{}",
+          500,
+        ),
+      );
+
+      /// Act
+      final result = await homeService.topRatedProducts();
+
+      /// Assert
+      expect(result, isA<Either<String, List<Product>>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<List<Product>>()),
+      );
+    });
     // Group End
   });
 }
