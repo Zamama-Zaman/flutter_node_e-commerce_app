@@ -2,15 +2,14 @@ import '../../../../lib.dart';
 
 class OrderService {
   static final instance = OrderService();
-  final client = CustomHttpClientMiddleWare(Client());
+  CustomHttpClientMiddleWare client = CustomHttpClientMiddleWare(Client());
+  AppPreference appPreference = AppPreference.instance;
 
-  Map<String, String> get headers => {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}',
-        'Accept-Language': AppPreference.instance.getLocale,
-      };
+  Map<String, String> headers = {
+    'Content-Type': 'application/json; charset=UTF-8',
+  };
 
-  Future<void> saveAddress({
+  Future<Either<String, String>> saveAddress({
     required String address,
   }) async {
     final myJsonEncode = json.encode({
@@ -18,6 +17,9 @@ class OrderService {
     });
 
     try {
+      headers['Accept-Language'] = appPreference.getLocale;
+      headers['Authorization'] = 'Bearer AuthToken';
+      appPreference.getUserModel.token;
       Response response = await client.post(
         Uri.parse(AppBaseUrl.saveUserAddressUrl),
         body: myJsonEncode,
@@ -25,11 +27,16 @@ class OrderService {
       );
 
       if (response.statusCode == 200) {
-        Fluttertoast.showToast(msg: "Successfully User Address Saved");
+        final myDecodedRes = json.decode(response.body);
+        return right(myDecodedRes['message']);
+      } else {
+        final myDecodedRes = json.decode(response.body);
+        debugPrint(myDecodedRes['message']);
+        return left(myDecodedRes['message']);
       }
     } catch (e) {
-      debugPrint("Save User Address Error $e");
-      Fluttertoast.showToast(msg: "Error Save User Address $e");
+      debugPrint("Error Save User Address $e");
+      return left("Error Save User Address $e");
     }
   }
 
