@@ -18,8 +18,7 @@ class OrderService {
 
     try {
       headers['Accept-Language'] = appPreference.getLocale;
-      headers['Authorization'] = 'Bearer AuthToken';
-      appPreference.getUserModel.token;
+      headers['Authorization'] = 'Bearer ${appPreference.getUserModel.token}';
       Response response = await client.post(
         Uri.parse(AppBaseUrl.saveUserAddressUrl),
         body: myJsonEncode,
@@ -48,6 +47,8 @@ class OrderService {
       "subTotal": subTotal,
       "deliveryAddress": deliveryAddress,
     });
+    headers['Accept-Language'] = appPreference.getLocale;
+    headers['Authorization'] = 'Bearer ${appPreference.getUserModel.token}';
 
     try {
       Response response = await client.post(
