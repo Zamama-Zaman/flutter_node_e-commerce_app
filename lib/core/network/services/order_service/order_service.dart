@@ -74,6 +74,9 @@ class OrderService {
     List<OrderResModel> orderList = [];
 
     try {
+      headers['Accept-Language'] = appPreference.getLocale;
+      headers['Authorization'] = 'Bearer ${appPreference.getUserModel.token}';
+
       Response response = await client.get(
         Uri.parse(AppBaseUrl.myOrdersUrl),
         headers: headers,
