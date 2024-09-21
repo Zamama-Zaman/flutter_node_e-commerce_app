@@ -692,6 +692,301 @@ void main() {
       // Group End
     });
 
-    //* Plan for changeOrderStatus
+    group("Change Order Status -", () {
+      test("Returns right when the order status is successfully changed",
+          () async {
+        String orderId = '12345';
+        String status = '1';
+
+        final myJsonEncode = json.encode({
+          "id": orderId,
+          "status": status,
+        });
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept-Language': 'en',
+          'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+        };
+
+        /// Arrange
+        when(
+          () => middleWareClient.post(
+            Uri.parse(AppBaseUrl.orderStatusChangeUrl),
+            body: myJsonEncode,
+            headers: headers,
+          ),
+        ).thenAnswer(
+          (invocation) async => Response(
+            """
+              {
+                "status": "true",
+                "message": "Order status changed successfully"
+              }
+            """,
+            200,
+          ),
+        );
+
+        /// Act
+        final result = await orderService.changeOrderStatus(
+          orderId: orderId,
+          status: status,
+        );
+
+        /// Assert
+        expect(result, isA<Either<String, String>>());
+        expect(result.isRight(), true);
+        result.fold(
+          (l) => expect(l, isA<String>()),
+          (r) => expect(r, isA<String>()),
+        );
+        expect(result.getOrElse(() => ''), 'Order status changed successfully');
+      });
+
+      test("Returns left when the order status change fails", () async {
+        String orderId = '12345';
+        String status = '1';
+
+        final myJsonEncode = json.encode({
+          "id": orderId,
+          "status": status,
+        });
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept-Language': 'en',
+          'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+        };
+
+        /// Arrange
+        when(
+          () => middleWareClient.post(
+            Uri.parse(AppBaseUrl.orderStatusChangeUrl),
+            body: myJsonEncode,
+            headers: headers,
+          ),
+        ).thenAnswer(
+          (invocation) async => Response(
+            """
+              {
+                "status": "false",
+                "message": "Failed to change order status"
+              }
+            """,
+            400,
+          ),
+        );
+
+        /// Act
+        final result = await orderService.changeOrderStatus(
+          orderId: orderId,
+          status: status,
+        );
+
+        /// Assert
+        expect(result, isA<Either<String, String>>());
+        expect(result.isLeft(), true);
+        result.fold(
+          (l) => expect(l, isA<String>()),
+          (r) => expect(r, isA<String>()),
+        );
+        expect(
+            result.fold((l) => l, (r) => ''), 'Failed to change order status');
+      });
+
+      test(
+          "Returns left when an exception is thrown during order status change",
+          () async {
+        String orderId = '12345';
+        String status = '1';
+
+        final myJsonEncode = json.encode({
+          "id": orderId,
+          "status": status,
+        });
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept-Language': 'en',
+          'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+        };
+
+        /// Arrange
+        when(
+          () => middleWareClient.post(
+            Uri.parse(AppBaseUrl.orderStatusChangeUrl),
+            body: myJsonEncode,
+            headers: headers,
+          ),
+        ).thenThrow(Exception('Network error'));
+
+        /// Act
+        final result = await orderService.changeOrderStatus(
+          orderId: orderId,
+          status: status,
+        );
+
+        /// Assert
+        expect(result, isA<Either<String, String>>());
+        expect(result.isLeft(), true);
+        result.fold(
+          (l) => expect(l, isA<String>()),
+          (r) => expect(r, isA<String>()),
+        );
+        expect(result.fold((l) => l, (r) => ''),
+            contains('Error Change Order Status'));
+      });
+
+      test("Handles invalid order ID", () async {
+        String orderId = '';
+        String status = '1';
+
+        final myJsonEncode = json.encode({
+          "id": orderId,
+          "status": status,
+        });
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept-Language': 'en',
+          'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+        };
+
+        /// Arrange
+        when(
+          () => middleWareClient.post(
+            Uri.parse(AppBaseUrl.orderStatusChangeUrl),
+            body: myJsonEncode,
+            headers: headers,
+          ),
+        ).thenAnswer((a) async {
+          return Response(
+            """
+            {
+              "status": "false",
+              "message": "invalid order id"
+            }
+            """,
+            400,
+          );
+        });
+
+        /// Act
+        final result = await orderService.changeOrderStatus(
+          orderId: orderId,
+          status: status,
+        );
+
+        /// Assert
+        expect(result, isA<Either<String, String>>());
+        expect(result.isLeft(), true);
+        result.fold(
+          (l) => expect(l, isA<String>()),
+          (r) => expect(r, isA<String>()),
+        );
+        expect(result.fold((l) => l, (r) => ''), contains('invalid order id'));
+      });
+
+      test("Handles invalid status input", () async {
+        String orderId = '12345';
+        String status = '';
+
+        final myJsonEncode = json.encode({
+          "id": orderId,
+          "status": status,
+        });
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept-Language': 'en',
+          'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+        };
+
+        /// Arrange
+        when(
+          () => middleWareClient.post(
+            Uri.parse(AppBaseUrl.orderStatusChangeUrl),
+            body: myJsonEncode,
+            headers: headers,
+          ),
+        ).thenAnswer((a) async {
+          return Response(
+            """
+            {
+              "status": "false",
+              "message": "invalid order status"
+            }
+            """,
+            400,
+          );
+        });
+
+        /// Act
+        final result = await orderService.changeOrderStatus(
+          orderId: orderId,
+          status: status,
+        );
+
+        /// Assert
+        expect(result, isA<Either<String, String>>());
+        expect(result.isLeft(), true);
+        result.fold(
+          (l) => expect(l, isA<String>()),
+          (r) => expect(r, isA<String>()),
+        );
+        expect(
+            result.fold((l) => l, (r) => ''), contains('invalid order status'));
+      });
+
+      test("Verifies that the correct headers are used for changeOrderStatus",
+          () async {
+        String orderId = '12345';
+        String status = '1';
+
+        final myJsonEncode = json.encode({
+          "id": orderId,
+          "status": status,
+        });
+
+        Map<String, String> headers = {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Accept-Language': 'en',
+          'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+        };
+        var capturedHeaders;
+
+        /// Arrange
+        when(
+          () => middleWareClient.post(
+            Uri.parse(AppBaseUrl.orderStatusChangeUrl),
+            body: myJsonEncode,
+            headers: headers,
+          ),
+        ).thenAnswer((invocation) async {
+          capturedHeaders = invocation.namedArguments[#headers];
+          return Response(
+            """
+            {
+              "status": "true",
+              "message": "Order status changed successfully"
+            }
+            """,
+            200,
+          );
+        });
+
+        /// Act
+        await orderService.changeOrderStatus(
+          orderId: orderId,
+          status: status,
+        );
+
+        /// Assert
+        expect(capturedHeaders['Authorization'], isNotNull);
+        expect(capturedHeaders['Content-Type'], 'application/json; charset=UTF-8');
+      });
+      // Group End
+    });
   });
 }

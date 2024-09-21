@@ -105,6 +105,8 @@ class OrderService {
       "id": orderId,
       "status": status,
     });
+    headers['Accept-Language'] = appPreference.getLocale;
+    headers['Authorization'] = 'Bearer ${appPreference.getUserModel.token}';
 
     try {
       Response response = await client.post(
