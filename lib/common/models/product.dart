@@ -43,7 +43,7 @@ class Product extends Equatable {
       name: map['name'] ?? '',
       description: map['description'] ?? '',
       quantity: map['quantity'] != null ? double.parse(map['quantity']) : 0.0,
-      images: List<String>.from(map['images']),
+      images: map['images'] != null ? List<String>.from(map['images']) : [],
       category: map['category'] ?? '',
       price: map['price'] != null ? double.parse(map['price']) : 0.0,
       id: map['_id'],
@@ -53,7 +53,7 @@ class Product extends Equatable {
                 (x) => Rating.fromMap(x),
               ),
             )
-          : null,
+          : [],
     );
   }
 

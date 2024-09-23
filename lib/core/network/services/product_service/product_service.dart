@@ -4,19 +4,20 @@ import '../../../../lib.dart';
 
 class ProductService {
   static final instance = ProductService();
-  final client = CustomHttpClientMiddleWare(Client());
+  CustomHttpClientMiddleWare client = CustomHttpClientMiddleWare(Client());
+  AppPreference appPreference = AppPreference.instance;
 
-  Map<String, String> get headers => {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}',
-        'Accept-Language': AppPreference.instance.getLocale,
-      };
+  Map<String, String> headers = {
+    'Content-Type': 'application/json; charset=UTF-8',
+  };
 
   /// add to cart
   Future<Either<String, String>> addToCart({required Product product}) async {
     final myJsonEncode = json.encode({
       "productId": product.id,
     });
+    headers['Accept-Language'] = appPreference.getLocale;
+    headers['Authorization'] = 'Bearer ${appPreference.getUserModel.token}';
 
     try {
       Response response = await client.post(
@@ -42,6 +43,9 @@ class ProductService {
 
   Future<Either<String, List<CartModel>>> getCart() async {
     List<CartModel> cartList = [];
+
+    headers['Accept-Language'] = appPreference.getLocale;
+    headers['Authorization'] = 'Bearer ${appPreference.getUserModel.token}';
 
     try {
       Response response = await client.get(
@@ -69,6 +73,8 @@ class ProductService {
     final myJsonEncode = json.encode({
       "productId": product.id,
     });
+    headers['Accept-Language'] = appPreference.getLocale;
+    headers['Authorization'] = 'Bearer ${appPreference.getUserModel.token}';
 
     try {
       Response response = await client.post(
@@ -98,6 +104,9 @@ class ProductService {
       "rate": rate,
       "productId": product.id,
     });
+
+    headers['Accept-Language'] = appPreference.getLocale;
+    headers['Authorization'] = 'Bearer ${appPreference.getUserModel.token}';
 
     try {
       Response response = await client.post(
