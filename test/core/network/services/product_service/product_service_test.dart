@@ -9,7 +9,7 @@ class MockCustomHttpClientMiddleWare extends Mock
 class MockSharePreference extends Mock implements SharedPreferences {}
 
 void main() {
-  // TestWidgetsFlutterBinding.ensureInitialized();
+  TestWidgetsFlutterBinding.ensureInitialized();
   late ProductService productService;
   late MockCustomHttpClientMiddleWare middleWareClient;
   late AppPreference appPreference;
@@ -724,10 +724,252 @@ void main() {
         (l) => expect(l, isA<String>()),
         (r) => expect(r, isA<String>()),
       );
-      // expect(
-      //     result.getOrElse(() => ''), 'Product removed from cart successfully');
     });
 
     //Group End
+  });
+
+  group("Rate A Product -", () {
+    test(
+        "The API call returns a status code of 200, indicating the product was successfully rated.",
+        () async {
+      Product product = Product.fromMap(const {"_id": "0"});
+      String rate = "4.0";
+      final myJsonEncode = json.encode({
+        "rate": rate,
+        "productId": product.id,
+      });
+
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      /// Arrange
+      when(
+        () => middleWareClient.post(
+          Uri.parse(AppBaseUrl.rateAProduct),
+          body: myJsonEncode,
+          headers: headers,
+        ),
+      ).thenAnswer(
+        (invocation) async => Response(
+          """
+                {
+                    "status": true,
+                    "message": "Product rated successfully"
+                }
+            """,
+          200,
+        ),
+      );
+
+      /// Act
+      final result = await productService.rateAProduct(
+        rate: rate,
+        product: product,
+      );
+
+      /// Assert
+      expect(result, isA<Either<String, String>>());
+      expect(result.isRight(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<String>()),
+      );
+      expect(result.getOrElse(() => ''), 'Product rated successfully');
+    });
+
+    test("The API call returns a non-200 status code, indicating failure.",
+        () async {
+      Product product = Product.fromMap(const {"_id": "0"});
+      String rate = "4.0";
+      final myJsonEncode = json.encode({
+        "rate": rate,
+        "productId": product.id,
+      });
+
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      /// Arrange
+      when(
+        () => middleWareClient.post(
+          Uri.parse(AppBaseUrl.rateAProduct),
+          body: myJsonEncode,
+          headers: headers,
+        ),
+      ).thenAnswer(
+        (invocation) async => Response(
+          """
+                {
+                    "status": false,
+                    "message": "Failed to rate product"
+                }
+            """,
+          400,
+        ),
+      );
+
+      /// Act
+      final result = await productService.rateAProduct(
+        rate: rate,
+        product: product,
+      );
+
+      /// Assert
+      expect(result, isA<Either<String, String>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<String>()),
+      );
+      expect(result.fold((l) => l, (r) => ''), 'Failed to rate product');
+    });
+
+    test("An exception occurs during the API call, such as a network error.",
+        () async {
+      Product product = Product.fromMap(const {"_id": "0"});
+      String rate = "4.0";
+      final myJsonEncode = json.encode({
+        "rate": rate,
+        "productId": product.id,
+      });
+
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      /// Arrange
+      when(
+        () => middleWareClient.post(
+          Uri.parse(AppBaseUrl.rateAProduct),
+          body: myJsonEncode,
+          headers: headers,
+        ),
+      ).thenThrow(Exception('Network error'));
+
+      /// Act
+      final result = await productService.rateAProduct(
+        rate: rate,
+        product: product,
+      );
+
+      /// Assert
+      expect(result, isA<Either<String, String>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<String>()),
+      );
+      expect(
+          result.fold((l) => l, (r) => ''), contains('Error Rate a Product'));
+    });
+
+    test("The Product object has an invalid or empty id.", () async {
+      Product product = Product.fromMap(const {"_id": "-10"});
+      String rate = "5.0";
+      final myJsonEncode = json.encode({
+        "rate": rate,
+        "productId": product.id,
+      });
+
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      /// Arrange
+      when(
+        () => middleWareClient.post(
+          Uri.parse(AppBaseUrl.rateAProduct),
+          body: myJsonEncode,
+          headers: headers,
+        ),
+      ).thenAnswer(
+        (invocation) async => Response(
+          """
+                {
+                    "status": false,
+                    "message": "Invalid product Id"
+                }
+            """,
+          400,
+        ),
+      );
+
+      /// Act
+      final result = await productService.rateAProduct(
+        rate: rate,
+        product: product,
+      );
+
+      /// Assert
+      expect(result, isA<Either<String, String>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<String>()),
+      );
+      expect(result.fold((l) => l, (r) => ''), 'Invalid product Id');
+    });
+
+    test("The rate parameter is an invalid value", () async {
+      Product product = Product.fromMap(const {"_id": "1"});
+      String rate = "-1";
+      final myJsonEncode = json.encode({
+        "rate": rate,
+        "productId": product.id,
+      });
+
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      /// Arrange
+      when(
+        () => middleWareClient.post(
+          Uri.parse(AppBaseUrl.rateAProduct),
+          body: myJsonEncode,
+          headers: headers,
+        ),
+      ).thenAnswer(
+        (invocation) async => Response(
+          """
+                {
+                    "status": false,
+                    "message": "Invalid rate vale"
+                }
+            """,
+          400,
+        ),
+      );
+
+      /// Act
+      final result = await productService.rateAProduct(
+        rate: rate,
+        product: product,
+      );
+
+      /// Assert
+      expect(result, isA<Either<String, String>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<String>()),
+      );
+      expect(result.fold((l) => l, (r) => ''), 'Invalid rate vale');
+    });
+
+    // Group End
   });
 }
