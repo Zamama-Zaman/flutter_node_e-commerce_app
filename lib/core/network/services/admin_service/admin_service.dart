@@ -2,16 +2,12 @@ import '../../../../lib.dart';
 
 class AdminService {
   static final instance = AdminService();
-  final client = CustomHttpClientMiddleWare(Client());
-  final Map<String, String> _headers = {
+  CustomHttpClientMiddleWare client = CustomHttpClientMiddleWare(Client());
+  AppPreference appPreInstance = AppPreference.instance;
+
+  final Map<String, String> headers = {
     'Content-Type': 'application/json; charset=UTF-8',
   };
-
-  Map<String, String> get headers => {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${AppPreference.instance.getUserModel.token}',
-        'Accept-Language': AppPreference.instance.getLocale,
-      };
 
   Future<Either<String, String>> addProduct({
     required Product product,
@@ -31,6 +27,9 @@ class AdminService {
     }
 
     product = product.copyWith(images: imageUrls);
+
+    headers['Accept-Language'] = appPreInstance.getLocale;
+    headers['Authorization'] = 'Bearer ${appPreInstance.getUserModel.token}';
 
     try {
       Response response = await client.post(
@@ -55,6 +54,9 @@ class AdminService {
   Future<Either<String, List<Product>>> fetchAllProducts() async {
     List<Product> products = [];
     try {
+      headers['Accept-Language'] = appPreInstance.getLocale;
+      headers['Authorization'] = 'Bearer ${appPreInstance.getUserModel.token}';
+
       Response response = await client.get(
         Uri.parse(AppBaseUrl.fetchAllProductUrl),
         headers: headers,
@@ -79,9 +81,12 @@ class AdminService {
   Future<Either<String, String>> deletAProduct(
       {required Product product}) async {
     try {
+      headers['Accept-Language'] = appPreInstance.getLocale;
+      headers['Authorization'] = 'Bearer ${appPreInstance.getUserModel.token}';
+
       Response response = await client.post(
         Uri.parse(AppBaseUrl.deleteAProduct),
-        headers: _headers,
+        headers: headers,
         body: product.toJson(),
       );
 
@@ -101,9 +106,12 @@ class AdminService {
   Future<Either<String, List<OrderResModel>>> fetchAllOrders() async {
     List<OrderResModel> orders = [];
     try {
+      headers['Accept-Language'] = appPreInstance.getLocale;
+      headers['Authorization'] = 'Bearer ${appPreInstance.getUserModel.token}';
+
       Response response = await client.get(
         Uri.parse(AppBaseUrl.fetchAllOrders),
-        headers: _headers,
+        headers: headers,
       );
 
       if (response.statusCode == 200) {
