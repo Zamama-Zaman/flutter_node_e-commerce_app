@@ -97,6 +97,45 @@ void main() async {
       );
     });
 
+    test(
+        "The API returns a non-200 status code, and the function returns an error message.",
+        () async {
+      //
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      // Arrange
+      when(() => middleWareClient.get(
+            Uri.parse(AppBaseUrl.fetchAllProductUrl),
+            headers: headers,
+          )).thenAnswer((invocation) async {
+        return Response(
+          '''
+          {
+            "status": "true",
+            "message": "Failed to fetch products"
+          }
+          ''',
+          400,
+        );
+      });
+
+      // act
+      final result = await adminService.fetchAllProducts();
+
+      // assert
+      expect(result, isA<Either<String, List<Product>>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<List<Product>>()),
+      );
+      expect(result.fold((l) => l, (r) => ''), 'Failed to fetch products');
+    });
+
     // Group End
     // Plan for next Unit test
   });
