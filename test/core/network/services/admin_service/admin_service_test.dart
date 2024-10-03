@@ -8,7 +8,7 @@ class MockCustomHttpClientMiddleWare extends Mock
 class MockSharePreference extends Mock implements SharedPreferences {}
 
 void main() async {
-  // TestWidgetsFlutterBinding.ensureInitialized();
+  TestWidgetsFlutterBinding.ensureInitialized();
   late AdminService adminService;
   late MockCustomHttpClientMiddleWare middleWareClient;
   late AppPreference appPreference;
@@ -134,6 +134,35 @@ void main() async {
         (r) => expect(r, isA<List<Product>>()),
       );
       expect(result.fold((l) => l, (r) => ''), 'Failed to fetch products');
+    });
+
+    test(
+        "An exception occurs during the fetch, such as a network error.",
+        () async {
+      //
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      // Arrange
+      when(() => middleWareClient.get(
+            Uri.parse(AppBaseUrl.fetchAllProductUrl),
+            headers: headers,
+          )).thenThrow(Exception('Network error'));
+
+      // act
+      final result = await adminService.fetchAllProducts();
+
+      // assert
+      expect(result, isA<Either<String, List<Product>>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<List<Product>>()),
+      );
+      expect(result.fold((l) => l, (r) => ''), contains('Error fetch all Products'));
     });
 
     // Group End
