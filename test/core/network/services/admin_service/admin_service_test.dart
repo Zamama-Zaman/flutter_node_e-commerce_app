@@ -136,8 +136,7 @@ void main() async {
       expect(result.fold((l) => l, (r) => ''), 'Failed to fetch products');
     });
 
-    test(
-        "An exception occurs during the fetch, such as a network error.",
+    test("An exception occurs during the fetch, such as a network error.",
         () async {
       //
       Map<String, String> headers = {
@@ -162,7 +161,46 @@ void main() async {
         (l) => expect(l, isA<String>()),
         (r) => expect(r, isA<List<Product>>()),
       );
-      expect(result.fold((l) => l, (r) => ''), contains('Error fetch all Products'));
+      expect(result.fold((l) => l, (r) => ''),
+          contains('Error fetch all Products'));
+    });
+
+    test("The API returns an empty list of products.", () async {
+      //
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      // Arrange
+      when(() => middleWareClient.get(
+            Uri.parse(AppBaseUrl.fetchAllProductUrl),
+            headers: headers,
+          )).thenAnswer((invocation) async {
+        return Response(
+          '''
+          {
+            "status": "true",
+            "data": []
+          }
+          ''',
+          200,
+        );
+      });
+
+      // act
+      final result = await adminService.fetchAllProducts();
+
+      // assert
+      expect(result, isA<Either<String, List<Product>>>());
+      expect(result.isRight(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<List<Product>>()),
+      );
+      final products = result.getOrElse(() => []);
+      expect(products.length, 0);
     });
 
     // Group End
