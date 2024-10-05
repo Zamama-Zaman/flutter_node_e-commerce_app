@@ -203,6 +203,72 @@ void main() async {
       expect(products.length, 0);
     });
 
+    test(
+        "Ensure that the request contains the correct headers, including Authorization and Accept-Language.",
+        () async {
+      //
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      var capturedHeaders;
+
+      // Arrange
+      when(() => middleWareClient.get(
+            Uri.parse(AppBaseUrl.fetchAllProductUrl),
+            headers: headers,
+          )).thenAnswer((invocation) async {
+        capturedHeaders = invocation.namedArguments[#headers];
+        return Response('{"data": []}', 200);
+      });
+
+      // act
+      final result = await adminService.fetchAllProducts();
+
+      // assert
+      expect(result, isA<Either<String, List<Product>>>());
+      expect(capturedHeaders['Authorization'], contains('Bearer'));
+      expect(capturedHeaders['Accept-Language'], isNotNull);
+    });
+
+    test("The API returns a malformed JSON response that cannot be parsed.",
+        () async {
+      //
+      Map<String, String> headers = {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Language': 'en',
+        'Authorization': 'Bearer ${appPreference.getUserModel.token}',
+      };
+
+      // Arrange
+      when(() => middleWareClient.get(
+            Uri.parse(AppBaseUrl.fetchAllProductUrl),
+            headers: headers,
+          )).thenAnswer((invocation) async {
+        return Response(
+          '''
+          {}
+          ''',
+          200,
+        );
+      });
+
+      // act
+      final result = await adminService.fetchAllProducts();
+
+      // assert
+      expect(result, isA<Either<String, List<Product>>>());
+      expect(result.isLeft(), true);
+      result.fold(
+        (l) => expect(l, isA<String>()),
+        (r) => expect(r, isA<List<Product>>()),
+      );
+      expect(result.fold((l) => l, (r) => ''),
+          contains('Error fetch all Products'));
+    });
+
     // Group End
     // Plan for next Unit test
   });
