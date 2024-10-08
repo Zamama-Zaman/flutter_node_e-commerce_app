@@ -54,6 +54,12 @@ class MyApp extends StatelessWidget {
 /// 
 
 
-// Today's Report 07-10-24:
-// - Continue Learning Node JS Unit Testing
-// - Continue Learning Unit Testing in Postman
+/// Today's Report 08-10-24:
+/// - Continue Learning Node JS Unit Testing.
+///   - Learn basic of jest libaray for testing.
+///   - Learn how to mock data.
+
+/// - Continue Learning Unit Testing in Postman.
+///   - Complet video session from 1:48 to 2:10.
+///   - Learnet variables and it scope
+///   - Set variable through script.
