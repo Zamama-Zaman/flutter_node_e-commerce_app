@@ -54,12 +54,13 @@ class MyApp extends StatelessWidget {
 /// 
 
 
-/// Today's Report 08-10-24:
+/// Today's Report 10-10-24:
 /// - Continue Learning Node JS Unit Testing.
-///   - Implement for the sinlge function.
-///   - Unit test Continue learning...
+///   - Watching video tutorial for testing REST API With Jest
+///   - Status Unit test Continue learning...
 
 /// - Continue Learning Unit Testing in Postman.
-///   - Complet video session from 2:10 to 2:46.
-///   - Learn how to assert the unit test in postman script.
-///   - Learn about Chaijs Library.
+///   - Complet video session from 2:46 to 3:12.
+///   - Learn about random variable, and how to use this varaibale in script.
+///   - Learn about schema, how to create and use in script.
+///   - Learn about mock server, how to create and use in script.
