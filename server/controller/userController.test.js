@@ -5,7 +5,7 @@ const httpMocks = require('node-mocks-http');
 const asyncHandler = require('express-async-handler');
 
 // Mock the orderModel
-jest.mock('../models/orderModel');
+const orderModel = jest.mock('../models/orderModel');
 
 describe('getAllOrders Controller', () => {
   let req, res, next;

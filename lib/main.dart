@@ -56,11 +56,11 @@ class MyApp extends StatelessWidget {
 
 /// Today's Report 10-10-24:
 /// - Continue Learning Node JS Unit Testing.
-///   - Watching video tutorial for testing REST API With Jest
+///   - Read the documentation for the Jest.
 ///   - Status Unit test Continue learning...
 
 /// - Continue Learning Unit Testing in Postman.
-///   - Complet video session from 2:46 to 3:12.
-///   - Learn about random variable, and how to use this varaibale in script.
-///   - Learn about schema, how to create and use in script.
-///   - Learn about mock server, how to create and use in script.
+///   - Complet video session from 3:12 to 3:30.
+///   - Learn about schema and Understanding JSON Schema.
+///   - Learn about header testing.
+///   - Learn about automation testing, collection runner.
