@@ -56,11 +56,8 @@ class MyApp extends StatelessWidget {
 
 /// Today's Report 10-10-24:
 /// - Continue Learning Node JS Unit Testing.
-///   - Read the documentation for the Jest.
 ///   - Status Unit test Continue learning...
 
 /// - Continue Learning Unit Testing in Postman.
-///   - Complet video session from 3:12 to 3:30.
-///   - Learn about schema and Understanding JSON Schema.
-///   - Learn about header testing.
-///   - Learn about automation testing, collection runner.
+///   - Complet video session from 3:30 to 3:39.
+///   - Learn about Schedule Run.
