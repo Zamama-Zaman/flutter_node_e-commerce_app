@@ -54,10 +54,9 @@ class MyApp extends StatelessWidget {
 /// 
 
 
-/// Today's Report 12-10-24:
+/// Today's Report 14-10-24:
 /// - Continue Learning Node JS Unit Testing.
 ///   - Status Unit test Continue learning...
 
 /// - Continue Learning Unit Testing in Postman.
-///   - Completed the video all session.
-///   - Implemented test case for login and get profile In Postman.
+///   - Revise dynmaic variable, how to user it in email field.
