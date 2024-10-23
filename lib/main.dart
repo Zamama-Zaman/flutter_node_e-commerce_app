@@ -54,10 +54,10 @@ class MyApp extends StatelessWidget {
 /// 
 
 
-/// Today's Report 22-10-24:
+/// Today's Report 23-10-24:
 /// - Continue Learning Node JS Unit Testing.
 ///   - Continue Watching Second Video for Unit Test.
 
 /// - Continue Learning Unit Testing in Postman.
 ///   - Make schem task case for: 
-///     - rating-a-product, add-product, delete-product
+///     - set the random variable in pre-request to generate Product Name
