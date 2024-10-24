@@ -59,5 +59,5 @@ class MyApp extends StatelessWidget {
 ///   - Continue Watching Second Video for Unit Test.
 
 /// - Continue Learning Unit Testing in Postman.
-///   - Make schem task case for: 
-///     - set the random variable in pre-request to generate Product Name
+///   - Write script for add-product, get-product and delete-product
+///   - To Run all the collection simoustanly.
