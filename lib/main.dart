@@ -54,11 +54,10 @@ class MyApp extends StatelessWidget {
 /// 
 
 
-/// Today's Report 25-10-24:
+/// Today's Report 26-10-24:
 /// - Continue Learning Node JS Unit Testing.
 ///   - Continue Watching Second Video for Unit Test.
 
 /// - Continue Learning Unit Testing in Postman.
 ///   - Completed the scripts for Products, and Cart
-///   - Found issue in the Rate-a-Product.
-///   - Run all the collection simoustanly for (Product and Cart).
+///   - Run all the collection simoustanly for (Product and Cart) and Pass all Test.
