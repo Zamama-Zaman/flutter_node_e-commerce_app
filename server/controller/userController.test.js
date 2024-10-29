@@ -35,15 +35,4 @@ describe('getAllOrders Controller', () => {
       body: mockOrders,
     });
   });
-
-//   it('should return 400 and throw an error when no orders are found', async () => {
-//     // Mock the find method to return null or empty array
-//     orderModel.find.mockResolvedValue([]);
-
-//     await getAllOrders(req, res, next);
-
-//     expect(orderModel.find).toHaveBeenCalled();
-//     expect(res.statusCode).toBe(400);
-//     expect(next).toHaveBeenCalledWith(new Error('error_to_fetch_orders'));
-//   });
 });
