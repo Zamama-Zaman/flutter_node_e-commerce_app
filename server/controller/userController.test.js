@@ -18,5 +18,7 @@ const mockResponse = {
 }
 
 describe('getAllOrders Controller', () => {
+  it("should return the all orders", async () => {
 
+  });
 });
