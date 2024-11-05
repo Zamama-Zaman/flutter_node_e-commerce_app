@@ -55,5 +55,5 @@ class MyApp extends StatelessWidget {
 
 
 /// Today's Report 04-10-24:
-/// - Complete practice for Unit Test
-/// - Moving to new Tope for Node Js (Sockets)
+/// - Start Sockets learning
+/// - See Introduction videos on Youtube.
