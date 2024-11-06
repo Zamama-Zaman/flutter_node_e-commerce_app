@@ -54,6 +54,6 @@ class MyApp extends StatelessWidget {
 /// 
 
 
-/// Today's Report 04-10-24:
+/// Today's Report 06-11-24:
 /// - Start Sockets learning
-/// - See Introduction videos on Youtube.
+/// - Learn the basic concept of Socket.
