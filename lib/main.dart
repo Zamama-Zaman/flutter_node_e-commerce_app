@@ -54,5 +54,5 @@ class MyApp extends StatelessWidget {
 /// 
 
 
-/// Today's Report 10-11-24:
-/// - Continue watching tutorial for socket.
+/// Today's Report 13-11-24:
+/// - Completed watching tutorial for socket.
