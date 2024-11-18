@@ -54,5 +54,5 @@ class MyApp extends StatelessWidget {
 /// 
 
 
-/// Today's Report 13-11-24:
-/// - Completed watching tutorial for socket.
+/// Today's Report 19-11-24:
+/// - Plan to Create UI for chat View.
